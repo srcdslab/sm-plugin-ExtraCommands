@@ -1,0 +1,109 @@
+"Games"
+{
+	"#default"
+	{
+		"#supported"
+		{
+			"game"		"cstrike"
+			"game"		"cstrike_beta"
+			"game"		"dod"
+			"game"		"tf"
+		}
+		"Offsets"
+		{
+			"SetModel"
+			{
+				"windows"	"23"
+				"linux"		"24"
+			}
+			"Weapon_Drop"
+			{
+				"windows"	"252"
+				"linux"		"253"
+			}
+			"Respawn"
+			{
+				"windows"	"314"
+				"linux"		"315"
+			}
+			"RemoveAllItems"
+			{
+				"windows"	"331"
+				"linux"		"332"
+			}
+		}
+	}
+	"hl2mp"
+	{
+		"Offsets"
+		{
+			"SetModel"
+			{
+				"windows"	"25"
+				"linux"		"26"
+			}
+			"Weapon_Drop"
+			{
+				"windows"	"219"
+				"linux"		"220"
+			}
+			"RemoveAllItems"
+			{
+				"windows"	"283"
+				"linux"		"284"
+			}
+		}
+	}
+	"left4dead"
+	{
+		"Offsets"
+		{
+			"SetModel"
+			{
+				"windows"	"23"
+				"linux"		"24"
+			}
+			"Weapon_Drop"
+			{
+				"windows"	"262"
+				"linux"		"263"
+			}
+			"Respawn"
+			{
+				"windows"	"490"
+				"linux"		"491"
+			}
+			"RemoveAllItems"
+			{
+				"windows"	"345"
+				"linux"		"346"
+			}
+		}
+	}
+	"left4dead2"
+	{
+		"Offsets"
+		{
+			"SetModel"
+			{
+				"windows"	"26"
+				"linux"		"27"
+			}
+			"Weapon_Drop"
+			{
+				"windows"	"281"
+				"linux"		"282"
+			}
+			"Respawn"
+			{
+				"windows"	"512"
+				"linux"		"513"
+			}
+			"RemoveAllItems"
+			{
+				"windows"	"366"
+				"linux"		"367"
+			}
+		}
+	}
+}

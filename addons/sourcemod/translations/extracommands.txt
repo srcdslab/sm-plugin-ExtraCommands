@@ -1,0 +1,96 @@
+"Phrases"
+{
+	"Respawn Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} respawned {5}{6}{7}"
+	}
+
+	"Restart Round Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c},{8:c},{9:d},{10:c}"	
+		"en"			"{1}[SM] {2}{3}{4} restarts the round in {8}{9}{10} seconds"
+	}
+
+	"God Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} gave god mode to {5}{6}{7}"
+	}
+
+	"NoGod Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} removed god mode from {5}{6}{7}"
+	}
+
+	"Get Location Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:.1f},{7:.1f},{8:.1f},{9:c}"
+		"en"			"{1}[SM] Location of player {2}{3}{4} is {5}{6} {7} {8}{9}"
+	}
+
+	"Save Location Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:.1f},{4:.1f},{5:.1f},{6:c}"
+		"en"			"{1}[SM] Location {2}{3} {4} {5}{6} saved"
+	}
+
+	"Teleport Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c},{8:c},{9:.1f},{10:.1f},{11:.1f},{12:c}"	
+		"en"			"{1}[SM] {2}{3}{4} teleported {5}{6}{7} to {8}{9} {10} {11}{12}"
+	}
+
+	"Get Model Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"
+		"en"			"{1}[SM] Model of player {2}{3}{4} is {5}{6}{7}"
+	}
+
+	"NV Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} gave nightvision to {5}{6}{7}"
+	}
+
+	"NoNV Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} removed nightvision from {5}{6}{7}"
+	}
+
+	"Defuser Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} gave defuse kit to {5}{6}{7}"
+	}
+
+	"NoDefuser Notify"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c},{5:c},{6:s},{7:c}"	
+		"en"			"{1}[SM] {2}{3}{4} removed defuse kit from {5}{6}{7}"
+	}
+
+	"No target"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c}"
+		"en"			"{1}[SM] Target {2}{3}{4} not found"
+	}
+	
+	"Bad target"
+	{
+		"#format"		"{1:c},{2:c},{3:s},{4:c}"
+		"en"			"{1}[SM] Invalid target {2}{3}{4}"
+	}
+	
+	"Bad targets"
+	{
+		"en"			"[SM] Players must be in opposite teams"
+	}
+
+	"Moved Notify"
+	{
+		"en"			"You have been moved to balance teams"
+	}
+}
