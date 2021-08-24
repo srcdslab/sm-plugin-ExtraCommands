@@ -1519,10 +1519,10 @@ public Action Command_Teleport(int client, int args)
 		TeleportEntity(t,origin, NULL_VECTOR, NULL_VECTOR);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01Teleported player \"%L\" to %.1f %.1f %.1f", buffer, origin[0], origin[1], origin[2]);
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Teleported player \"%s\" to %.1f %.1f %.1f", buffer, origin[0], origin[1], origin[2]);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" teleported player \"%L\" to %.1f %.1f %.1f", client, targets[0], origin[0], origin[1], origin[2]);
+		LogAction(client, -1, "\"%L\" teleported player \"%s\" to %.1f %.1f %.1f", client, buffer, origin[0], origin[1], origin[2]);
 	else
 		LogAction(client, targets[0], "\"%L\" teleported player \"%L\" to %.1f %.1f %.1f", client, targets[0], origin[0], origin[1], origin[2]);
 
@@ -1586,10 +1586,10 @@ public Action Command_ForceSpec(int client, int args)
 		ChangeClientTeam(t,CS_TEAM_SPECTATOR);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01Moved player \"%L\" to spectators", buffer);
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Moved player \"%s\" to spectators", buffer);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" moved player \"%L\" to spectators", client, targets[0]);
+		LogAction(client, -1, "\"%L\" moved player \"%s\" to spectators", client, buffer);
 	else
 		LogAction(client, targets[0], "\"%L\" moved player \"%L\" to spectators", client, targets[0]);
 
@@ -1639,10 +1639,10 @@ public Action Command_NV(int client, int args)
 		SetEntProp(t, Prop_Send, "m_bHasNightVision", nv?1:0, 1);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01Set nightvision of player \"%L\" to %d", buffer, nv);
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set nightvision of player \"%s\" to %d", buffer, nv);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" set nightvision of player \"%L\" to %d", client, targets[0], nv);
+		LogAction(client, -1, "\"%L\" set nightvision of player \"%s\" to %d", client, buffer, nv);
 	else
 		LogAction(client, targets[0], "\"%L\" set nightvision of player \"%L\" to %d", client, targets[0], nv);
 
@@ -1677,10 +1677,10 @@ public Action Command_Defuser(int client, int args)
 			SetEntProp(t, Prop_Send, "m_bHasDefuser", df?1:0, 1);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01Set defuser of player \"%L\" to %d", buffer, df);
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set defuser of player \"%s\" to %d", buffer, df);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" set defuser of player \"%L\" to %d", client, targets[0], df);
+		LogAction(client, -1, "\"%L\" set defuser of player \"%s\" to %d", client, buffer, df);
 	else
 		LogAction(client, targets[0], "\"%L\" set defuser of player \"%L\" to %d", client, targets[0], df);
 
@@ -1715,10 +1715,10 @@ public Action Command_God(int client, int args)
 		SetEntProp(targets[i], Prop_Data, "m_takedamage", gd?0:2, 1);
 	}
 
-	ShowActivity2(client, "\x01[SM] \x04", "\x01Set godmode of player \"%L\" to %d", buffer, gd);
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set godmode of player \"%s\" to %d", buffer, gd);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" set godmode of player \"%L\" to %d", client, targets[0], gd);
+		LogAction(client, -1, "\"%L\" set godmode of player \"%s\" to %d", client, buffer, gd);
 	else
 		LogAction(client, targets[0], "\"%L\" set godmode of player \"%L\" to %d", client, targets[0], gd);
 
