@@ -4,40 +4,13 @@
 #include <sdktools>
 #include <sdkhooks>
 #include <cstrike>
-#include "include/extracommands.inc"
 
 #pragma newdecls required
-
-#define SPEC	1
-#define TEAM1	2
-#define TEAM2	3
-
-// want to allow some actions to work on dead players/spectators (can be unsafe!!!)
-// WARNING!!! If both enabled any retard with admin rights CAN CRASH YOUR SERVER
-//#define ALLOWDEAD
-//#define ALLOWSPEC
-
-#if defined ALLOWSPEC
-#define FILTER_REAL		0
-#else
-#define FILTER_REAL		COMMAND_FILTER_CONNECTED
-#endif
-
-#if defined ALLOWDEAD
-#define FILTER_ALIVE	FILTER_REAL
-#else
-#define FILTER_ALIVE	COMMAND_FILTER_ALIVE
-#endif
 
 #define MAX_CLIENTS		129
 #define MAX_ID			32
 #define MAX_NAME		96
 #define MAX_BUFF		512
-
-#define YELLOW               "\x01"
-#define NAME_TEAMCOLOR       "\x02"
-#define TEAMCOLOR            "\x03"
-#define GREEN                "\x04"
 
 bool g_bInBuyZoneAll = false;
 bool g_bInBuyZone[MAXPLAYERS + 1] = {false, ...};
@@ -64,14 +37,12 @@ public Plugin myinfo =
 	name		= "Advanced Commands",
 	author		= "BotoX + Obus + maxime1907",
 	description	= "Adds extra commands for admins.",
-	version		= "2.4",
+	version		= "2.5",
 	url		= ""
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-	CreateNative("Notify", AdvNotify);
-	CreateNative("Notify2", AdvNotify2);
 	g_bLate = late;
 	return APLRes_Success;
 }
@@ -777,21 +748,29 @@ public Action Command_Respawn(int client, int argc)
 	GetCmdArg(1,pattern,sizeof(pattern));
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_REAL,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_CONNECTED, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
 		if (IsClientInGame(t))
 		{
 			CS_RespawnPlayer(t);
-			LogAction(client,t,"\"%L\" respawned player \"%L\"",client,t);
-			if (!ml) Notify(client,t,"Respawn Notify");
 		}
 	}
-	if (ml) Notify2(client,buffer,"Respawn Notify");
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Respawned player \x04%s", buffer);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" respawned player \"%s\"", client, targets[0]);
+	else
+		LogAction(client, targets[0], "\"%L\" respawned player \"%s\"", client, targets[0]);
 
 	return Plugin_Handled;
 }
@@ -1169,7 +1148,7 @@ public Action Command_RestartRound(int client, int argc)
 
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
 
-	Notify(client, client, "Restart Round Notify", RoundFloat(fDelay));
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Restarted the round (%f seconds)", fDelay);
 	LogAction(client, -1, "\"%L\" restarted the round (%f seconds)", client, fDelay);
 
 	return Plugin_Handled;
@@ -1402,8 +1381,8 @@ public Action Command_Shuffle(int client, int args)
 	for (int i = 1; i <= MaxClients; i++)
 	if (IsClientInGame(i)) switch (GetClientTeam(i))
 	{
-		case TEAM1 : pl1[c1++] = i;
-		case TEAM2 : pl2[c2++] = i;
+		case CS_TEAM_T : pl1[c1++] = i;
+		case CS_TEAM_CT : pl2[c2++] = i;
 	}
 	m = c1-- +c2--;
 	if (m < 2) return Plugin_Handled;
@@ -1418,8 +1397,8 @@ public Action Command_Shuffle(int client, int args)
 
 		if ((pl1[mi1] != -1) && (pl2[mi2] != -1))
 		{
-			ChangeClientTeam(pl1[mi1],TEAM2);
-			ChangeClientTeam(pl2[mi2],TEAM1);
+			ChangeClientTeam(pl1[mi1],CS_TEAM_CT);
+			ChangeClientTeam(pl2[mi2],CS_TEAM_T);
 
 			pl1[mi1] = pl2[mi2] = -1;
 			m--;
@@ -1431,7 +1410,6 @@ public Action Command_Shuffle(int client, int args)
 
 public Action Command_Location(int client, int args)
 {
-	char name[64];
 	float origin[3];
 	if (args)
 	{
@@ -1440,21 +1418,24 @@ public Action Command_Location(int client, int args)
 		int targets[MAX_CLIENTS];
 		bool ml;
 
-		int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_REAL,buffer,sizeof(buffer),ml);
+		int count;
+
+		if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+		{
+			ReplyToTargetError(client, count);
+			return Plugin_Handled;
+		}
 
 		for (int i = 0; i < count; i++)
 		{
 			int t = targets[i];
 			GetEntPropVector(t, Prop_Send, "m_vecOrigin", origin);
-			GetClientName(t,name,sizeof(name));
-			PrintToChatEx(t,client,"%t","Get Location Notify",YELLOW,TEAMCOLOR,name,YELLOW,GREEN,origin[0],origin[1],origin[2],YELLOW);
+			ShowActivity2(client, "\x01[SM] \x04", "\x01Location of player \"%L\" is \x04%f %f %f", t, origin[0],origin[1],origin[2]);
 		}
-		if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
 	} else if (client)
 	{
 		GetEntPropVector(client, Prop_Send, "m_vecOrigin", origin);
-		GetClientName(client,name,sizeof(name));
-		PrintToChatEx(client,client,"%t","Get Location Notify",YELLOW,TEAMCOLOR,name,YELLOW,GREEN,origin[0],origin[1],origin[2],YELLOW);
+		ShowActivity2(client, "\x01[SM] \x04", "\x01Location of player \"%L\" is \x04%f %f %f", client, origin[0],origin[1],origin[2]);
 	}
 	return Plugin_Handled;
 }
@@ -1478,7 +1459,8 @@ public Action Command_SaveLoc(int client, int args)
 		coords[client][1] = origin[1];
 		coords[client][2] = origin[2];
 	}
-	PrintToChatEx(client,client,"%t","Save Location Notify",YELLOW,GREEN,coords[client][0],coords[client][1],coords[client][2],YELLOW);
+
+	PrintToChat(client, "[SM] Location %f %f %f saved",coords[client][0],coords[client][1],coords[client][2]);
 	
 	return Plugin_Handled;
 }
@@ -1510,7 +1492,7 @@ public Action Command_Teleport(int client, int args)
 		if ((tgt != -1) && IsValidEntity(tgt)) GetEntPropVector(tgt, Prop_Send, "m_vecOrigin", origin);
 		else
 		{
-			ReplyToCommand(client,"%t","Bad target",YELLOW,TEAMCOLOR,cl,YELLOW);
+			ReplyToCommand(client, "[SM] Invalid target");
 			return Plugin_Handled;
 		}
 	} else
@@ -1523,19 +1505,27 @@ public Action Command_Teleport(int client, int args)
 	GetCmdArg(1,pattern,sizeof(pattern));
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_ALIVE,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
 		TeleportEntity(t,origin, NULL_VECTOR, NULL_VECTOR);
-		if (!ml) Notify(client,t,"Teleport Notify",origin[0],origin[1],origin[2]);
-		LogAction(client,t,"\"%L\" teleported player \"%L\" to %.1f %.1f %.1f",client,t,origin[0],origin[1],origin[2]);
 	}
-	if (ml) Notify2(client,buffer,"Teleport Notify",origin[0],origin[1],origin[2]);
-	
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Teleported player \"%L\" to %.1f %.1f %.1f", buffer, origin[0], origin[1], origin[2]);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" teleported player \"%L\" to %.1f %.1f %.1f", client, targets[0], origin[0], origin[1], origin[2]);
+	else
+		LogAction(client, targets[0], "\"%L\" teleported player \"%L\" to %.1f %.1f %.1f", client, targets[0], origin[0], origin[1], origin[2]);
+
 	return Plugin_Handled;
 }
 
@@ -1550,16 +1540,19 @@ public Action Command_GetModel(int client, int args)
 	GetCmdArg(1,pattern,sizeof(pattern));
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_REAL,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
 		GetClientModel(t,buffer,sizeof(buffer));
-		GetClientName(t,pattern,sizeof(pattern));
-		PrintToChatEx(t,client,"%t","Get Model Notify",YELLOW,TEAMCOLOR,pattern,YELLOW,GREEN,buffer,YELLOW);
+		ShowActivity2(client, "\x01[SM] \x04", "\x01Model of player \"%L\" is \x04%s", t, buffer);
 	}
 
 	return Plugin_Handled;
@@ -1576,18 +1569,30 @@ public Action Command_ForceSpec(int client, int args)
 	GetCmdArg(1,pattern,sizeof(pattern));
 	int targets[MAX_CLIENTS];
 	bool ml;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_REAL,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
-		if (IsPlayerAlive(t)) ForcePlayerSuicide(t);
+		if (IsPlayerAlive(t))
+			ForcePlayerSuicide(t);
 
-		ChangeClientTeam(t,SPEC);
-		LogAction(client,t,"\"%L\" moved player \"%L\" to spectators",client,t);
+		ChangeClientTeam(t,CS_TEAM_SPECTATOR);
 	}
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Moved player \"%L\" to spectators", buffer);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" moved player \"%L\" to spectators", client, targets[0]);
+	else
+		LogAction(client, targets[0], "\"%L\" moved player \"%L\" to spectators", client, targets[0]);
+
 	return Plugin_Handled;
 }
 
@@ -1596,12 +1601,12 @@ public Action Command_TeamSwap(int client, int args)
 	for (int i = 1; i <= MaxClients; i++)
 	if (IsClientInGame(i)) switch (GetClientTeam(i))
 	{
-		case TEAM1 : ChangeClientTeam(i,TEAM2);
-		case TEAM2 : ChangeClientTeam(i,TEAM1);
+		case CS_TEAM_T : ChangeClientTeam(i,CS_TEAM_CT);
+		case CS_TEAM_CT : ChangeClientTeam(i,CS_TEAM_T);
 	}
-	int ts = GetTeamScore(TEAM1);
-	SetTeamScore(TEAM1,GetTeamScore(TEAM2));
-	SetTeamScore(TEAM2,ts);
+	int ts = GetTeamScore(CS_TEAM_T);
+	SetTeamScore(CS_TEAM_T,GetTeamScore(CS_TEAM_CT));
+	SetTeamScore(CS_TEAM_CT,ts);
 
 	LogAction(client,-1,"\"%L\" swapped teams",client);
 	return Plugin_Handled;
@@ -1620,18 +1625,27 @@ public Action Command_NV(int client, int args)
 	int nv = StringToInt(nvs);
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_ALIVE,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
 		SetEntProp(t, Prop_Send, "m_bHasNightVision", nv?1:0, 1);
-		if (!ml) Notify(client,t,nv?"NV Notify":"NoNV Notify");
-		LogAction(client,t,"\"%L\" set nightvision of player \"%L\" to %d",client,t,nv);
 	}
-	if (ml) Notify2(client,buffer,nv?"NV Notify":"NoNV Notify");
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set nightvision of player \"%L\" to %d", buffer, nv);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" set nightvision of player \"%L\" to %d", client, targets[0], nv);
+	else
+		LogAction(client, targets[0], "\"%L\" set nightvision of player \"%L\" to %d", client, targets[0], nv);
+
 	return Plugin_Handled;
 }
 
@@ -1648,21 +1662,28 @@ public Action Command_Defuser(int client, int args)
 	int df = StringToInt(def);
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_ALIVE,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (!count) ReplyToCommand(client,"%t","No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
 		if (GetClientTeam(t) == CS_TEAM_CT)
-		{
 			SetEntProp(t, Prop_Send, "m_bHasDefuser", df?1:0, 1);
-			if (!ml) Notify(client,t,df?"Defuser Notify":"NoDefuser Notify");
-			LogAction(client,t,"\"%L\" set defuser of player \"%L\" to %d",client,t,df);
-		}
 	}
-	if (ml) Notify2(client,buffer,df?"Defuser Notify":"NoDefuser Notify");
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set defuser of player \"%L\" to %d", buffer, df);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" set defuser of player \"%L\" to %d", client, targets[0], df);
+	else
+		LogAction(client, targets[0], "\"%L\" set defuser of player \"%L\" to %d", client, targets[0], df);
+
 	return Plugin_Handled;
 }
 
@@ -1681,17 +1702,26 @@ public Action Command_God(int client, int args)
 	int gd = StringToInt(god);
 	int targets[MAX_CLIENTS];
 	bool ml = false;
+	int count;
 
-	int count = ProcessTargetString(pattern,client,targets,sizeof(targets),FILTER_ALIVE,buffer,sizeof(buffer),ml);
+	if((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	{
+		ReplyToTargetError(client, count);
+		return Plugin_Handled;
+	}
 
-	if (count <= 0) ReplyToCommand(client,"%t",(count < 0)?"Bad target":"No target",YELLOW,TEAMCOLOR,pattern,YELLOW);
-	else for (int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		SetEntProp(targets[i], Prop_Data, "m_takedamage", gd?0:2, 1);
-		if (!ml) Notify(client,targets[i],gd?"God Notify":"NoGod Notify");
-		LogAction(client,targets[i],"\"%L\" set godmode of player \"%L\" to %d",client,targets[i],gd);
 	}
-	if (ml) Notify2(client,buffer,gd?"God Notify":"NoGod Notify");
+
+	ShowActivity2(client, "\x01[SM] \x04", "\x01Set godmode of player \"%L\" to %d", buffer, gd);
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" set godmode of player \"%L\" to %d", client, targets[0], gd);
+	else
+		LogAction(client, targets[0], "\"%L\" set godmode of player \"%L\" to %d", client, targets[0], gd);
+
 	return Plugin_Handled;
 }
 
@@ -1710,22 +1740,22 @@ void Balance(bool dead)
 	for (int i = 1; i <= MaxClients; i++)
 	if (IsClientInGame(i)) switch (GetClientTeam(i))
 	{
-		case TEAM1 : {
+		case CS_TEAM_T : {
 				n1++;
 				nf1 += GetClientFrags(i);
 				nd1 += GetClientDeaths(i);
 			}
-		case TEAM2 : {
+		case CS_TEAM_CT : {
 				n2++;
 				nf2 += GetClientFrags(i);
 				nd2 += GetClientDeaths(i);
 			}
 	}
-	int st = TEAM2,mt = TEAM1,dn = abs(n1-n2),df = 0,dd = 0;
+	int st = CS_TEAM_CT,mt = CS_TEAM_T,dn = abs(n1-n2),df = 0,dd = 0;
 	if (n1 > n2)
 	{
-		st = TEAM1;
-		mt = TEAM2;
+		st = CS_TEAM_T;
+		mt = CS_TEAM_CT;
 	}
 	while (dn-- > 0)
 	{
@@ -1749,82 +1779,8 @@ void Balance(bool dead)
 		if (mi && IsClientInGame(mi))
 		{
 			ChangeClientTeam(mi,mt);
-			PrintToChat(mi,"%t","Moved Notify");
+			PrintToChat(mi,"[SM] You have been moved to balance teams");
 		}
-	}
-}
-
-public int AdvNotify(Handle plugin, int numParams)
-{
-	int admin = GetNativeCell(1);
-	int target = GetNativeCell(2);
-	char admname[MAX_NAME],tagname[MAX_NAME];
-
-	GetClientName(target,tagname,sizeof(tagname));
-
-	for (int i = 1; i <= MaxClients; i++)
-	if (IsClientInGame(i) && !IsFakeClient(i) && FormatActivitySource(admin,i,admname,sizeof(admname)))
-	{
-		Call_StartFunction(INVALID_HANDLE,PrintToChatEx);
-		Call_PushCell(admin);
-		Call_PushCell(i);
-		Call_PushString("%t");
-		Call_PushCell(GetNativeCell(3));
-		Call_PushString(YELLOW);
-		Call_PushString(GREEN);
-		Call_PushString(admname);
-		Call_PushString(YELLOW);
-		Call_PushString(TEAMCOLOR);
-		Call_PushString(tagname);
-		Call_PushString(YELLOW);
-		Call_PushString(GREEN);
-		for (int j = 4; j <= numParams; j++) Call_PushCell(GetNativeCell(j));
-		Call_PushString(YELLOW);
-		Call_Finish();
-	}
-}
-
-public int AdvNotify2(Handle plugin, int numParams)
-{
-	int admin = GetNativeCell(1);
-	char admname[MAX_NAME],tagname[MAX_NAME];
-	GetNativeString(2,tagname,sizeof(tagname));
-
-	for (int i = 1; i <= MaxClients; i++)
-	if (IsClientInGame(i) && !IsFakeClient(i) && FormatActivitySource(admin,i,admname,sizeof(admname)))
-	{
-		Call_StartFunction(INVALID_HANDLE,PrintToChatEx);
-		Call_PushCell(admin);
-		Call_PushCell(i);
-		Call_PushString("%t");
-		Call_PushCell(GetNativeCell(3));
-		Call_PushString(YELLOW);
-		Call_PushString(GREEN);
-		Call_PushString(admname);
-		Call_PushString(YELLOW);
-		Call_PushString(TEAMCOLOR);
-		Call_PushString(tagname);
-		Call_PushString(YELLOW);
-		Call_PushString(GREEN);
-		for (int j = 4; j <= numParams; j++) Call_PushCell(GetNativeCell(j));
-		Call_PushString(YELLOW);
-		Call_Finish();
-	}
-}
-
-public void PrintToChatEx(int from, int to, const char[] format, any ...)
-{
-	char message[MAX_BUFF];
-	VFormat(message,sizeof(message),format,4);
-	
-	Handle hBf = StartMessageOne("SayText2",to);
-	if (hBf != INVALID_HANDLE)
-	{
-		BfWriteByte(hBf, from);
-		BfWriteByte(hBf, true);
-		BfWriteString(hBf, message);
-	
-		EndMessage();
 	}
 }
 
