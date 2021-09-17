@@ -767,9 +767,9 @@ public Action Command_Respawn(int client, int argc)
 	ShowActivity2(client, "\x01[SM] \x04", "\x01Respawned player \x04%s", buffer);
 
 	if(count > 1)
-		LogAction(client, -1, "\"%L\" respawned player \"%s\"", client, targets[0]);
+		LogAction(client, -1, "\"%L\" respawned player \"%s\"", client, buffer);
 	else
-		LogAction(client, targets[0], "\"%L\" respawned player \"%s\"", client, targets[0]);
+		LogAction(client, targets[0], "\"%L\" respawned player \"%L\"", client, targets[0]);
 
 	return Plugin_Handled;
 }
