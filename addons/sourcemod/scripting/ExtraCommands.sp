@@ -1205,6 +1205,8 @@ public Action Command_WAILA(int client, int argc)
 
 		CPrintToChat(client, "{green}[SM]{default} Trace hit something, check your console for more information.");
 
+		LogAction(client, -1, "\"%L\" used Waila. Trace hit something. \nEntity Index: %i\nHammer ID: %d\nTarget name: %s\nModel Path: %s\nModel Index: %i\nClass Name: %s\nNet Class Name: %s", client, iEntity, iHammerID, sTargetname, sModelPath, iEntityModelIdx, sClsName, sNetClsName);
+
 		delete hTraceRay;
 
 		return Plugin_Handled;
@@ -1261,6 +1263,13 @@ public Action Command_ForceCVar(int client, int argc)
 		cvar.ReplicateToClient(iTargets[i], sArg3);
 	}
 
+	CReplyToCommand(client, "{green}[SM]{default} Force Cvar has been perfomed on {olive}%s {default}({green}%s %s{default}).", sTargetName, sArg2, sArg3);
+
+	if(iTargetCount > 1)
+		LogAction(client, -1, "\"%L\" forced a cvar on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
+	else
+		LogAction(client, iTargets[0], "\"%L\" forced a cvar on \"%L\". (\"%s\" \"%s\")", client, iTargets[0], sArg2, sArg3);
+
 	return Plugin_Handled;
 }
 
@@ -1293,6 +1302,13 @@ public Action Command_SetClanTag(int client, int argc)
 		CS_SetClientClanTag(iTargets[i], sArg2);
 		CReplyToCommand(client, "{green}[SM]{default} Successfully changed clantag of {olive}%s {default}to {green}%s{default}.", sTargetName, sArg2);
 	}
+
+	CReplyToCommand(client, "{green}[SM]{default} Successfully changed clantag of {olive}%s {default}to {green}%s{default}.", sTargetName, sArg2);
+
+	if(iTargetCount > 1)
+		LogAction(client, -1, "\"%L\" changed clantag of \"%s\". (\"%s\")", client, sTargetName, sArg2);
+	else
+		LogAction(client, iTargets[0], "\"%L\" changed clantag of \"%L\". (\"%s\")", client, iTargets[0], sArg2);
 
 	return Plugin_Handled;
 }
@@ -1342,6 +1358,13 @@ public Action Command_FakeCommand(int client, int argc)
 			FakeClientCommand(iTargets[i], "%s %s", sArg2, sArg3);
 	}
 
+	CReplyToCommand(client, "{green}[SM]{default} Successfully faked command of {olive}%s {default}with {green}%s %s{default}.", sTargetName, sArg2, sArg3);
+
+	if(iTargetCount > 1)
+		LogAction(client, -1, "\"%L\" executed a fakecommand on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
+	else
+		LogAction(client, iTargets[0], "\"%L\" executed a fakecommand on \"%L\". (\"%s\" \"%s\")", client, iTargets[0], sArg2, sArg3);
+
 	return Plugin_Handled;
 }
 
@@ -1365,6 +1388,8 @@ public Action Command_QueryCVar(int client, int argc)
 
 	if (QueryClientConVar(iTarget, sArg2, ConVarQueryFinished_QueryCVar, client) == QUERYCOOKIE_FAILED)
 		CReplyToCommand(client, "{green}[SM]{default} Failed to query cvar {green}%s{default}.", sArg2);
+
+	LogAction(client, -1, "\"%L\" query the cvar of \"%L\". (\"%s\")", client, iTarget, sArg2);
 
 	return Plugin_Handled;
 }
@@ -1438,11 +1463,14 @@ public Action Command_Location(int client, int args)
 			GetEntPropVector(t, Prop_Send, "m_vecOrigin", origin);
 			CShowActivity2(client, "{green}[SM] {olive}", "{default}Location of player {olive}%L {default}is {green}%f %f %f", t, origin[0], origin[1], origin[2]);
 		}
+
+		LogAction(client, -1, "\"%L\" checked the location of player \"%s\".", client, buffer);
 	}
 	else if (client)
 	{
 		GetEntPropVector(client, Prop_Send, "m_vecOrigin", origin);
 		CShowActivity2(client, "{green}[SM] {olive}", "{default}Location of player {olive}%L {default}is {green}%f %f %f", client, origin[0], origin[1], origin[2]);
+		LogAction(client, -1, "\"%L\" checked the location of himself. (%f %f %f)", client, origin[0], origin[1], origin[2]);
 	}
 	else
 	{
@@ -1573,6 +1601,11 @@ public Action Command_GetModel(int client, int args)
 		GetClientModel(t, buffer, sizeof(buffer));
 		CShowActivity2(client, "{green}[SM] {olive}", "{default}Model of player {olive}%L {default}is {green}%s{default}.", t, buffer);
 	}
+
+	if(count > 1)
+		LogAction(client, -1, "\"%L\" checked the model of \"%s\"", client, pattern);
+	else
+		LogAction(client, targets[0], "\"%L\" checked the model of \"%L\" (\"%s\")", client, targets[0], buffer);
 
 	return Plugin_Handled;
 }
