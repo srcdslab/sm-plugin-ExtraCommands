@@ -27,6 +27,8 @@ ConVar g_CVar_sv_bombanywhere;
 
 float coords[MAX_CLIENTS][3];
 
+int ServerUpTime;
+
 static char g_sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
 	                                        "slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
 	                                        "slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
@@ -100,6 +102,8 @@ public void OnPluginStart()
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
 
 	AutoExecConfig(true);
+
+	ServerUpTime = RoundToFloor(GetEngineTime());
 
 	if (g_CVar_sv_pausable)
 	{
@@ -1781,19 +1785,25 @@ public Action Command_God(int client, int args)
 
 public Action Command_Uptime(int client, int args)
 {
-	float theTime = GetGameTime();
-	int   days    = RoundToZero(theTime / 86400);
-	int   hours   = RoundToZero((theTime - days) / 3600);
-	int   minutes = RoundToZero((theTime - days - hours) / 60);
-	int   seconds = RoundToZero(theTime - days - hours - minutes);
+	char UpTime[128];
+	ServerUpTime++;
+	
+	int Days = ServerUpTime / 60 / 60 / 24;
+	int Hours = (ServerUpTime / 60 / 60) % 24;
+	int Mins = (ServerUpTime / 60) % 60;
+	int Secs = (ServerUpTime) % 60;
 
 	if (!client)
 	{
-		ReplyToCommand(client, "[SM] Server uptime: %i days %i:%i:%i", days, hours, minutes, seconds);
-		return Plugin_Handled;
+		FormatEx(UpTime, sizeof(UpTime), "%d Days %02d Hours %02d Minutes %02d Seconds", Days, Hours, Mins, Secs);
+		ReplyToCommand(client, "[SM] Server uptime: %s", UpTime);
+	}
+	else
+	{
+		FormatEx(UpTime, sizeof(UpTime), "{green}%d {default}Days {green}%02d {default}Hours {green}%02d {default}Minutes {green}%02d {default}Seconds.", Days, Hours, Mins, Secs);
+		CReplyToCommand(client, "{green}[SM] {default}Server uptime: %s", UpTime);
 	}
 
-	CReplyToCommand(client, "{green}[SM] {default}Server uptime: {green}%i {default}days {green}%i{default}:{green}%i{default}:{green}%i", days, hours, minutes, seconds);
 	return Plugin_Handled;
 }
 
