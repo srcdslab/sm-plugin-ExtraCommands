@@ -27,8 +27,6 @@ ConVar g_CVar_sv_bombanywhere;
 
 float coords[MAX_CLIENTS][3];
 
-int ServerUpTime;
-
 static char g_sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
 	                                        "slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
 	                                        "slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
@@ -102,8 +100,6 @@ public void OnPluginStart()
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
 
 	AutoExecConfig(true);
-
-	ServerUpTime = RoundToFloor(GetEngineTime());
 
 	if (g_CVar_sv_pausable)
 	{
@@ -1786,7 +1782,7 @@ public Action Command_God(int client, int args)
 public Action Command_Uptime(int client, int args)
 {
 	char UpTime[128];
-	ServerUpTime++;
+	int ServerUpTime = RoundToFloor(GetEngineTime());
 	
 	int Days = ServerUpTime / 60 / 60 / 24;
 	int Hours = (ServerUpTime / 60 / 60) % 24;
