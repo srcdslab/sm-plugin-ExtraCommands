@@ -1,10 +1,10 @@
 #pragma semicolon 1
 
 #include <cstrike>
-#include <multicolors>
 #include <sdkhooks>
 #include <sdktools>
 #include <sourcemod>
+#include <multicolors>
 
 #pragma newdecls required
 
