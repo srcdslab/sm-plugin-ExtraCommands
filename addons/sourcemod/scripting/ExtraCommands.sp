@@ -38,7 +38,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.1",
+	version     = "2.7.4",
 	url         = ""
 };
 
@@ -298,7 +298,7 @@ public Action Command_Health(int client, int argc)
 
 	int amount = clamp(StringToInt(sArgs2), 1, 0x7FFFFFFF);
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -339,7 +339,7 @@ public Action Command_Armor(int client, int argc)
 
 	int amount = clamp(StringToInt(sArgs2), 0, 0xFF);
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -438,7 +438,7 @@ public Action Command_Weapon(int client, int argc)
 	int  iTargetCount;
 	bool bIsML;
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -516,7 +516,7 @@ public Action Command_Strip(int client, int argc)
 	int  iTargetCount;
 	bool bIsML;
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -583,7 +583,7 @@ public Action Command_BuyZone(int client, int argc)
 		int  iTargetCount;
 		bool bIsML;
 
-		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 		{
 			ReplyToTargetError(client, iTargetCount);
 			return Plugin_Handled;
@@ -641,7 +641,7 @@ public Action Command_InfAmmo(int client, int argc)
 		int  iTargetCount;
 		bool bIsML;
 
-		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 		{
 			ReplyToTargetError(client, iTargetCount);
 			return Plugin_Handled;
@@ -710,7 +710,7 @@ public Action Command_Speed(int client, int argc)
 
 	float speed = clamp(StringToFloat(sArgs2), 0.0, 100.0);
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -745,7 +745,7 @@ public Action Command_Respawn(int client, int argc)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_CONNECTED, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_CONNECTED | COMMAND_FILTER_DEAD | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -754,14 +754,7 @@ public Action Command_Respawn(int client, int argc)
 	for (int i = 0; i < count; i++)
 	{
 		int t = targets[i];
-		if (GetClientTeam(t) == 1)
-		{
-			ReplyToTargetError(client, count);
-			CPrintToChat(client, "{green}[SM]{default} {red}Error{default}: Targets can't be in spectators.");
-			CPrintToChat(client, "{green}[SM]{default} You should use sm_respawn {olive}@dead");
-			return Plugin_Handled;
-		}
-		else if (IsClientInGame(t))
+		if (IsClientInGame(t) && GetClientTeam(t) > 1)
 		{
 			CS_RespawnPlayer(t);
 		}
@@ -852,7 +845,7 @@ public Action Command_Cash(int client, int argc)
 
 	int iCash = clamp(StringToInt(sArgs2), 0, 0xFFFF);
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -893,7 +886,7 @@ public Action Command_ModelScale(int client, int argc)
 
 	float fScale = clamp(StringToFloat(sArgs2), 0.0, 100.0);
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -932,7 +925,7 @@ public Action Command_SetModel(int client, int argc)
 	GetCmdArg(1, sArgs, sizeof(sArgs));
 	GetCmdArg(2, sArgs2, sizeof(sArgs2));
 
-	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -1252,7 +1245,7 @@ public Action Command_ForceCVar(int client, int argc)
 		return Plugin_Handled;
 	}
 
-	if ((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_BOTS, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_NO_BOTS | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -1300,7 +1293,6 @@ public Action Command_SetClanTag(int client, int argc)
 	for (int i = 0; i < iTargetCount; i++)
 	{
 		CS_SetClientClanTag(iTargets[i], sArg2);
-		CReplyToCommand(client, "{green}[SM]{default} Successfully changed clantag of {olive}%s {default}to {green}%s{default}.", sTargetName, sArg2);
 	}
 
 	CReplyToCommand(client, "{green}[SM]{default} Successfully changed clantag of {olive}%s {default}to {green}%s{default}.", sTargetName, sArg2);
@@ -1333,7 +1325,7 @@ public Action Command_FakeCommand(int client, int argc)
 	GetCmdArg(2, sArg2, sizeof(sArg2));
 	GetCmdArg(3, sArg3, sizeof(sArg3));
 
-	if ((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_CONNECTED, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+	if ((iTargetCount = ProcessTargetString(sArg, client, iTargets, MAXPLAYERS, COMMAND_FILTER_CONNECTED | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 	{
 		ReplyToTargetError(client, iTargetCount);
 		return Plugin_Handled;
@@ -1451,7 +1443,7 @@ public Action Command_Location(int client, int args)
 
 		int count;
 
-		if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+		if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 		{
 			ReplyToTargetError(client, count);
 			return Plugin_Handled;
@@ -1554,7 +1546,7 @@ public Action Command_Teleport(int client, int args)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -1589,7 +1581,7 @@ public Action Command_GetModel(int client, int args)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -1623,7 +1615,7 @@ public Action Command_ForceSpec(int client, int args)
 	bool ml;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -1681,7 +1673,7 @@ public Action Command_NV(int client, int args)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -1718,7 +1710,7 @@ public Action Command_Defuser(int client, int args)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
@@ -1758,7 +1750,7 @@ public Action Command_God(int client, int args)
 	bool ml = false;
 	int  count;
 
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE, buffer, sizeof(buffer), ml)) <= 0)
+	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
 	{
 		ReplyToTargetError(client, count);
 		return Plugin_Handled;
