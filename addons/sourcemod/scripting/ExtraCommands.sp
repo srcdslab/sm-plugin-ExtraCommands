@@ -38,7 +38,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.4",
+	version     = "2.7.5",
 	url         = ""
 };
 
@@ -1143,8 +1143,8 @@ public Action Command_RestartRound(int client, int argc)
 
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Restarted the round. ({olive}%f seconds{default})", fDelay);
-	LogAction(client, -1, "\"%L\" restarted the round (%f seconds)", client, fDelay);
+	CShowActivity2(client, "{green}[SM] {olive}", "{default}Restarted the round. (in {olive}%0.1f seconds{default})", fDelay);
+	LogAction(client, -1, "\"%L\" restarted the round (in %0.1f seconds)", client, fDelay);
 
 	return Plugin_Handled;
 }
