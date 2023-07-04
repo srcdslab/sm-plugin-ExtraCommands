@@ -38,7 +38,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.5",
+	version     = "2.7.6",
 	url         = ""
 };
 
@@ -139,6 +139,13 @@ public void OnMapStart()
 	{
 		UnhookEvent("weapon_fire", Event_WeaponFire);
 		g_bInfAmmoHooked = false;
+	}
+
+	for (int i = 1; i <= MaxClients; i++)
+	{
+		coords[i][0] = 0.0;
+		coords[i][1] = 0.0;
+		coords[i][2] = 0.0;
 	}
 }
 
@@ -1741,32 +1748,35 @@ public Action Command_God(int client, int args)
 		return Plugin_Handled;
 	}
 
-	char pattern[MAX_NAME], buffer[MAX_NAME], god[MAX_ID];
-	GetCmdArg(1, pattern, sizeof(pattern));
-	GetCmdArg(2, god, sizeof(god));
+	char sArgs[MAX_NAME], sTargetName[MAX_NAME], sArgs2[MAX_ID];
+	GetCmdArg(1, sArgs, sizeof(sArgs));
+	GetCmdArg(2, sArgs2, sizeof(sArgs2));
 
-	int  gd = StringToInt(god);
-	int  targets[MAX_CLIENTS];
-	bool ml = false;
-	int  count;
-
-	if ((count = ProcessTargetString(pattern, client, targets, sizeof(targets), COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, buffer, sizeof(buffer), ml)) <= 0)
+	int  value = -1;
+	if (StringToIntEx(sArgs2, value) == 0)
 	{
-		ReplyToTargetError(client, count);
+		CReplyToCommand(client, "{green}[SM]{default} Invalid Value.");
 		return Plugin_Handled;
 	}
 
-	for (int i = 0; i < count; i++)
+	int  gd = StringToInt(sArgs2);
+	int  iTargets[MAX_CLIENTS];
+	bool bIsML = false;
+	int  iTargetCount;
+
+	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
+		{
+			ReplyToTargetError(client, iTargetCount);
+			return Plugin_Handled;
+		}
+
+	for (int i = 0; i < iTargetCount; i++)
 	{
-		SetEntProp(targets[i], Prop_Data, "m_takedamage", gd ? 0 : 2, 1);
+		SetEntProp(iTargets[i], Prop_Data, "m_takedamage", gd ? 0 : 2, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set godmode on {olive}%s {default}to {green}%d{default}.", buffer, gd);
-
-	if (count > 1)
-		LogAction(client, -1, "\"%L\" set godmode on \"%s\" to %d", client, buffer, gd);
-	else
-		LogAction(client, targets[0], "\"%L\" set godmode on \"%L\" to %d", client, targets[0], gd);
+	CShowActivity2(client, "{green}[SM] {olive}", "{green}%s{default} godmode on {olive}%s{default}.", (value ? "Enabled" : "Disabled"), sTargetName);
+	LogAction(client, -1, "\"%L\" %s godmode on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	return Plugin_Handled;
 }
