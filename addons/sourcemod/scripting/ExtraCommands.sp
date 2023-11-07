@@ -23,10 +23,12 @@ bool g_bInfAmmo[MAXPLAYERS + 1] = { false, ... };
 bool g_bLate = false;
 
 ConVar g_CVar_sv_pausable;
+ConVar g_CVar_sv_password;
 ConVar g_CVar_sv_bombanywhere;
 
 float coords[MAX_CLIENTS][3];
 
+char g_sPassword[32];
 static char g_sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
 	                                        "slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
 	                                        "slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
@@ -38,7 +40,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.6",
+	version     = "2.7.7",
 	url         = ""
 };
 
@@ -92,11 +94,13 @@ public void OnPluginStart()
 	RegAdminCmd("sm_fcvar", Command_ForceCVar, ADMFLAG_CHEATS, "sm_fcvar <#userid|name> <cvar> <value>");
 	RegAdminCmd("sm_setclantag", Command_SetClanTag, ADMFLAG_CHEATS, "sm_setclantag <#userid|name> [text]");
 	RegAdminCmd("sm_fakecommand", Command_FakeCommand, ADMFLAG_CHEATS, "sm_fakecommand <#userid|name> [command] [args]");
+	RegAdminCmd("sm_setpassword", Command_SetPassword, ADMFLAG_ROOT, "sm_setpassword [args]");
 
 	HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
 	HookEvent("bomb_defused", Event_BombDefused, EventHookMode_Pre);
 
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
+	g_CVar_sv_password     = FindConVar("sv_password");
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
 
 	AutoExecConfig(true);
@@ -127,6 +131,12 @@ public void OnPluginEnd()
 	{
 		SDKUnhook(i, SDKHook_PreThink, OnPreThink);
 		SDKUnhook(i, SDKHook_PostThinkPost, OnPostThinkPost);
+	}
+}
+
+public void OnConfigsExecuted() {
+	if (g_sPassword[0]) {
+		g_CVar_sv_password.SetString(g_sPassword);
 	}
 }
 
@@ -1364,6 +1374,13 @@ public Action Command_FakeCommand(int client, int argc)
 	else
 		LogAction(client, iTargets[0], "\"%L\" executed a fakecommand on \"%L\". (\"%s\" \"%s\")", client, iTargets[0], sArg2, sArg3);
 
+	return Plugin_Handled;
+}
+
+public Action Command_SetPassword(int client, int argc)
+{
+	GetCmdArg(1, g_sPassword, sizeof(g_sPassword));
+	g_CVar_sv_password.SetString(g_sPassword);
 	return Plugin_Handled;
 }
 
