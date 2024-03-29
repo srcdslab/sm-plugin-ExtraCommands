@@ -6,6 +6,10 @@
 #include <sourcemod>
 #include <multicolors>
 
+#undef REQUIRE_PLUGIN
+#tryinclude <zombiereloaded>
+#define REQUIRE_PLUGIN
+
 #pragma newdecls required
 
 #define MAX_CLIENTS 129
@@ -21,9 +25,11 @@ bool g_bInfAmmoAll              = false;
 bool g_bInfAmmo[MAXPLAYERS + 1] = { false, ... };
 
 bool g_bLate = false;
+bool g_bBlockRespawn = false;
 
 ConVar g_CVar_sv_pausable;
 ConVar g_CVar_sv_bombanywhere;
+ConVar g_CVar_sv_slayonrr;
 
 float coords[MAX_CLIENTS][3];
 
@@ -38,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.6",
+	version     = "2.7.7",
 	url         = ""
 };
 
@@ -95,9 +101,11 @@ public void OnPluginStart()
 
 	HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
 	HookEvent("bomb_defused", Event_BombDefused, EventHookMode_Pre);
+	HookEvent("round_end", Event_OnRoundEnd, EventHookMode_PostNoCopy);
 
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
+	g_CVar_sv_slayonrr     = CreateConVar("sm_extracmds_slay_rr", "0", "Slay players before restarting the round [0 = Disabled | 1 = Enabled]", FCVAR_NOTIFY);
 
 	AutoExecConfig(true);
 
@@ -134,6 +142,7 @@ public void OnMapStart()
 {
 	g_bInBuyZoneAll = false;
 	g_bInfAmmoAll   = false;
+	g_bBlockRespawn = false;
 
 	if (g_bInfAmmoHooked)
 	{
@@ -196,6 +205,11 @@ public Action Event_BombDefused(Handle event, const char[] name, bool dontBroadc
 			ClientCommand(i, "playgamesound \"radio/bombdef.wav\"");
 	}
 	return Plugin_Handled;
+}
+
+public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
+{
+	g_bBlockRespawn = false;
 }
 
 public void OnClientPutInServer(int client)
@@ -1148,6 +1162,17 @@ public Action Command_RestartRound(int client, int argc)
 		fDelay = StringToFloat(sArgs);
 	}
 
+	if (g_CVar_sv_slayonrr.BoolValue)
+	{
+		g_bBlockRespawn = true;
+
+		for (int i = 1; i <= MaxClients; i++)
+		{
+			if (IsClientInGame(i) && IsPlayerAlive(i))
+				ForcePlayerSuicide(i);
+		}
+	}
+
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
 
 	CShowActivity2(client, "{green}[SM] {olive}", "{default}Restarted the round. (in {olive}%0.1f seconds{default})", fDelay);
@@ -1916,3 +1941,13 @@ stock int GivePlayerItemFixed(int client, const char[] item)
 
 	return GivePlayerItem(client, item);
 }
+
+#if defined _zr_included
+public Action ZR_OnClientRespawn(int &client, ZR_RespawnCondition& condition)
+{
+	if(g_bBlockRespawn)
+		return Plugin_Handled;
+
+	return Plugin_Continue;
+}
+#endif
