@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.7",
+	version     = "2.7.8",
 	url         = ""
 };
 
@@ -269,7 +269,7 @@ public void Event_WeaponFire(Handle hEvent, char[] name, bool dontBroadcast)
 				char weaponClassname[128];
 				GetEntityClassname(weapon, weaponClassname, sizeof(weaponClassname));
 
-				if (StrEqual(weaponClassname, "weapon_glock", true) || StrEqual(weaponClassname, "weapon_famas", true))
+				if (strcmp(weaponClassname, "weapon_glock", true) == 0 || strcmp(weaponClassname, "weapon_famas", true) == 0)
 				{
 					if (GetEntProp(weapon, Prop_Send, "m_bBurstMode"))
 					{
@@ -400,7 +400,7 @@ public Action Command_Weapon(int client, int argc)
 
 	char sWeapon[65];
 
-	if (strncmp(sArgs2, "weapon_", 7) != 0 && strncmp(sArgs2, "item_", 5) != 0 && !StrEqual(sArgs2, "nvg", false))
+	if (strncmp(sArgs2, "weapon_", 7) != 0 && strncmp(sArgs2, "item_", 5) != 0 && strcmp(sArgs2, "nvg", false) != 0)
 		Format(sWeapon, sizeof(sWeapon), "weapon_%s", sArgs2);
 	else
 		strcopy(sWeapon, sizeof(sWeapon), sArgs2);
@@ -415,7 +415,7 @@ public Action Command_Weapon(int client, int argc)
 
 		if (!superadmin)
 		{
-			if (StrEqual(sWeapon, "weapon_c4", false) || StrEqual(sWeapon, "weapon_smokegrenade", false) || StrEqual(sWeapon, "item_defuser", false))
+			if (strcmp(sWeapon, "weapon_c4", false) == 0 || strcmp(sWeapon, "weapon_smokegrenade", false) == 0 || strcmp(sWeapon, "item_defuser", false) == 0)
 			{
 				CReplyToCommand(client, "{green}[SM]{default} This weapon is restricted!");
 				return Plugin_Handled;
@@ -465,12 +465,12 @@ public Action Command_Weapon(int client, int argc)
 		return Plugin_Handled;
 	}
 
-	if (StrEqual(sWeapon, "nvg", false))
+	if (strcmp(sWeapon, "nvg", false) == 0)
 	{
 		for (int i = 0; i < iTargetCount; i++)
 			SetEntProp(iTargets[i], Prop_Send, "m_bHasNightVision", 1, 1);
 	}
-	else if (StrEqual(sWeapon, "item_defuser", false))
+	else if (strcmp(sWeapon, "item_defuser", false) == 0)
 	{
 		for (int i = 0; i < iTargetCount; i++)
 			SetEntProp(iTargets[i], Prop_Send, "m_bHasDefuser", 1);
@@ -498,7 +498,7 @@ public Action Command_Weapon(int client, int argc)
 					SetEntProp(iTargets[i], Prop_Send, "m_iAmmo", ammo, _, PrimaryAmmoType);
 			}
 
-			if (strncmp(sArgs2, "item_", 5) != 0 && !StrEqual(sWeapon, "weapon_hegrenade", false))
+			if (strncmp(sArgs2, "item_", 5) != 0 && strcmp(sWeapon, "weapon_hegrenade", false) != 0)
 				EquipPlayerWeapon(iTargets[i], ent);
 
 			if (ammo != -1)
@@ -593,7 +593,7 @@ public Action Command_BuyZone(int client, int argc)
 
 	char sTargetName[MAX_TARGET_LENGTH];
 
-	if (StrEqual(sArgs, "@all", false))
+	if (strcmp(sArgs, "@all", false) == 0)
 	{
 		sTargetName     = "all players";
 		g_bInBuyZoneAll = value ? true : false;
@@ -645,7 +645,7 @@ public Action Command_InfAmmo(int client, int argc)
 
 	char sTargetName[MAX_TARGET_LENGTH];
 
-	if (StrEqual(sArgs, "@all", false))
+	if (strcmp(sArgs, "@all", false) == 0)
 	{
 		sTargetName   = "all players";
 		g_bInfAmmoAll = value ? true : false;
@@ -1932,7 +1932,7 @@ stock int GivePlayerItemFixed(int client, const char[] item)
 	{
 		bEngineVersionIsCSGO = true;
 
-		if (StrEqual(item, "weapon_galil", false) || StrEqual(item, "weapon_m3", false) || StrEqual(item, "weapon_mp5navy", false) || StrEqual(item, "weapon_p228", false) || StrEqual(item, "weapon_scout", false) || StrEqual(item, "weapon_sg550", false) || StrEqual(item, "weapon_sg552", false) || StrEqual(item, "weapon_tmp", false) || StrEqual(item, "weapon_usp", false))
+		if (strcmp(item, "weapon_galil", false) == 0 || strcmp(item, "weapon_m3", false) == 0 || strcmp(item, "weapon_mp5navy", false) == 0 || strcmp(item, "weapon_p228", false) == 0 || strcmp(item, "weapon_scout", false) == 0 || strcmp(item, "weapon_sg550", false) == 0 || strcmp(item, "weapon_sg552", false) == 0 || strcmp(item, "weapon_tmp", false) == 0 || strcmp(item, "weapon_usp", false) == 0)
 		{
 			LogError("Prevented giving ent: %s", item);
 			return -1;
