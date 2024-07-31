@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.8",
+	version     = "2.7.9",
 	url         = ""
 };
 
@@ -479,7 +479,7 @@ public Action Command_Weapon(int client, int argc)
 	{
 		for (int i = 0; i < iTargetCount; i++)
 		{
-			int ent = GivePlayerItemFixed(iTargets[i], sWeapon);
+			int ent = GivePlayerItem(iTargets[i], sWeapon);
 
 			if (ent == -1)
 			{
@@ -1921,25 +1921,6 @@ stock any clamp(any input, any min, any max)
 	any retval = input < min ? min : input;
 
 	return retval > max ? max : retval;
-}
-
-stock int GivePlayerItemFixed(int client, const char[] item)
-{
-	static bool bEngineVersionIsCSGO;
-
-	// These weapons 'exist' on csgo, but attempting to give them causes a crash.
-	if (bEngineVersionIsCSGO || GetEngineVersion() == Engine_CSGO)
-	{
-		bEngineVersionIsCSGO = true;
-
-		if (strcmp(item, "weapon_galil", false) == 0 || strcmp(item, "weapon_m3", false) == 0 || strcmp(item, "weapon_mp5navy", false) == 0 || strcmp(item, "weapon_p228", false) == 0 || strcmp(item, "weapon_scout", false) == 0 || strcmp(item, "weapon_sg550", false) == 0 || strcmp(item, "weapon_sg552", false) == 0 || strcmp(item, "weapon_tmp", false) == 0 || strcmp(item, "weapon_usp", false) == 0)
-		{
-			LogError("Prevented giving ent: %s", item);
-			return -1;
-		}
-	}
-
-	return GivePlayerItem(client, item);
 }
 
 #if defined _zr_included
