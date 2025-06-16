@@ -33,18 +33,14 @@ ConVar g_CVar_sv_slayonrr;
 
 float coords[MAX_CLIENTS][3];
 
-static char g_sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
-	                                        "slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
-	                                        "slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
-	                                        "invnext", "play", "invprev", "sndplaydelay", "lastinv", "dsp_player",
-	                                        "name", "redirect", "retry", "r_cleardecals", "echo", "soundfade" };
+StringMap g_hServerCanExecuteCmds = null;
 
 public Plugin myinfo =
 {
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.9",
+	version     = "2.7.10",
 	url         = ""
 };
 
@@ -57,6 +53,8 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 public void OnPluginStart()
 {
 	LoadTranslations("common.phrases");
+
+	InitStringMap();
 
 	RegAdminCmd("sm_hp", Command_Health, ADMFLAG_GENERIC, "sm_hp <#userid|name> <value>");
 	RegAdminCmd("sm_health", Command_Health, ADMFLAG_GENERIC, "sm_health <#userid|name> <value>");
@@ -136,6 +134,9 @@ public void OnPluginEnd()
 		SDKUnhook(i, SDKHook_PreThink, OnPreThink);
 		SDKUnhook(i, SDKHook_PostThinkPost, OnPostThinkPost);
 	}
+
+	if (g_hServerCanExecuteCmds != null)
+		delete g_hServerCanExecuteCmds;
 }
 
 public void OnMapStart()
@@ -1364,14 +1365,10 @@ public Action Command_FakeCommand(int client, int argc)
 	}
 
 	bool bCanServerExecute = false;
-
-	for (int i = 0; i < sizeof(g_sServerCanExecuteCmds); i++)
+	bool dummy;
+	if (g_hServerCanExecuteCmds.GetValue(sArg2, dummy))
 	{
-		if (strcmp(g_sServerCanExecuteCmds[i], sArg2) == 0)
-		{
-			bCanServerExecute = true;
-			break;
-		}
+		bCanServerExecute = true;
 	}
 
 	for (int i = 0; i < iTargetCount; i++)
@@ -1833,6 +1830,23 @@ public Action Command_Uptime(int client, int args)
 //--------------------------------------
 // Functions
 //--------------------------------------
+
+stock void InitStringMap()
+{
+	char sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
+											"slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
+											"slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
+											"invnext", "play", "invprev", "sndplaydelay", "lastinv", "dsp_player",
+											"name", "redirect", "retry", "r_cleardecals", "echo", "soundfade" };
+
+	if (g_hServerCanExecuteCmds == null)
+		g_hServerCanExecuteCmds = new StringMap();
+
+	for (int i = 0; i < sizeof(sServerCanExecuteCmds); i++)
+	{
+		g_hServerCanExecuteCmds.SetValue(sServerCanExecuteCmds[i], true);
+	}
+}
 
 int abs(int val)
 {
