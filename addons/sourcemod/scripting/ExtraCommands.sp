@@ -33,8 +33,8 @@ ConVar g_CVar_sv_cleanonrr;
 
 float coords[MAX_CLIENTS][3];
 
-StringMap g_hServerCanExecuteCmds = null;
-StringMap g_hEntitiesListToKill = null;
+StringMap g_hServerCanExecuteCmds;
+StringMap g_hEntitiesListToKill;
 
 public Plugin myinfo =
 {
@@ -161,6 +161,19 @@ public void OnMapStart()
 		coords[i][1] = 0.0;
 		coords[i][2] = 0.0;
 	}
+}
+
+public void OnMapEnd()
+{
+	if (g_hServerCanExecuteCmds != null)
+		delete g_hServerCanExecuteCmds;
+
+	g_hServerCanExecuteCmds = new StringMap();
+
+	if (g_hEntitiesListToKill != null)
+		delete g_hEntitiesListToKill;
+
+	g_hEntitiesListToKill = new StringMap();
 }
 
 public Action Listener_Pause(int client, const char[] command, int argc)
