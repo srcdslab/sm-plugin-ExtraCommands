@@ -41,7 +41,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.11",
+	version     = "2.7.12",
 	url         = ""
 };
 
@@ -1891,7 +1891,6 @@ stock void InitStringMap()
 	}
 
 	char sSafeEntitiesToKill[][] = {
-		"ambient_generic",
 		"env_beam", "env_entity_maker", "env_explosion", "env_fade", "env_shake", "env_spark", "env_sprite",
 		"func_breakable", "func_button", "func_door", "func_door_rotating", "func_movelinear", "func_physbox", "func_physbox_multiplayer", "func_reflective_glass", "func_rotating",
 		"game_text",
