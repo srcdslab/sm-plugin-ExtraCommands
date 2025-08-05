@@ -29,18 +29,19 @@ bool g_bBlockRespawn = false;
 
 ConVar g_CVar_sv_pausable;
 ConVar g_CVar_sv_bombanywhere;
-ConVar g_CVar_sv_slayonrr;
+ConVar g_CVar_sv_cleanonrr;
 
 float coords[MAX_CLIENTS][3];
 
-StringMap g_hServerCanExecuteCmds = null;
+StringMap g_hServerCanExecuteCmds;
+StringMap g_hEntitiesListToKill;
 
 public Plugin myinfo =
 {
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.10",
+	version     = "2.7.12",
 	url         = ""
 };
 
@@ -103,7 +104,7 @@ public void OnPluginStart()
 
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
-	g_CVar_sv_slayonrr     = CreateConVar("sm_extracmds_slay_rr", "0", "Slay players before restarting the round [0 = Disabled | 1 = Enabled]", FCVAR_NOTIFY);
+	g_CVar_sv_cleanonrr     = CreateConVar("sm_extracmds_slay_rr", "0", "Slay players before restarting the round [0 = Disabled | 1 = Enabled | 2 = Enabled + Clean temporary entities]", FCVAR_NOTIFY);
 
 	AutoExecConfig(true);
 
@@ -137,6 +138,9 @@ public void OnPluginEnd()
 
 	if (g_hServerCanExecuteCmds != null)
 		delete g_hServerCanExecuteCmds;
+
+	if (g_hEntitiesListToKill != null)
+		delete g_hEntitiesListToKill;
 }
 
 public void OnMapStart()
@@ -157,6 +161,19 @@ public void OnMapStart()
 		coords[i][1] = 0.0;
 		coords[i][2] = 0.0;
 	}
+}
+
+public void OnMapEnd()
+{
+	if (g_hServerCanExecuteCmds != null)
+		delete g_hServerCanExecuteCmds;
+
+	g_hServerCanExecuteCmds = new StringMap();
+
+	if (g_hEntitiesListToKill != null)
+		delete g_hEntitiesListToKill;
+
+	g_hEntitiesListToKill = new StringMap();
 }
 
 public Action Listener_Pause(int client, const char[] command, int argc)
@@ -1161,17 +1178,33 @@ public Action Command_RestartRound(int client, int argc)
 		char sArgs[32];
 		GetCmdArg(1, sArgs, sizeof(sArgs));
 		fDelay = StringToFloat(sArgs);
+		
+		// Players are killed with 0.3 delay, so we need to wait at least 0.4 seconds
+		if (fDelay < 0.4)
+			fDelay = 0.4;
 	}
 
-	if (g_CVar_sv_slayonrr.BoolValue)
+	if (g_CVar_sv_cleanonrr.IntValue > 0)
 	{
-		g_bBlockRespawn = true;
-
-		for (int i = 1; i <= MaxClients; i++)
+		if (g_CVar_sv_cleanonrr.IntValue == 2)
 		{
-			if (IsClientInGame(i) && IsPlayerAlive(i))
-				ForcePlayerSuicide(i);
+			bool dummy;
+			char sClassname[64];
+			int iMaxEntities = GetMaxEntities();
+			for (int entites = 0; entites <= iMaxEntities; entites++)
+			{
+				if (!IsValidEntity(entites))
+					continue;
+
+				GetEntityClassname(entites, sClassname, sizeof(sClassname));
+
+				if (g_hEntitiesListToKill.GetValue(sClassname, dummy))
+					AcceptEntityInput(entites, "Kill");
+			}
 		}
+
+		g_bBlockRespawn = true;
+		CreateTimer(0.3, Timer_ForceSuicide, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
 
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
@@ -1180,6 +1213,16 @@ public Action Command_RestartRound(int client, int argc)
 	LogAction(client, -1, "\"%L\" restarted the round (in %0.1f seconds)", client, fDelay);
 
 	return Plugin_Handled;
+}
+
+public Action Timer_ForceSuicide(Handle timer)
+{
+	g_bBlockRespawn = true;
+	for (int i = 1; i <= MaxClients; i++)
+		if (IsClientInGame(i) && IsPlayerAlive(i))
+			ForcePlayerSuicide(i);
+
+	return Plugin_Continue;
 }
 
 public Action Command_WAILA(int client, int argc)
@@ -1845,6 +1888,32 @@ stock void InitStringMap()
 	for (int i = 0; i < sizeof(sServerCanExecuteCmds); i++)
 	{
 		g_hServerCanExecuteCmds.SetValue(sServerCanExecuteCmds[i], true);
+	}
+
+	char sSafeEntitiesToKill[][] = {
+		"env_beam", "env_entity_maker", "env_explosion", "env_fade", "env_shake", "env_spark", "env_sprite",
+		"func_breakable", "func_button", "func_door", "func_door_rotating", "func_movelinear", "func_physbox", "func_physbox_multiplayer", "func_reflective_glass", "func_rotating",
+		"game_text",
+		"info_particle_system", "info_teleport_destination",
+		"phys_keepupright", "phys_thruster",
+		"point_hurt", "point_spotlight", "point_teleport",
+		"prop_dynamic", "prop_dynamic_override", "prop_physics", "prop_physics_multiplayer", "prop_physics_override",
+		"trigger_hurt", "trigger_multiple", "trigger_once", "trigger_push", "trigger_teleport",
+		"weapon_glock", "weapon_usp", "weapon_deagle", "weapon_elite", "weapon_p228", "weapon_fiveseven",
+		"weapon_m3", "weapon_xm1014",
+		"weapon_mac10", "weapon_tmp", "weapon_mp5navy", "weapon_ump45", "weapon_p90",
+		"weapon_galil", "weapon_famas", "weapon_ak47", "weapon_m4a1", "weapon_sg552", "weapon_aug",
+		"weapon_scout", "weapon_sg550", "weapon_g3sg1", "weapon_awp",
+		"weapon_m249", "weapon_knife", "weapon_c4", 
+		"weapon_hegrenade", "weapon_flashbang", "weapon_smokegrenade", "item_nvgs", "item_kevlar"
+	};
+
+	if (g_hEntitiesListToKill == null)
+		g_hEntitiesListToKill = new StringMap();
+
+	for (int i = 0; i < sizeof(sSafeEntitiesToKill); i++)
+	{
+		g_hEntitiesListToKill.SetValue(sSafeEntitiesToKill[i], true);
 	}
 }
 
