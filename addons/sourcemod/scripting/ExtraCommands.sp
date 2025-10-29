@@ -33,15 +33,12 @@ ConVar g_CVar_sv_cleanonrr;
 
 float coords[MAX_CLIENTS][3];
 
-StringMap g_hServerCanExecuteCmds;
-StringMap g_hEntitiesListToKill;
-
 public Plugin myinfo =
 {
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.12",
+	version     = "2.7.13",
 	url         = ""
 };
 
@@ -54,8 +51,6 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 public void OnPluginStart()
 {
 	LoadTranslations("common.phrases");
-
-	InitStringMap();
 
 	RegAdminCmd("sm_hp", Command_Health, ADMFLAG_GENERIC, "sm_hp <#userid|name> <value>");
 	RegAdminCmd("sm_health", Command_Health, ADMFLAG_GENERIC, "sm_health <#userid|name> <value>");
@@ -128,21 +123,6 @@ public void OnPluginStart()
 	}
 }
 
-public void OnPluginEnd()
-{
-	for (int i = 1; i <= MaxClients; i++)
-	{
-		SDKUnhook(i, SDKHook_PreThink, OnPreThink);
-		SDKUnhook(i, SDKHook_PostThinkPost, OnPostThinkPost);
-	}
-
-	if (g_hServerCanExecuteCmds != null)
-		delete g_hServerCanExecuteCmds;
-
-	if (g_hEntitiesListToKill != null)
-		delete g_hEntitiesListToKill;
-}
-
 public void OnMapStart()
 {
 	g_bInBuyZoneAll = false;
@@ -161,19 +141,6 @@ public void OnMapStart()
 		coords[i][1] = 0.0;
 		coords[i][2] = 0.0;
 	}
-}
-
-public void OnMapEnd()
-{
-	if (g_hServerCanExecuteCmds != null)
-		delete g_hServerCanExecuteCmds;
-
-	g_hServerCanExecuteCmds = new StringMap();
-
-	if (g_hEntitiesListToKill != null)
-		delete g_hEntitiesListToKill;
-
-	g_hEntitiesListToKill = new StringMap();
 }
 
 public Action Listener_Pause(int client, const char[] command, int argc)
@@ -1188,18 +1155,41 @@ public Action Command_RestartRound(int client, int argc)
 	{
 		if (g_CVar_sv_cleanonrr.IntValue == 2)
 		{
-			bool dummy;
+			char sSafeEntitiesToKill[][] = {
+				"env_beam", "env_entity_maker", "env_explosion", "env_fade", "env_shake", "env_spark", "env_sprite",
+				"func_breakable", "func_button", "func_door", "func_door_rotating", "func_movelinear", "func_physbox", "func_physbox_multiplayer", "func_reflective_glass", "func_rotating",
+				"game_text",
+				"info_particle_system", "info_teleport_destination",
+				"phys_keepupright", "phys_thruster",
+				"point_hurt", "point_spotlight", "point_teleport",
+				"prop_dynamic", "prop_dynamic_override", "prop_physics", "prop_physics_multiplayer", "prop_physics_override",
+				"trigger_hurt", "trigger_multiple", "trigger_once", "trigger_push", "trigger_teleport",
+				"weapon_glock", "weapon_usp", "weapon_deagle", "weapon_elite", "weapon_p228", "weapon_fiveseven",
+				"weapon_m3", "weapon_xm1014",
+				"weapon_mac10", "weapon_tmp", "weapon_mp5navy", "weapon_ump45", "weapon_p90",
+				"weapon_galil", "weapon_famas", "weapon_ak47", "weapon_m4a1", "weapon_sg552", "weapon_aug",
+				"weapon_scout", "weapon_sg550", "weapon_g3sg1", "weapon_awp",
+				"weapon_m249", "weapon_knife", "weapon_c4", 
+				"weapon_hegrenade", "weapon_flashbang", "weapon_smokegrenade", "item_nvgs", "item_kevlar"
+			};
+
 			char sClassname[64];
 			int iMaxEntities = GetMaxEntities();
-			for (int entites = 0; entites <= iMaxEntities; entites++)
+			for (int entitiy = 0; entity <= iMaxEntities; entity++)
 			{
-				if (!IsValidEntity(entites))
+				if (!IsValidEntity(entity))
 					continue;
 
-				GetEntityClassname(entites, sClassname, sizeof(sClassname));
+				GetEntityClassname(entity, sClassname, sizeof(sClassname));
 
-				if (g_hEntitiesListToKill.GetValue(sClassname, dummy))
-					AcceptEntityInput(entites, "Kill");
+				for (int j = 0; j < sizeof(sSafeEntitiesToKill); j++)
+				{
+					if (strcmp(sClassname, sSafeEntitiesToKill[j]) == 0)
+					{
+						AcceptEntityInput(entity, "Kill");
+						break;
+					}
+				}
 			}
 		}
 
@@ -1408,10 +1398,19 @@ public Action Command_FakeCommand(int client, int argc)
 	}
 
 	bool bCanServerExecute = false;
-	bool dummy;
-	if (g_hServerCanExecuteCmds.GetValue(sArg2, dummy))
+	char sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
+											"slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
+											"slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
+											"invnext", "play", "invprev", "sndplaydelay", "lastinv", "dsp_player",
+											"name", "redirect", "retry", "r_cleardecals", "echo", "soundfade" };
+
+	for (int i = 0; i < sizeof(sServerCanExecuteCmds); i++) 
 	{
-		bCanServerExecute = true;
+		if (strcmp(sArg2, sServerCanExecuteCmds[i]) == 0)
+		{
+			bCanServerExecute = true;
+			break;
+		}
 	}
 
 	for (int i = 0; i < iTargetCount; i++)
@@ -1472,12 +1471,17 @@ public Action Command_Shuffle(int client, int args)
 	int m = 0, c1 = 0, c2 = 0;
 	int pl1[MAX_CLIENTS], pl2[MAX_CLIENTS];
 	for (int i = 1; i <= MaxClients; i++)
+	{
 		if (IsClientInGame(i))
+		{
 			switch (GetClientTeam(i))
 			{
 				case CS_TEAM_T: pl1[c1++] = i;
 				case CS_TEAM_CT: pl2[c2++] = i;
 			}
+		}
+	}
+	
 	m = c1-- + c2--;
 	if (m < 2) return Plugin_Handled;
 
@@ -1599,7 +1603,8 @@ public Action Command_Teleport(int client, int args)
 		char cl[MAX_NAME];
 		GetCmdArg(2, cl, sizeof(cl));
 		int tgt = FindTarget(client, cl);
-		if ((tgt != -1) && IsValidEntity(tgt)) GetEntPropVector(tgt, Prop_Send, "m_vecOrigin", origin);
+		if ((tgt != -1) && IsValidEntity(tgt)) 
+			GetEntPropVector(tgt, Prop_Send, "m_vecOrigin", origin);
 		else
 		{
 			CReplyToCommand(client, "{green}[SM]{default} Invalid target.");
@@ -1715,12 +1720,17 @@ public Action Command_ForceSpec(int client, int args)
 public Action Command_TeamSwap(int client, int args)
 {
 	for (int i = 1; i <= MaxClients; i++)
+	{
 		if (IsClientInGame(i))
+		{
 			switch (GetClientTeam(i))
 			{
 				case CS_TEAM_T: ChangeClientTeam(i, CS_TEAM_CT);
 				case CS_TEAM_CT: ChangeClientTeam(i, CS_TEAM_T);
 			}
+		}
+	}
+
 	int ts = GetTeamScore(CS_TEAM_T);
 	SetTeamScore(CS_TEAM_T, GetTeamScore(CS_TEAM_CT));
 	SetTeamScore(CS_TEAM_CT, ts);
@@ -1830,10 +1840,10 @@ public Action Command_God(int client, int args)
 	int  iTargetCount;
 
 	if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
-		{
-			ReplyToTargetError(client, iTargetCount);
-			return Plugin_Handled;
-		}
+	{
+		ReplyToTargetError(client, iTargetCount);
+		return Plugin_Handled;
+	}
 
 	for (int i = 0; i < iTargetCount; i++)
 	{
@@ -1873,50 +1883,6 @@ public Action Command_Uptime(int client, int args)
 //--------------------------------------
 // Functions
 //--------------------------------------
-
-stock void InitStringMap()
-{
-	char sServerCanExecuteCmds[][] = { "cl_soundscape_flush", "r_screenoverlay", "playgamesound",
-											"slot0", "slot1", "slot2", "slot3", "slot4", "slot5", "slot6",
-											"slot7", "slot8", "slot9", "slot10", "cl_spec_mode", "cancelselect",
-											"invnext", "play", "invprev", "sndplaydelay", "lastinv", "dsp_player",
-											"name", "redirect", "retry", "r_cleardecals", "echo", "soundfade" };
-
-	if (g_hServerCanExecuteCmds == null)
-		g_hServerCanExecuteCmds = new StringMap();
-
-	for (int i = 0; i < sizeof(sServerCanExecuteCmds); i++)
-	{
-		g_hServerCanExecuteCmds.SetValue(sServerCanExecuteCmds[i], true);
-	}
-
-	char sSafeEntitiesToKill[][] = {
-		"env_beam", "env_entity_maker", "env_explosion", "env_fade", "env_shake", "env_spark", "env_sprite",
-		"func_breakable", "func_button", "func_door", "func_door_rotating", "func_movelinear", "func_physbox", "func_physbox_multiplayer", "func_reflective_glass", "func_rotating",
-		"game_text",
-		"info_particle_system", "info_teleport_destination",
-		"phys_keepupright", "phys_thruster",
-		"point_hurt", "point_spotlight", "point_teleport",
-		"prop_dynamic", "prop_dynamic_override", "prop_physics", "prop_physics_multiplayer", "prop_physics_override",
-		"trigger_hurt", "trigger_multiple", "trigger_once", "trigger_push", "trigger_teleport",
-		"weapon_glock", "weapon_usp", "weapon_deagle", "weapon_elite", "weapon_p228", "weapon_fiveseven",
-		"weapon_m3", "weapon_xm1014",
-		"weapon_mac10", "weapon_tmp", "weapon_mp5navy", "weapon_ump45", "weapon_p90",
-		"weapon_galil", "weapon_famas", "weapon_ak47", "weapon_m4a1", "weapon_sg552", "weapon_aug",
-		"weapon_scout", "weapon_sg550", "weapon_g3sg1", "weapon_awp",
-		"weapon_m249", "weapon_knife", "weapon_c4", 
-		"weapon_hegrenade", "weapon_flashbang", "weapon_smokegrenade", "item_nvgs", "item_kevlar"
-	};
-
-	if (g_hEntitiesListToKill == null)
-		g_hEntitiesListToKill = new StringMap();
-
-	for (int i = 0; i < sizeof(sSafeEntitiesToKill); i++)
-	{
-		g_hEntitiesListToKill.SetValue(sSafeEntitiesToKill[i], true);
-	}
-}
-
 int abs(int val)
 {
 	return (val < 0) ? -val : val;
@@ -1926,7 +1892,9 @@ void Balance(bool dead)
 {
 	int n1 = 0, n2 = 0, nf1 = 0, nf2 = 0, nd1 = 0, nd2 = 0;
 	for (int i = 1; i <= MaxClients; i++)
+	{
 		if (IsClientInGame(i))
+		{
 			switch (GetClientTeam(i))
 			{
 				case CS_TEAM_T:
@@ -1942,6 +1910,9 @@ void Balance(bool dead)
 					nd2 += GetClientDeaths(i);
 				}
 			}
+		}
+	}
+
 	int st = CS_TEAM_CT, mt = CS_TEAM_T, dn = abs(n1 - n2), df = 0, dd = 0;
 	if (n1 > n2)
 	{
@@ -1954,10 +1925,12 @@ void Balance(bool dead)
 		dd     = abs(nd1 - nd2) / 2;
 		int mi = 0, mf = 2047, md = 2047;
 		for (int i = 1; i <= MaxClients; i++)
+		{
 			if (IsClientInGame(i) && (GetClientTeam(i) == st) && (!dead || (dead && !IsPlayerAlive(i))))
 			{
 				AdminId admid = GetUserAdmin(i);
-				if (admid != INVALID_ADMIN_ID) continue;
+				if (admid != INVALID_ADMIN_ID)
+					continue;
 				int cdf = abs(GetClientFrags(i) - df);
 				int cdd = abs(GetClientDeaths(i) - dd);
 				if ((cdf < mf) || ((cdf == mf) && (cdd < md)))
@@ -1967,6 +1940,8 @@ void Balance(bool dead)
 					md = cdd;
 				}
 			}
+		}
+
 		if (mi && IsClientInGame(mi))
 		{
 			ChangeClientTeam(mi, mt);
