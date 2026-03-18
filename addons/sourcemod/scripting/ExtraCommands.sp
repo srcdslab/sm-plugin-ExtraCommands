@@ -41,7 +41,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.13",
+	version     = "2.7.14",
 	url         = ""
 };
 
@@ -243,9 +243,6 @@ public void OnClientDisconnect(int client)
 {
 	g_bInBuyZone[client] = false;
 	g_bInfAmmo[client]   = false;
-
-	SDKUnhook(client, SDKHook_PreThink, OnPreThink);
-	SDKUnhook(client, SDKHook_PostThinkPost, OnPostThinkPost);
 }
 
 public void OnPreThink(int client)
