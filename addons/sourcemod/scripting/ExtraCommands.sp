@@ -128,21 +128,6 @@ public void OnPluginStart()
 	}
 }
 
-public void OnPluginEnd()
-{
-	for (int i = 1; i <= MaxClients; i++)
-	{
-		SDKUnhook(i, SDKHook_PreThink, OnPreThink);
-		SDKUnhook(i, SDKHook_PostThinkPost, OnPostThinkPost);
-	}
-
-	if (g_hServerCanExecuteCmds != null)
-		delete g_hServerCanExecuteCmds;
-
-	if (g_hEntitiesListToKill != null)
-		delete g_hEntitiesListToKill;
-}
-
 public void OnMapStart()
 {
 	g_bInBuyZoneAll = false;
