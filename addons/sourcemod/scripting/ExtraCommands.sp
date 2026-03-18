@@ -41,7 +41,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.13",
+	version     = "2.7.14",
 	url         = ""
 };
 
@@ -126,21 +126,6 @@ public void OnPluginStart()
 			}
 		}
 	}
-}
-
-public void OnPluginEnd()
-{
-	for (int i = 1; i <= MaxClients; i++)
-	{
-		SDKUnhook(i, SDKHook_PreThink, OnPreThink);
-		SDKUnhook(i, SDKHook_PostThinkPost, OnPostThinkPost);
-	}
-
-	if (g_hServerCanExecuteCmds != null)
-		delete g_hServerCanExecuteCmds;
-
-	if (g_hEntitiesListToKill != null)
-		delete g_hEntitiesListToKill;
 }
 
 public void OnMapStart()
@@ -243,9 +228,6 @@ public void OnClientDisconnect(int client)
 {
 	g_bInBuyZone[client] = false;
 	g_bInfAmmo[client]   = false;
-
-	SDKUnhook(client, SDKHook_PreThink, OnPreThink);
-	SDKUnhook(client, SDKHook_PostThinkPost, OnPostThinkPost);
 }
 
 public void OnPreThink(int client)
