@@ -8,14 +8,13 @@ This repository contains **ExtraCommands**, a comprehensive SourceMod plugin tha
 - **Language:** SourcePawn
 - **Target Platform:** SourceMod 1.11+ for Source engine games (minimum 1.12+ recommended)
 - **Plugin Type:** Single-file admin utility plugin (~2000 lines)
-- **Build System:** SourceKnight with automated CI/CD
+- **Build System:** Native GitHub Actions (rumblefrog/setup-sp) with automated CI/CD
 
 ## Project Structure
 
 ```
 addons/sourcemod/scripting/
 ├── ExtraCommands.sp          # Main plugin source (single file)
-sourceknight.yaml            # Build configuration and dependencies
 .github/
 ├── workflows/ci.yml         # CI/CD pipeline
 └── dependabot.yml          # Dependency management
@@ -24,11 +23,11 @@ sourceknight.yaml            # Build configuration and dependencies
 ## Development Environment Setup
 
 ### Build System
-The project uses **SourceKnight** for building:
-- Configuration in `sourceknight.yaml`
-- Dependencies: SourceMod 1.11.0, MultiColors, ZombieReloaded (optional)
+The project uses a native **GitHub Actions** workflow for building:
+- Configuration in `.github/workflows/ci.yml`
+- Compiler: `rumblefrog/setup-sp` pinned to SourceMod 1.12.x
+- Dependencies: MultiColors, ZombieReloaded (cloned and copied into `include/` during CI)
 - Output: Compiled `.smx` plugins in `/addons/sourcemod/plugins`
-- Build command: `sourceknight build` (handled by CI)
 
 ### Dependencies
 1. **SourceMod 1.11.0-git6934** - Core SourceMod framework (minimum 1.12+ recommended for production)
@@ -203,7 +202,7 @@ if (value < 0 || value > MAX_VALUE)
 ## Testing & Validation
 
 ### Local Testing Strategy
-1. **Syntax Validation:** SourceKnight build process checks compilation
+1. **Syntax Validation:** GitHub Actions build process checks compilation
 2. **Plugin Loading:** Test on development server with `-insecure` flag
 3. **Command Testing:** Systematically test each command category:
    - Player manipulation: `sm_hp`, `sm_armor`, `sm_weapon`, `sm_respawn`
@@ -237,7 +236,7 @@ sm_fakecommand <target> <cmd>  // Execute as client
 
 ### Automated Testing
 - **CI Pipeline:** GitHub Actions builds on every commit
-- **Build Validation:** SourceKnight verifies dependencies and compilation
+- **Build Validation:** Native GitHub Actions workflow verifies dependencies and compilation
 - **Artifact Generation:** Compiled `.smx` files available for download
 - **Release Automation:** Tags and releases created automatically on main branch
 
@@ -320,11 +319,11 @@ PrintToChat(client, "Debug: %s", someString);
 4. **Command Registration:** Ensure unique command names and proper syntax strings
 
 ### Build Issues
-- **SourceKnight Errors:** Check `sourceknight.yaml` dependency versions and URLs
+- **Compiler Errors:** Check `.github/workflows/ci.yml` dependency clone URLs and setup-sp version
 - **Missing Includes:** Verify MultiColors and ZombieReloaded dependencies are accessible
 - **Include Path Issues:** Ensure includes are in `/addons/sourcemod/scripting/include/`
-- **CI Failures:** Check GitHub Actions logs for specific SourceKnight error output
-- **Dependency Version Conflicts:** Update `sourceknight.yaml` if dependencies change
+- **CI Failures:** Check GitHub Actions logs for specific compiler error output
+- **Dependency Version Conflicts:** Update the dependency clone steps in `.github/workflows/ci.yml` if dependencies change
 
 ### Runtime Issues  
 - **Plugin Load Failures:** Check SourceMod logs for missing dependencies
@@ -338,9 +337,6 @@ PrintToChat(client, "Debug: %s", someString);
 # Check if includes are properly available  
 ls -la addons/sourcemod/scripting/include/multicolors.inc
 ls -la addons/sourcemod/scripting/include/zombiereloaded.inc
-
-# Verify SourceKnight dependencies
-sourceknight deps  # Check dependency status
 
 # Test compilation manually
 spcomp ExtraCommands.sp -i"include/" -o"compiled/ExtraCommands.smx"
@@ -371,7 +367,6 @@ spcomp ExtraCommands.sp -i"include/" -o"compiled/ExtraCommands.smx"
 
 - **SourceMod API:** https://sm.alliedmods.net/new-api/
 - **SourcePawn Syntax:** https://wiki.alliedmods.net/SourcePawn  
-- **SourceKnight:** Build tool for SourceMod plugins
 - **MultiColors Include:** https://github.com/srcdslab/sm-plugin-MultiColors
 - **ZombieReloaded Include:** https://github.com/srcdslab/sm-plugin-zombiereloaded
 
