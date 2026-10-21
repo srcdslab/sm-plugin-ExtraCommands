@@ -41,7 +41,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.14",
+	version     = "2.7.15",
 	url         = ""
 };
 
@@ -190,7 +190,7 @@ public Action Listener_Pause(int client, const char[] command, int argc)
 	return Plugin_Continue;
 }
 
-public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadcast)
+public Action Event_BombPlanted(Event event, const char[] name, bool dontBroadcast)
 {
 	for (int i = 1; i <= MaxClients; i++)
 	{
@@ -200,7 +200,7 @@ public Action Event_BombPlanted(Handle event, const char[] name, bool dontBroadc
 	return Plugin_Handled;
 }
 
-public Action Event_BombDefused(Handle event, const char[] name, bool dontBroadcast)
+public Action Event_BombDefused(Event event, const char[] name, bool dontBroadcast)
 {
 	for (int i = 1; i <= MaxClients; i++)
 	{
@@ -252,9 +252,9 @@ public void OnPostThinkPost(int client)
 	}
 }
 
-public void Event_WeaponFire(Handle hEvent, char[] name, bool dontBroadcast)
+public void Event_WeaponFire(Event hEvent, char[] name, bool dontBroadcast)
 {
-	int client = GetClientOfUserId(GetEventInt(hEvent, "userid"));
+	int client = GetClientOfUserId(hEvent.GetInt("userid"));
 	if (!g_bInfAmmoAll && !g_bInfAmmo[client])
 		return;
 
