@@ -20,6 +20,9 @@
 bool g_bInBuyZoneAll              = false;
 bool g_bInBuyZone[MAXPLAYERS + 1] = { false, ... };
 
+bool g_bPreThinkHooked[MAXPLAYERS + 1]      = { false, ... };
+bool g_bPostThinkPostHooked[MAXPLAYERS + 1] = { false, ... };
+
 bool g_bInfAmmoHooked           = false;
 bool g_bInfAmmoAll              = false;
 bool g_bInfAmmo[MAXPLAYERS + 1] = { false, ... };
@@ -41,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.15",
+	version     = "2.7.16",
 	url         = ""
 };
 
@@ -105,6 +108,8 @@ public void OnPluginStart()
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
 	g_CVar_sv_cleanonrr     = CreateConVar("sm_extracmds_slay_rr", "0", "Slay players before restarting the round [0 = Disabled | 1 = Enabled | 2 = Enabled + Clean temporary entities]", FCVAR_NOTIFY);
+
+	g_CVar_sv_bombanywhere.AddChangeHook(OnConVarChanged_BombAnywhere);
 
 	AutoExecConfig(true);
 
@@ -215,19 +220,64 @@ public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
 	g_bBlockRespawn = false;
 }
 
+public void OnConVarChanged_BombAnywhere(ConVar convar, const char[] oldValue, const char[] newValue)
+{
+	UpdateAllThinkHooks();
+}
+
 public void OnClientPutInServer(int client)
 {
 	g_bInBuyZone[client] = false;
 	g_bInfAmmo[client]   = false;
 
-	SDKHook(client, SDKHook_PreThink, OnPreThink);
-	SDKHook(client, SDKHook_PostThinkPost, OnPostThinkPost);
+	// Fresh player entity, nothing is hooked on it yet
+	g_bPreThinkHooked[client]      = false;
+	g_bPostThinkPostHooked[client] = false;
+	UpdateThinkHooks(client);
 }
 
 public void OnClientDisconnect(int client)
 {
 	g_bInBuyZone[client] = false;
 	g_bInfAmmo[client]   = false;
+
+	UpdateThinkHooks(client, true);
+}
+
+// The think hooks run every tick for every player, so only keep them
+// on the clients for which they actually have something to do.
+void UpdateThinkHooks(int client, bool bDisconnecting = false)
+{
+	bool bPreThink = !bDisconnecting && g_CVar_sv_bombanywhere.IntValue >= 1;
+	if (bPreThink != g_bPreThinkHooked[client])
+	{
+		if (bPreThink)
+			SDKHook(client, SDKHook_PreThink, OnPreThink);
+		else
+			SDKUnhook(client, SDKHook_PreThink, OnPreThink);
+
+		g_bPreThinkHooked[client] = bPreThink;
+	}
+
+	bool bPostThinkPost = !bDisconnecting && (g_bInBuyZoneAll || g_bInBuyZone[client]);
+	if (bPostThinkPost != g_bPostThinkPostHooked[client])
+	{
+		if (bPostThinkPost)
+			SDKHook(client, SDKHook_PostThinkPost, OnPostThinkPost);
+		else
+			SDKUnhook(client, SDKHook_PostThinkPost, OnPostThinkPost);
+
+		g_bPostThinkPostHooked[client] = bPostThinkPost;
+	}
+}
+
+void UpdateAllThinkHooks()
+{
+	for (int i = 1; i <= MaxClients; i++)
+	{
+		if (IsClientInGame(i))
+			UpdateThinkHooks(i);
+	}
 }
 
 public void OnPreThink(int client)
@@ -615,6 +665,8 @@ public Action Command_BuyZone(int client, int argc)
 			g_bInBuyZone[iTargets[i]] = value ? true : false;
 		}
 	}
+
+	UpdateAllThinkHooks();
 
 	CShowActivity2(client, "{green}[SM] {olive}", "{green}%s{default} permanent buyzone on {olive}%s{default}.", (value ? "Enabled" : "Disabled"), sTargetName);
 	LogAction(client, -1, "\"%L\" %s permanent buyzone on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
