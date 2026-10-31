@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.16",
+	version     = "2.7.17",
 	url         = ""
 };
 
@@ -57,6 +57,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 public void OnPluginStart()
 {
 	LoadTranslations("common.phrases");
+	LoadTranslations("ExtraCommands.phrases");
 
 	InitStringMap();
 
@@ -172,13 +173,13 @@ public Action Listener_Pause(int client, const char[] command, int argc)
 
 	if (!g_CVar_sv_pausable.BoolValue)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} \"sv_pausable\" is set to 0!");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Pausable Disabled");
 		return Plugin_Handled;
 	}
 
 	if (!IsClientAuthorized(client) || !GetAdminFlag(GetUserAdmin(client), Admin_Root))
 	{
-		CReplyToCommand(client, "{green}[SM]{default} You do not have permission to pause/unpause the game.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Pause No Permission");
 		return Plugin_Handled;
 	}
 
@@ -189,7 +190,7 @@ public Action Listener_Pause(int client, const char[] command, int argc)
 	else
 		bPaused = !bPaused;
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{red}%s the game.", bPaused ? "Paused" : "Unpaused");
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", bPaused ? "Game Paused" : "Game Unpaused");
 	LogAction(client, -1, "\"%L\" %s the game.", client, bPaused ? "Paused" : "Unpaused");
 
 	return Plugin_Continue;
@@ -353,7 +354,7 @@ public Action Command_Health(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_hp <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage HP");
 		return Plugin_Handled;
 	}
 
@@ -380,7 +381,7 @@ public Action Command_Health(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_iHealth", amount, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set health to {green}%d{default} on {olive}%s{default}.", amount, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Health", amount, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set health to \"%d\" on \"%s\"", client, amount, sTargetName);
@@ -394,7 +395,7 @@ public Action Command_Armor(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_armor <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Armor");
 		return Plugin_Handled;
 	}
 
@@ -421,7 +422,7 @@ public Action Command_Armor(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_ArmorValue", amount, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set kevlar to {green}%d{default} on {olive}%s{default}.", amount, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Armor", amount, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set kevlar to \"%d\" on \"%s\"", client, amount, sTargetName);
@@ -435,7 +436,7 @@ public Action Command_Weapon(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_weapon <#userid|name> <weapon> [clip] [ammo]");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Weapon");
 		return Plugin_Handled;
 	}
 
@@ -467,7 +468,7 @@ public Action Command_Weapon(int client, int argc)
 		{
 			if (strcmp(sWeapon, "weapon_c4", false) == 0 || strcmp(sWeapon, "weapon_smokegrenade", false) == 0 || strcmp(sWeapon, "item_defuser", false) == 0)
 			{
-				CReplyToCommand(client, "{green}[SM]{default} This weapon is restricted!");
+				CReplyToCommand(client, "{green}[SM]{default} %t", "Weapon Restricted");
 				return Plugin_Handled;
 			}
 		}
@@ -480,7 +481,7 @@ public Action Command_Weapon(int client, int argc)
 
 		if (StringToIntEx(sArgs3, clip) == 0)
 		{
-			CReplyToCommand(client, "{green}[SM]{default} Invalid Clip Value.");
+			CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Clip");
 			return Plugin_Handled;
 		}
 	}
@@ -492,7 +493,7 @@ public Action Command_Weapon(int client, int argc)
 
 		if (StringToIntEx(sArgs4, ammo) == 0)
 		{
-			CReplyToCommand(client, "{green}[SM]{default} Invalid Ammo Value.");
+			CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Ammo");
 			return Plugin_Handled;
 		}
 	}
@@ -533,7 +534,7 @@ public Action Command_Weapon(int client, int argc)
 
 			if (ent == -1)
 			{
-				CReplyToCommand(client, "{green}[SM]{default} Invalid Weapon.");
+				CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Weapon");
 				return Plugin_Handled;
 			}
 
@@ -561,7 +562,7 @@ public Action Command_Weapon(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Gave {green}%s{default} to {olive}%s{default}.", sWeapon, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Gave Weapon", sWeapon, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" gave \"%s\" to \"%s\"", client, sWeapon, sTargetName);
@@ -575,7 +576,7 @@ public Action Command_Strip(int client, int argc)
 {
 	if (argc < 1)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_strip <#userid|name>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Strip");
 		return Plugin_Handled;
 	}
 
@@ -610,7 +611,7 @@ public Action Command_Strip(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Stripped all weapons from {olive}%s{default}.", sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Stripped Weapons", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" stripped all weapons from \"%s\"", client, sTargetName);
@@ -624,7 +625,7 @@ public Action Command_BuyZone(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_buyzone <#userid|name> <0|1>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage BuyZone");
 		return Plugin_Handled;
 	}
 
@@ -637,7 +638,7 @@ public Action Command_BuyZone(int client, int argc)
 
 	if (StringToIntEx(sArgs2, value) == 0)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Invalid Value.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Value");
 		return Plugin_Handled;
 	}
 
@@ -668,7 +669,7 @@ public Action Command_BuyZone(int client, int argc)
 
 	UpdateAllThinkHooks();
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{green}%s{default} permanent buyzone on {olive}%s{default}.", (value ? "Enabled" : "Disabled"), sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "BuyZone Enabled" : "BuyZone Disabled"), sTargetName);
 	LogAction(client, -1, "\"%L\" %s permanent buyzone on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	return Plugin_Handled;
@@ -678,7 +679,7 @@ public Action Command_InfAmmo(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_iammo <#userid|name> <0|1>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage InfAmmo");
 		return Plugin_Handled;
 	}
 
@@ -691,7 +692,7 @@ public Action Command_InfAmmo(int client, int argc)
 
 	if (StringToIntEx(sArgs2, value) == 0)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Invalid Value.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Value");
 		return Plugin_Handled;
 	}
 
@@ -726,7 +727,7 @@ public Action Command_InfAmmo(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{green}%s{default} infinite ammo on {olive}%s{default}.", (value ? "Enabled" : "Disabled"), sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "InfAmmo Enabled" : "InfAmmo Disabled"), sTargetName);
 	LogAction(client, -1, "\"%L\" %s infinite ammo on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	if (g_bInfAmmoAll)
@@ -767,7 +768,7 @@ public Action Command_Speed(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_speed <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Speed");
 		return Plugin_Handled;
 	}
 
@@ -794,7 +795,7 @@ public Action Command_Speed(int client, int argc)
 		SetEntPropFloat(iTargets[i], Prop_Data, "m_flLaggedMovementValue", speed);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set speed to {green}%.2f{default} on {olive}%s{default}.", speed, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Speed", speed, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set speed to \"%.2f\" on \"%s\"", client, speed, sTargetName);
@@ -808,7 +809,7 @@ public Action Command_Respawn(int client, int argc)
 {
 	if (argc < 1)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_respawn <#userid|name>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Respawn");
 		return Plugin_Handled;
 	}
 
@@ -833,7 +834,7 @@ public Action Command_Respawn(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Respawned {olive}%s", buffer);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Respawned", buffer);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" respawned \"%s\"", client, buffer);
@@ -847,7 +848,7 @@ public Action Command_Team(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_team <#userid|name> <team>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Team");
 		return Plugin_Handled;
 	}
 
@@ -869,7 +870,7 @@ public Action Command_Team(int client, int argc)
 
 	if (StringToIntEx(sArgs2, iTeam) == 0 || iTeam < CS_TEAM_NONE || iTeam > CS_TEAM_CT)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Invalid Value.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Value");
 		return Plugin_Handled;
 	}
 
@@ -892,7 +893,7 @@ public Action Command_Team(int client, int argc)
 			ChangeClientTeam(iTargets[i], iTeam);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Changed {olive}%s{default} to team {green}%d{default}.", sTargetName, iTeam);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Changed Team", sTargetName, iTeam);
 	LogAction(client, -1, "\"%L\" changed team%s to %d on \"%s\"", client, bAlive ? " ALIVE" : "", iTeam, sTargetName);
 
 	return Plugin_Handled;
@@ -902,7 +903,7 @@ public Action Command_Cash(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_cash <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Cash");
 		return Plugin_Handled;
 	}
 
@@ -929,7 +930,7 @@ public Action Command_Cash(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_iAccount", iCash);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set cash to {green}%d{default} on {olive}%s{default}.", iCash, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Cash", iCash, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set cash to \"%d\" on \"%s\"", client, iCash, sTargetName);
@@ -943,7 +944,7 @@ public Action Command_ModelScale(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_resize/sm_modelscale <#userid|name> <scale>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage ModelScale");
 		return Plugin_Handled;
 	}
 
@@ -970,7 +971,7 @@ public Action Command_ModelScale(int client, int argc)
 		SetEntPropFloat(iTargets[i], Prop_Send, "m_flModelScale", fScale);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set model scale to {green}%.2f{default} on {olive}%s{default}.", fScale, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model Scale", fScale, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set model scale to \"%.2f\" on \"%s\"", client, fScale, sTargetName);
@@ -984,7 +985,7 @@ public Action Command_SetModel(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setmodel <#userid|name> <modelpath>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetModel");
 		return Plugin_Handled;
 	}
 
@@ -1006,13 +1007,13 @@ public Action Command_SetModel(int client, int argc)
 
 	if (!FileExists(sArgs2, true))
 	{
-		CReplyToCommand(client, "{green}[SM]{default} File {green}%s {default}does not exist.", sArgs2);
+		CReplyToCommand(client, "{green}[SM]{default} %t", "File Not Found", sArgs2);
 		return Plugin_Handled;
 	}
 
 	if (!IsModelPrecached(sArgs2))
 	{
-		CReplyToCommand(client, "{green}[SM]{default} File {green}%s {default}is not precached, attempting to precache now.", sArgs2);
+		CReplyToCommand(client, "{green}[SM]{default} %t", "File Not Precached", sArgs2);
 
 		PrecacheModel(sArgs2);
 	}
@@ -1022,7 +1023,7 @@ public Action Command_SetModel(int client, int argc)
 		SetEntityModel(iTargets[i], sArgs2);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set model to {green}%s{default} on {olive}%s{default}.", sArgs2, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model", sArgs2, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set model to \"%s\" on \"%s\"", client, sArgs2, sTargetName);
@@ -1036,7 +1037,7 @@ public Action Command_SetScore(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setscore <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetScore");
 		return Plugin_Handled;
 	}
 
@@ -1063,7 +1064,7 @@ public Action Command_SetScore(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Data, "m_iFrags", iVal);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set score to {green}%d{default} on {olive}%s{default}.", iVal, sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Score", iVal, sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set score to \"%d\" on \"%s\"", client, iVal, sTargetName);
@@ -1077,7 +1078,7 @@ public Action Command_SetDeaths(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setdeaths <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetDeaths");
 		return Plugin_Handled;
 	}
 
@@ -1106,12 +1107,12 @@ public Action Command_SetDeaths(int client, int argc)
 
 	if (iTargetCount > 1)
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set deaths to {green}%d{default} on {olive}%s{default}.", iVal, sTargetName);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
 		LogAction(client, -1, "\"%L\" set deaths to \"%d\" on \"%s\"", client, iVal, sTargetName);
 	}
 	else
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set deaths to {green}%d{default} on {olive}%s{default}.", iVal, sTargetName);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
 		LogAction(client, iTargets[0], "\"%L\" set deaths to \"%d\" on \"%L\"", client, iVal, iTargets[0]);
 	}
 
@@ -1122,7 +1123,7 @@ public Action Command_SetMvp(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setmvp <#userid|name> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetMvp");
 		return Plugin_Handled;
 	}
 
@@ -1151,12 +1152,12 @@ public Action Command_SetMvp(int client, int argc)
 
 	if (iTargetCount > 1)
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set MVP to {green}%d{default} on {olive}%s{default}.", iVal, sTargetName);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
 		LogAction(client, -1, "\"%L\" set MVP to \"%d\" on \"%s\"", client, iVal, sTargetName);
 	}
 	else
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set MVP to {green}%d{default} on {olive}%s{default}.", iVal, sTargetName);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
 		LogAction(client, iTargets[0], "\"%L\" set MVP to \"%d\" on \"%L\"", client, iVal, iTargets[0]);
 	}
 
@@ -1167,7 +1168,7 @@ public Action Command_SetTeamScore(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setteamscore <team> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetTeamScore");
 		return Plugin_Handled;
 	}
 
@@ -1184,7 +1185,7 @@ public Action Command_SetTeamScore(int client, int argc)
 		SetTeamScore(CS_TEAM_CT, iVal);
 		CS_SetTeamScore(CS_TEAM_CT, iVal);
 
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set team-score to {green}%d{default} for {blue}Humans{default}.", iVal);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Team Score Humans", iVal);
 		LogAction(client, -1, "\"%L\" set team-score to \"%d\" for \"Humans\"", client, iVal);
 	}
 	else if (strcmp(sArgs, "@t", false) == 0 || strcmp(sArgs, "@ts", false) == 0)
@@ -1192,12 +1193,12 @@ public Action Command_SetTeamScore(int client, int argc)
 		SetTeamScore(CS_TEAM_T, iVal);
 		CS_SetTeamScore(CS_TEAM_T, iVal);
 
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Set team-score to {green}%d{default} for {red}Zombies{default}.", iVal);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Team Score Zombies", iVal);
 		LogAction(client, -1, "\"%L\" set team-score to \"%d\" for \"Zombies\"", client, iVal);
 	}
 	else
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Invalid team.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Team");
 	}
 
 	return Plugin_Handled;
@@ -1243,7 +1244,7 @@ public Action Command_RestartRound(int client, int argc)
 
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Restarted the round. (in {olive}%0.1f seconds{default})", fDelay);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Round Restarted", fDelay);
 	LogAction(client, -1, "\"%L\" restarted the round (in %0.1f seconds)", client, fDelay);
 
 	return Plugin_Handled;
@@ -1263,7 +1264,7 @@ public Action Command_WAILA(int client, int argc)
 {
 	if (!client)
 	{
-		ReplyToCommand(client, "[SM] Cannot use this command from server console.");
+		ReplyToCommand(client, "[SM] %t", "Command is in-game only");
 		return Plugin_Handled;
 	}
 
@@ -1290,7 +1291,7 @@ public Action Command_WAILA(int client, int argc)
 
 		if ((iEntity = TR_GetEntityIndex(hTraceRay)) <= 0)
 		{
-			CPrintToChat(client, "{green}[SM]{default} Trace hit the world.");
+			CPrintToChat(client, "{green}[SM]{default} %t", "Trace Hit World");
 
 			delete hTraceRay;
 
@@ -1306,7 +1307,7 @@ public Action Command_WAILA(int client, int argc)
 
 		PrintToConsole(client, "Entity Index: %i\nHammer ID: %d\nTarget name: %s\nModel Path: %s\nModel Index: %i\nClass Name: %s\nNet Class Name: %s", iEntity, iHammerID, sTargetname, sModelPath, iEntityModelIdx, sClsName, sNetClsName);
 
-		CPrintToChat(client, "{green}[SM]{default} Trace hit something, check your console for more information.");
+		CPrintToChat(client, "{green}[SM]{default} %t", "Trace Hit Entity");
 
 		LogAction(client, -1, "\"%L\" used Waila. Trace hit something. \nEntity Index: %i\nHammer ID: %d\nTarget name: %s\nModel Path: %s\nModel Index: %i\nClass Name: %s\nNet Class Name: %s", client, iEntity, iHammerID, sTargetname, sModelPath, iEntityModelIdx, sClsName, sNetClsName);
 
@@ -1317,7 +1318,7 @@ public Action Command_WAILA(int client, int argc)
 
 	delete hTraceRay;
 
-	CPrintToChat(client, "{green}[SM]{default} Couldn't find anything under your crosshair.");
+	CPrintToChat(client, "{green}[SM]{default} %t", "Trace Hit Nothing");
 
 	return Plugin_Handled;
 }
@@ -1331,7 +1332,7 @@ public Action Command_ForceCVar(int client, int argc)
 {
 	if (argc < 3)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_fcvar <#userid|name> <cvar> <value>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage ForceCVar");
 		return Plugin_Handled;
 	}
 
@@ -1351,7 +1352,7 @@ public Action Command_ForceCVar(int client, int argc)
 
 	if (cvar == null)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} No such cvar.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "No Such Cvar");
 		return Plugin_Handled;
 	}
 
@@ -1366,7 +1367,7 @@ public Action Command_ForceCVar(int client, int argc)
 		cvar.ReplicateToClient(iTargets[i], sArg3);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} Force Cvar has been perfomed on {olive}%s {default}({green}%s %s{default}).", sTargetName, sArg2, sArg3);
+	CReplyToCommand(client, "{green}[SM]{default} %t", "Forced Cvar", sTargetName, sArg2, sArg3);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" forced a cvar on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
@@ -1380,7 +1381,7 @@ public Action Command_SetClanTag(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_setclantag <#userid|name> [text]");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage SetClanTag");
 		return Plugin_Handled;
 	}
 
@@ -1405,7 +1406,7 @@ public Action Command_SetClanTag(int client, int argc)
 		CS_SetClientClanTag(iTargets[i], sArg2);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} Successfully changed clantag of {olive}%s {default}to {green}%s{default}.", sTargetName, sArg2);
+	CReplyToCommand(client, "{green}[SM]{default} %t", "Clantag Changed", sTargetName, sArg2);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" changed clantag of \"%s\". (\"%s\")", client, sTargetName, sArg2);
@@ -1419,7 +1420,7 @@ public Action Command_FakeCommand(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_fakecommand <#userid|name> [command] [args]");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage FakeCommand");
 		return Plugin_Handled;
 	}
 
@@ -1456,7 +1457,7 @@ public Action Command_FakeCommand(int client, int argc)
 			FakeClientCommand(iTargets[i], "%s %s", sArg2, sArg3);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} Successfully faked command of {olive}%s {default}with {green}%s %s{default}.", sTargetName, sArg2, sArg3);
+	CReplyToCommand(client, "{green}[SM]{default} %t", "Command Faked", sTargetName, sArg2, sArg3);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" executed a fakecommand on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
@@ -1470,7 +1471,7 @@ public Action Command_QueryCVar(int client, int argc)
 {
 	if (argc < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_querycvar <#userid|name> [cvar]");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage QueryCVar");
 		return Plugin_Handled;
 	}
 
@@ -1485,7 +1486,7 @@ public Action Command_QueryCVar(int client, int argc)
 		return Plugin_Handled;
 
 	if (QueryClientConVar(iTarget, sArg2, ConVarQueryFinished_QueryCVar, client) == QUERYCOOKIE_FAILED)
-		CReplyToCommand(client, "{green}[SM]{default} Failed to query cvar {green}%s{default}.", sArg2);
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Query Failed", sArg2);
 
 	LogAction(client, -1, "\"%L\" query the cvar of \"%L\". (\"%s\")", client, iTarget, sArg2);
 
@@ -1496,7 +1497,7 @@ public Action Command_Balance(int client, int args)
 {
 	Balance(false);
 	LogAction(client, -1, "\"%L\" balanced teams", client);
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}has balanced the team.");
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teams Balanced");
 	return Plugin_Handled;
 }
 
@@ -1533,7 +1534,7 @@ public Action Command_Shuffle(int client, int args)
 		}
 	}
 	LogAction(client, -1, "\"%L\" shuffled teams", client);
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Shuffled teams.");
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teams Shuffled");
 	return Plugin_Handled;
 }
 
@@ -1559,7 +1560,7 @@ public Action Command_Location(int client, int args)
 		{
 			int t = targets[i];
 			GetEntPropVector(t, Prop_Send, "m_vecOrigin", origin);
-			CShowActivity2(client, "{green}[SM] {olive}", "{default}Location of player {olive}%L {default}is {green}%f %f %f", t, origin[0], origin[1], origin[2]);
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Player Location", t, origin[0], origin[1], origin[2]);
 		}
 
 		LogAction(client, -1, "\"%L\" checked the location of player \"%s\".", client, buffer);
@@ -1567,12 +1568,12 @@ public Action Command_Location(int client, int args)
 	else if (client)
 	{
 		GetEntPropVector(client, Prop_Send, "m_vecOrigin", origin);
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Location of player {olive}%L {default}is {green}%f %f %f", client, origin[0], origin[1], origin[2]);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Player Location", client, origin[0], origin[1], origin[2]);
 		LogAction(client, -1, "\"%L\" checked the location of himself. (%f %f %f)", client, origin[0], origin[1], origin[2]);
 	}
 	else
 	{
-		ReplyToCommand(client, "[SM] Cannot use this command from server console.");
+		ReplyToCommand(client, "[SM] %t", "Command is in-game only");
 		return Plugin_Handled;
 	}
 	return Plugin_Handled;
@@ -1600,11 +1601,11 @@ public Action Command_SaveLoc(int client, int args)
 	}
 	else
 	{
-		ReplyToCommand(client, "[SM] Cannot use this command from server console.");
+		ReplyToCommand(client, "[SM] %t", "Command is in-game only");
 		return Plugin_Handled;
 	}
 
-	CPrintToChat(client, "{green}[SM]{default} Location %f %f %f saved", coords[client][0], coords[client][1], coords[client][2]);
+	CPrintToChat(client, "{green}[SM]{default} %t", "Location Saved", coords[client][0], coords[client][1], coords[client][2]);
 
 	return Plugin_Handled;
 }
@@ -1613,7 +1614,7 @@ public Action Command_Teleport(int client, int args)
 {
 	if (args < 1)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_teleport <target> [x|client] [y] [z]");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Teleport");
 		return Plugin_Handled;
 	}
 
@@ -1636,7 +1637,7 @@ public Action Command_Teleport(int client, int args)
 		if ((tgt != -1) && IsValidEntity(tgt)) GetEntPropVector(tgt, Prop_Send, "m_vecOrigin", origin);
 		else
 		{
-			CReplyToCommand(client, "{green}[SM]{default} Invalid target.");
+			CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Target");
 			return Plugin_Handled;
 		}
 	}
@@ -1664,7 +1665,7 @@ public Action Command_Teleport(int client, int args)
 		TeleportEntity(t, origin, NULL_VECTOR, NULL_VECTOR);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Teleported player {olive}%s {default}to {green}%.1f %.1f %.1f", buffer, origin[0], origin[1], origin[2]);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teleported Player", buffer, origin[0], origin[1], origin[2]);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" teleported player \"%s\" to %.1f %.1f %.1f", client, buffer, origin[0], origin[1], origin[2]);
@@ -1678,7 +1679,7 @@ public Action Command_GetModel(int client, int args)
 {
 	if (args < 1)
 	{
-		ReplyToCommand(client, "[SM] Usage: sm_getmodel <target>");
+		ReplyToCommand(client, "[SM] %t", "Usage GetModel");
 		return Plugin_Handled;
 	}
 	char pattern[MAX_NAME], buffer[PLATFORM_MAX_PATH];
@@ -1697,7 +1698,7 @@ public Action Command_GetModel(int client, int args)
 	{
 		int t = targets[i];
 		GetClientModel(t, buffer, sizeof(buffer));
-		CShowActivity2(client, "{green}[SM] {olive}", "{default}Model of player {olive}%L {default}is {green}%s{default}.", t, buffer);
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Player Model", t, buffer);
 	}
 
 	if(count > 1)
@@ -1712,7 +1713,7 @@ public Action Command_ForceSpec(int client, int args)
 {
 	if (args < 1)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Moves target to spectator mode\nUsage: sm_forcespec <target>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage ForceSpec");
 		return Plugin_Handled;
 	}
 	char pattern[MAX_NAME], buffer[MAX_NAME];
@@ -1736,7 +1737,7 @@ public Action Command_ForceSpec(int client, int args)
 		ChangeClientTeam(t, CS_TEAM_SPECTATOR);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Moved {olive}%s {default}to Spectators.", buffer);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Moved To Spectators", buffer);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" moved \"%s\" to spectators", client, buffer);
@@ -1759,7 +1760,7 @@ public Action Command_TeamSwap(int client, int args)
 	SetTeamScore(CS_TEAM_T, GetTeamScore(CS_TEAM_CT));
 	SetTeamScore(CS_TEAM_CT, ts);
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Swapped teams.");
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teams Swapped");
 	LogAction(client, -1, "\"%L\" swapped teams", client);
 	return Plugin_Handled;
 }
@@ -1768,7 +1769,7 @@ public Action Command_NV(int client, int args)
 {
 	if (args < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_nv <target> <0|1>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage NV");
 		return Plugin_Handled;
 	}
 	char pattern[MAX_NAME], buffer[MAX_NAME], nvs[MAX_ID];
@@ -1791,7 +1792,7 @@ public Action Command_NV(int client, int args)
 		SetEntProp(t, Prop_Send, "m_bHasNightVision", nv ? 1 : 0, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set nightvision of {olive}%s {default}to {green}%d{default}.", buffer, nv);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Nightvision", buffer, nv);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" set nightvision of \"%s\" to %d", client, buffer, nv);
@@ -1805,7 +1806,7 @@ public Action Command_Defuser(int client, int args)
 {
 	if (args < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_defuser <target> <0|1>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage Defuser");
 		return Plugin_Handled;
 	}
 	char pattern[MAX_NAME], buffer[MAX_NAME], def[MAX_ID];
@@ -1829,7 +1830,7 @@ public Action Command_Defuser(int client, int args)
 			SetEntProp(t, Prop_Send, "m_bHasDefuser", df ? 1 : 0, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{default}Set defuser of {olive}%s {default}to {green}%d{default}.", buffer, df);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Defuser", buffer, df);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" set defuser of \"%s\" to %d", client, buffer, df);
@@ -1843,7 +1844,7 @@ public Action Command_God(int client, int args)
 {
 	if (args < 2)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Usage: sm_god <target> <0|1>");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Usage God");
 		return Plugin_Handled;
 	}
 
@@ -1854,7 +1855,7 @@ public Action Command_God(int client, int args)
 	int  value = -1;
 	if (StringToIntEx(sArgs2, value) == 0)
 	{
-		CReplyToCommand(client, "{green}[SM]{default} Invalid Value.");
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Invalid Value");
 		return Plugin_Handled;
 	}
 
@@ -1874,7 +1875,7 @@ public Action Command_God(int client, int args)
 		SetEntProp(iTargets[i], Prop_Data, "m_takedamage", gd ? 0 : 2, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "{green}%s{default} godmode on {olive}%s{default}.", (value ? "Enabled" : "Disabled"), sTargetName);
+	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "God Enabled" : "God Disabled"), sTargetName);
 	LogAction(client, -1, "\"%L\" %s godmode on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	return Plugin_Handled;
@@ -1882,7 +1883,7 @@ public Action Command_God(int client, int args)
 
 public Action Command_Uptime(int client, int args)
 {
-	char UpTime[128];
+	char UpTime[256];
 	int ServerUpTime = RoundToFloor(GetEngineTime());
 	
 	int Days = ServerUpTime / 60 / 60 / 24;
@@ -1897,8 +1898,8 @@ public Action Command_Uptime(int client, int args)
 	}
 	else
 	{
-		FormatEx(UpTime, sizeof(UpTime), "{green}%d {default}Days {green}%02d {default}Hours {green}%02d {default}Minutes {green}%02d {default}Seconds.", Days, Hours, Mins, Secs);
-		CReplyToCommand(client, "{green}[SM] {default}Server uptime: %s", UpTime);
+		FormatEx(UpTime, sizeof(UpTime), "%T", "Uptime Value", client, Days, Hours, Mins, Secs);
+		CReplyToCommand(client, "{green}[SM] {default}%t", "Server Uptime", UpTime);
 	}
 
 	return Plugin_Handled;
@@ -2004,7 +2005,7 @@ void Balance(bool dead)
 		if (mi && IsClientInGame(mi))
 		{
 			ChangeClientTeam(mi, mt);
-			CPrintToChat(mi, "{green}[SM]{default} You have been moved to balance teams");
+			CPrintToChat(mi, "{green}[SM]{default} %t", "Moved To Balance");
 		}
 	}
 }
@@ -2015,22 +2016,22 @@ public void ConVarQueryFinished_QueryCVar(QueryCookie hCookie, int client, ConVa
 	{
 		case ConVarQuery_NotFound:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} No such cvar.");
+			CReplyToCommand(admin, "{green}[SM]{default} %t", "No Such Cvar");
 			return;
 		}
 		case ConVarQuery_NotValid:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} Commands can not be queried.");
+			CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Not Valid");
 			return;
 		}
 		case ConVarQuery_Protected:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} That cvar is protected and can not be queried.");
+			CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Protected");
 			return;
 		}
 	}
 
-	CReplyToCommand(admin, "{green}[SM]{default} Value for cvar \"%s\" on client \"%N\" is \"%s\".", sCVarName, client, sCVarValue);
+	CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Result", sCVarName, client, sCVarValue);
 }
 
 stock any clamp(any input, any min, any max)
