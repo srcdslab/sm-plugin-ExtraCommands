@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.17",
+	version     = "2.7.18",
 	url         = ""
 };
 
@@ -381,7 +381,10 @@ public Action Command_Health(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_iHealth", amount, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Health", amount, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Health", amount, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Health", amount, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set health to \"%d\" on \"%s\"", client, amount, sTargetName);
@@ -422,7 +425,10 @@ public Action Command_Armor(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_ArmorValue", amount, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Armor", amount, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Armor", amount, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Armor", amount, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set kevlar to \"%d\" on \"%s\"", client, amount, sTargetName);
@@ -562,7 +568,10 @@ public Action Command_Weapon(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Gave Weapon", sWeapon, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Gave Weapon", sWeapon, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Gave Weapon", sWeapon, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" gave \"%s\" to \"%s\"", client, sWeapon, sTargetName);
@@ -611,7 +620,10 @@ public Action Command_Strip(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Stripped Weapons", sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Stripped Weapons", sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Stripped Weapons", "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" stripped all weapons from \"%s\"", client, sTargetName);
@@ -643,17 +655,18 @@ public Action Command_BuyZone(int client, int argc)
 	}
 
 	char sTargetName[MAX_TARGET_LENGTH];
+	bool bIsML;
 
 	if (strcmp(sArgs, "@all", false) == 0)
 	{
 		sTargetName     = "all players";
+		bIsML           = true;
 		g_bInBuyZoneAll = value ? true : false;
 	}
 	else
 	{
 		int  iTargets[MAXPLAYERS];
 		int  iTargetCount;
-		bool bIsML;
 
 		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 		{
@@ -669,7 +682,10 @@ public Action Command_BuyZone(int client, int argc)
 
 	UpdateAllThinkHooks();
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "BuyZone Enabled" : "BuyZone Disabled"), sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "BuyZone Enabled" : "BuyZone Disabled"), sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "BuyZone Enabled" : "BuyZone Disabled"), "_s", sTargetName);
 	LogAction(client, -1, "\"%L\" %s permanent buyzone on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	return Plugin_Handled;
@@ -697,10 +713,12 @@ public Action Command_InfAmmo(int client, int argc)
 	}
 
 	char sTargetName[MAX_TARGET_LENGTH];
+	bool bIsML;
 
 	if (strcmp(sArgs, "@all", false) == 0)
 	{
 		sTargetName   = "all players";
+		bIsML         = true;
 		g_bInfAmmoAll = value ? true : false;
 
 		if (!g_bInfAmmoAll)
@@ -713,7 +731,6 @@ public Action Command_InfAmmo(int client, int argc)
 	{
 		int  iTargets[MAXPLAYERS];
 		int  iTargetCount;
-		bool bIsML;
 
 		if ((iTargetCount = ProcessTargetString(sArgs, client, iTargets, MAXPLAYERS, COMMAND_FILTER_ALIVE | COMMAND_FILTER_NO_IMMUNITY, sTargetName, sizeof(sTargetName), bIsML)) <= 0)
 		{
@@ -727,7 +744,10 @@ public Action Command_InfAmmo(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "InfAmmo Enabled" : "InfAmmo Disabled"), sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "InfAmmo Enabled" : "InfAmmo Disabled"), sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "InfAmmo Enabled" : "InfAmmo Disabled"), "_s", sTargetName);
 	LogAction(client, -1, "\"%L\" %s infinite ammo on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	if (g_bInfAmmoAll)
@@ -795,7 +815,10 @@ public Action Command_Speed(int client, int argc)
 		SetEntPropFloat(iTargets[i], Prop_Data, "m_flLaggedMovementValue", speed);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Speed", speed, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Speed", speed, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Speed", speed, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set speed to \"%.2f\" on \"%s\"", client, speed, sTargetName);
@@ -834,7 +857,10 @@ public Action Command_Respawn(int client, int argc)
 		}
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Respawned", buffer);
+	if (ml)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Respawned", buffer);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Respawned", "_s", buffer);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" respawned \"%s\"", client, buffer);
@@ -893,7 +919,10 @@ public Action Command_Team(int client, int argc)
 			ChangeClientTeam(iTargets[i], iTeam);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Changed Team", sTargetName, iTeam);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Changed Team", sTargetName, iTeam);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Changed Team", "_s", sTargetName, iTeam);
 	LogAction(client, -1, "\"%L\" changed team%s to %d on \"%s\"", client, bAlive ? " ALIVE" : "", iTeam, sTargetName);
 
 	return Plugin_Handled;
@@ -930,7 +959,10 @@ public Action Command_Cash(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Send, "m_iAccount", iCash);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Cash", iCash, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Cash", iCash, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Cash", iCash, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set cash to \"%d\" on \"%s\"", client, iCash, sTargetName);
@@ -971,7 +1003,10 @@ public Action Command_ModelScale(int client, int argc)
 		SetEntPropFloat(iTargets[i], Prop_Send, "m_flModelScale", fScale);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model Scale", fScale, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model Scale", fScale, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model Scale", fScale, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set model scale to \"%.2f\" on \"%s\"", client, fScale, sTargetName);
@@ -1023,7 +1058,10 @@ public Action Command_SetModel(int client, int argc)
 		SetEntityModel(iTargets[i], sArgs2);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model", sArgs2, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model", sArgs2, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Model", sArgs2, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set model to \"%s\" on \"%s\"", client, sArgs2, sTargetName);
@@ -1064,7 +1102,10 @@ public Action Command_SetScore(int client, int argc)
 		SetEntProp(iTargets[i], Prop_Data, "m_iFrags", iVal);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Score", iVal, sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Score", iVal, sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Score", iVal, "_s", sTargetName);
 
 	if (iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" set score to \"%d\" on \"%s\"", client, iVal, sTargetName);
@@ -1107,12 +1148,18 @@ public Action Command_SetDeaths(int client, int argc)
 
 	if (iTargetCount > 1)
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
+		if (bIsML)
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
+		else
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, "_s", sTargetName);
 		LogAction(client, -1, "\"%L\" set deaths to \"%d\" on \"%s\"", client, iVal, sTargetName);
 	}
 	else
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
+		if (bIsML)
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, sTargetName);
+		else
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Deaths", iVal, "_s", sTargetName);
 		LogAction(client, iTargets[0], "\"%L\" set deaths to \"%d\" on \"%L\"", client, iVal, iTargets[0]);
 	}
 
@@ -1152,12 +1199,18 @@ public Action Command_SetMvp(int client, int argc)
 
 	if (iTargetCount > 1)
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
+		if (bIsML)
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
+		else
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, "_s", sTargetName);
 		LogAction(client, -1, "\"%L\" set MVP to \"%d\" on \"%s\"", client, iVal, sTargetName);
 	}
 	else
 	{
-		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
+		if (bIsML)
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, sTargetName);
+		else
+			CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set MVP", iVal, "_s", sTargetName);
 		LogAction(client, iTargets[0], "\"%L\" set MVP to \"%d\" on \"%L\"", client, iVal, iTargets[0]);
 	}
 
@@ -1367,7 +1420,10 @@ public Action Command_ForceCVar(int client, int argc)
 		cvar.ReplicateToClient(iTargets[i], sArg3);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} %t", "Forced Cvar", sTargetName, sArg2, sArg3);
+	if (bIsML)
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Forced Cvar", sTargetName, sArg2, sArg3);
+	else
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Forced Cvar", "_s", sTargetName, sArg2, sArg3);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" forced a cvar on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
@@ -1406,7 +1462,10 @@ public Action Command_SetClanTag(int client, int argc)
 		CS_SetClientClanTag(iTargets[i], sArg2);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} %t", "Clantag Changed", sTargetName, sArg2);
+	if (bIsML)
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Clantag Changed", sTargetName, sArg2);
+	else
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Clantag Changed", "_s", sTargetName, sArg2);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" changed clantag of \"%s\". (\"%s\")", client, sTargetName, sArg2);
@@ -1457,7 +1516,10 @@ public Action Command_FakeCommand(int client, int argc)
 			FakeClientCommand(iTargets[i], "%s %s", sArg2, sArg3);
 	}
 
-	CReplyToCommand(client, "{green}[SM]{default} %t", "Command Faked", sTargetName, sArg2, sArg3);
+	if (bIsML)
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Command Faked", sArg2, sArg3, sTargetName);
+	else
+		CReplyToCommand(client, "{green}[SM]{default} %t", "Command Faked", sArg2, sArg3, "_s", sTargetName);
 
 	if(iTargetCount > 1)
 		LogAction(client, -1, "\"%L\" executed a fakecommand on \"%s\". (\"%s\" \"%s\")", client, sTargetName, sArg2, sArg3);
@@ -1485,7 +1547,7 @@ public Action Command_QueryCVar(int client, int argc)
 	if ((iTarget = FindTarget(client, sArg, true)) <= 0)
 		return Plugin_Handled;
 
-	if (QueryClientConVar(iTarget, sArg2, ConVarQueryFinished_QueryCVar, client) == QUERYCOOKIE_FAILED)
+	if (QueryClientConVar(iTarget, sArg2, ConVarQueryFinished_QueryCVar, client ? GetClientUserId(client) : 0) == QUERYCOOKIE_FAILED)
 		CReplyToCommand(client, "{green}[SM]{default} %t", "Query Failed", sArg2);
 
 	LogAction(client, -1, "\"%L\" query the cvar of \"%L\". (\"%s\")", client, iTarget, sArg2);
@@ -1605,7 +1667,7 @@ public Action Command_SaveLoc(int client, int args)
 		return Plugin_Handled;
 	}
 
-	CPrintToChat(client, "{green}[SM]{default} %t", "Location Saved", coords[client][0], coords[client][1], coords[client][2]);
+	CReplyToCommand(client, "{green}[SM]{default} %t", "Location Saved", coords[client][0], coords[client][1], coords[client][2]);
 
 	return Plugin_Handled;
 }
@@ -1665,7 +1727,10 @@ public Action Command_Teleport(int client, int args)
 		TeleportEntity(t, origin, NULL_VECTOR, NULL_VECTOR);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teleported Player", buffer, origin[0], origin[1], origin[2]);
+	if (ml)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teleported Player", buffer, origin[0], origin[1], origin[2]);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Teleported Player", "_s", buffer, origin[0], origin[1], origin[2]);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" teleported player \"%s\" to %.1f %.1f %.1f", client, buffer, origin[0], origin[1], origin[2]);
@@ -1737,7 +1802,10 @@ public Action Command_ForceSpec(int client, int args)
 		ChangeClientTeam(t, CS_TEAM_SPECTATOR);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Moved To Spectators", buffer);
+	if (ml)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Moved To Spectators", buffer);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Moved To Spectators", "_s", buffer);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" moved \"%s\" to spectators", client, buffer);
@@ -1792,7 +1860,10 @@ public Action Command_NV(int client, int args)
 		SetEntProp(t, Prop_Send, "m_bHasNightVision", nv ? 1 : 0, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Nightvision", buffer, nv);
+	if (ml)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Nightvision", buffer, nv);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Nightvision", "_s", buffer, nv);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" set nightvision of \"%s\" to %d", client, buffer, nv);
@@ -1830,7 +1901,10 @@ public Action Command_Defuser(int client, int args)
 			SetEntProp(t, Prop_Send, "m_bHasDefuser", df ? 1 : 0, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Defuser", buffer, df);
+	if (ml)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Defuser", buffer, df);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", "Set Defuser", "_s", buffer, df);
 
 	if (count > 1)
 		LogAction(client, -1, "\"%L\" set defuser of \"%s\" to %d", client, buffer, df);
@@ -1875,7 +1949,10 @@ public Action Command_God(int client, int args)
 		SetEntProp(iTargets[i], Prop_Data, "m_takedamage", gd ? 0 : 2, 1);
 	}
 
-	CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "God Enabled" : "God Disabled"), sTargetName);
+	if (bIsML)
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "God Enabled" : "God Disabled"), sTargetName);
+	else
+		CShowActivity2(client, "{green}[SM] {olive}", "%t", (value ? "God Enabled" : "God Disabled"), "_s", sTargetName);
 	LogAction(client, -1, "\"%L\" %s godmode on \"%s\"", client, (value ? "enabled" : "disabled"), sTargetName);
 
 	return Plugin_Handled;
@@ -2010,28 +2087,44 @@ void Balance(bool dead)
 	}
 }
 
-public void ConVarQueryFinished_QueryCVar(QueryCookie hCookie, int client, ConVarQueryResult res, const char[] sCVarName, const char[] sCVarValue, int admin)
+public void ConVarQueryFinished_QueryCVar(QueryCookie hCookie, int client, ConVarQueryResult res, const char[] sCVarName, const char[] sCVarValue, int userid)
 {
+	int admin = GetClientOfUserId(userid);
+	if (userid && !admin)
+		return;
+
 	switch (res)
 	{
 		case ConVarQuery_NotFound:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} %t", "No Such Cvar");
+			if (admin)
+				CPrintToChat(admin, "{green}[SM]{default} %t", "No Such Cvar");
+			else
+				CPrintToServer("{green}[SM]{default} %t", "No Such Cvar");
 			return;
 		}
 		case ConVarQuery_NotValid:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Not Valid");
+			if (admin)
+				CPrintToChat(admin, "{green}[SM]{default} %t", "Query Not Valid");
+			else
+				CPrintToServer("{green}[SM]{default} %t", "Query Not Valid");
 			return;
 		}
 		case ConVarQuery_Protected:
 		{
-			CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Protected");
+			if (admin)
+				CPrintToChat(admin, "{green}[SM]{default} %t", "Query Protected");
+			else
+				CPrintToServer("{green}[SM]{default} %t", "Query Protected");
 			return;
 		}
 	}
 
-	CReplyToCommand(admin, "{green}[SM]{default} %t", "Query Result", sCVarName, client, sCVarValue);
+	if (admin)
+		CPrintToChat(admin, "{green}[SM]{default} %t", "Query Result", sCVarName, client, sCVarValue);
+	else
+		CPrintToServer("{green}[SM]{default} %t", "Query Result", sCVarName, client, sCVarValue);
 }
 
 stock any clamp(any input, any min, any max)
