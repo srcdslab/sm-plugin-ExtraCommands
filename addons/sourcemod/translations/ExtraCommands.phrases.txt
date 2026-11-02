@@ -836,6 +836,17 @@
 		"pt"		"{green}{1} {default}dias {green}{2} {default}horas {green}{3} {default}minutos {green}{4} {default}segundos."
 		"chi"		"{green}{1} {default}天 {green}{2} {default}小时 {green}{3} {default}分钟 {green}{4} {default}秒。"
 	}
+	"Uptime Value Plain"
+	{
+		"#format"	"{1:d},{2:02d},{3:02d},{4:02d}"
+		"en"		"{1} Days {2} Hours {3} Minutes {4} Seconds"
+		"fr"		"{1} jours {2} heures {3} minutes {4} secondes"
+		"ru"		"{1} д. {2} ч. {3} мин. {4} сек."
+		"es"		"{1} días {2} horas {3} minutos {4} segundos"
+		"de"		"{1} Tage {2} Stunden {3} Minuten {4} Sekunden"
+		"pt"		"{1} dias {2} horas {3} minutos {4} segundos"
+		"chi"		"{1} 天 {2} 小时 {3} 分钟 {4} 秒"
+	}
 	"Server Uptime"
 	{
 		"#format"	"{1:s}"

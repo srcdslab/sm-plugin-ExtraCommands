@@ -1970,8 +1970,8 @@ public Action Command_Uptime(int client, int args)
 
 	if (!client)
 	{
-		FormatEx(UpTime, sizeof(UpTime), "%d Days %02d Hours %02d Minutes %02d Seconds", Days, Hours, Mins, Secs);
-		ReplyToCommand(client, "[SM] Server uptime: %s", UpTime);
+		FormatEx(UpTime, sizeof(UpTime), "%T", "Uptime Value Plain", LANG_SERVER, Days, Hours, Mins, Secs);
+		ReplyToCommand(client, "[SM] %t", "Server Uptime", UpTime);
 	}
 	else
 	{
