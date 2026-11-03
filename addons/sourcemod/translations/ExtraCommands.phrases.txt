@@ -52,14 +52,14 @@
 	}
 	"Set Health"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set health to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis la vie de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis la vie à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил здоровье {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció la vida de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die Gesundheit von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu a vida de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的生命值设为 {green}{1}{default}。"
+		"es"		"{default}estableció la vida en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die Gesundheit auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu a vida em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将生命值设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage Armor"
 	{
@@ -73,14 +73,14 @@
 	}
 	"Set Armor"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set kevlar to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis le kevlar de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis le kevlar à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил броню {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció el kevlar de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat das Kevlar von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu o colete de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的护甲设为 {green}{1}{default}。"
+		"es"		"{default}estableció el kevlar en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat das Kevlar auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu o colete em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将护甲设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage Weapon"
 	{
@@ -134,14 +134,14 @@
 	}
 	"Gave Weapon"
 	{
-		"#format"	"{1:s},{2:s}"
+		"#format"	"{1:s},{2:t}"
 		"en"		"{default}Gave {green}{1}{default} to {olive}{2}{default}."
 		"fr"		"{default}a donné {green}{1}{default} à {olive}{2}{default}."
 		"ru"		"{default}выдал {green}{1}{default} для {olive}{2}{default}."
 		"es"		"{default}dio {green}{1}{default} a {olive}{2}{default}."
-		"de"		"{default}hat {olive}{2}{default} {green}{1}{default} gegeben."
+		"de"		"{default}hat {green}{1}{default} an {olive}{2}{default} gegeben."
 		"pt"		"{default}deu {green}{1}{default} para {olive}{2}{default}."
-		"chi"		"{default}给予了 {olive}{2}{default} {green}{1}{default}。"
+		"chi"		"{default}将 {green}{1}{default} 给予了 {olive}{2}{default}。"
 	}
 	"Usage Strip"
 	{
@@ -155,7 +155,7 @@
 	}
 	"Stripped Weapons"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{default}Stripped all weapons from {olive}{1}{default}."
 		"fr"		"{default}a retiré toutes les armes de {olive}{1}{default}."
 		"ru"		"{default}забрал всё оружие у {olive}{1}{default}."
@@ -186,7 +186,7 @@
 	}
 	"BuyZone Enabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Enabled{default} permanent buyzone on {olive}{1}{default}."
 		"fr"		"{green}a activé{default} la buyzone permanente pour {olive}{1}{default}."
 		"ru"		"{green}включил{default} постоянную зону закупки для {olive}{1}{default}."
@@ -197,7 +197,7 @@
 	}
 	"BuyZone Disabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Disabled{default} permanent buyzone on {olive}{1}{default}."
 		"fr"		"{green}a désactivé{default} la buyzone permanente pour {olive}{1}{default}."
 		"ru"		"{green}отключил{default} постоянную зону закупки для {olive}{1}{default}."
@@ -218,7 +218,7 @@
 	}
 	"InfAmmo Enabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Enabled{default} infinite ammo on {olive}{1}{default}."
 		"fr"		"{green}a activé{default} les munitions infinies pour {olive}{1}{default}."
 		"ru"		"{green}включил{default} бесконечные патроны для {olive}{1}{default}."
@@ -229,7 +229,7 @@
 	}
 	"InfAmmo Disabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Disabled{default} infinite ammo on {olive}{1}{default}."
 		"fr"		"{green}a désactivé{default} les munitions infinies pour {olive}{1}{default}."
 		"ru"		"{green}отключил{default} бесконечные патроны для {olive}{1}{default}."
@@ -250,14 +250,14 @@
 	}
 	"Set Speed"
 	{
-		"#format"	"{1:.2f},{2:s}"
+		"#format"	"{1:.2f},{2:t}"
 		"en"		"{default}Set speed to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis la vitesse de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis la vitesse à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил скорость {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció la velocidad de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die Geschwindigkeit von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu a velocidade de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的速度设为 {green}{1}{default}。"
+		"es"		"{default}estableció la velocidad en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die Geschwindigkeit auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu a velocidade em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将速度设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage Respawn"
 	{
@@ -271,7 +271,7 @@
 	}
 	"Respawned"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{default}Respawned {olive}{1}"
 		"fr"		"{default}a fait réapparaître {olive}{1}"
 		"ru"		"{default}возродил {olive}{1}"
@@ -282,17 +282,17 @@
 	}
 	"Usage Team"
 	{
-		"en"		"Usage: sm_team <#userid|name> <team>"
-		"fr"		"Utilisation : sm_team <#userid|name> <team>"
-		"ru"		"Использование: sm_team <#userid|name> <team>"
-		"es"		"Uso: sm_team <#userid|name> <team>"
-		"de"		"Verwendung: sm_team <#userid|name> <team>"
-		"pt"		"Uso: sm_team <#userid|name> <team>"
-		"chi"		"用法：sm_team <#userid|name> <team>"
+		"en"		"Usage: sm_team <#userid|name> <team> [alive]"
+		"fr"		"Utilisation : sm_team <#userid|name> <team> [alive]"
+		"ru"		"Использование: sm_team <#userid|name> <team> [alive]"
+		"es"		"Uso: sm_team <#userid|name> <team> [alive]"
+		"de"		"Verwendung: sm_team <#userid|name> <team> [alive]"
+		"pt"		"Uso: sm_team <#userid|name> <team> [alive]"
+		"chi"		"用法：sm_team <#userid|name> <team> [alive]"
 	}
 	"Changed Team"
 	{
-		"#format"	"{1:s},{2:d}"
+		"#format"	"{1:t},{2:d}"
 		"en"		"{default}Changed {olive}{1}{default} to team {green}{2}{default}."
 		"fr"		"{default}a déplacé {olive}{1}{default} dans l'équipe {green}{2}{default}."
 		"ru"		"{default}переместил {olive}{1}{default} в команду {green}{2}{default}."
@@ -313,14 +313,14 @@
 	}
 	"Set Cash"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set cash to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis l'argent de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis l'argent à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил деньги {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció el dinero de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat das Geld von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu o dinheiro de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的金钱设为 {green}{1}{default}。"
+		"es"		"{default}estableció el dinero en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat das Geld auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu o dinheiro em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将金钱设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage ModelScale"
 	{
@@ -334,14 +334,14 @@
 	}
 	"Set Model Scale"
 	{
-		"#format"	"{1:.2f},{2:s}"
+		"#format"	"{1:.2f},{2:t}"
 		"en"		"{default}Set model scale to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis la taille du modèle de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis la taille du modèle à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил размер модели {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció la escala del modelo de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die Modellgröße von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu a escala do modelo de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的模型缩放设为 {green}{1}{default}。"
+		"es"		"{default}estableció la escala del modelo en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die Modellgröße auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu a escala do modelo em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将模型缩放设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage SetModel"
 	{
@@ -377,14 +377,14 @@
 	}
 	"Set Model"
 	{
-		"#format"	"{1:s},{2:s}"
+		"#format"	"{1:s},{2:t}"
 		"en"		"{default}Set model to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis le modèle de {olive}{2}{default} sur {green}{1}{default}."
+		"fr"		"{default}a appliqué le modèle {green}{1}{default} à {olive}{2}{default}."
 		"ru"		"{default}установил модель {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció el modelo de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat das Modell von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu o modelo de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的模型设为 {green}{1}{default}。"
+		"es"		"{default}aplicó el modelo {green}{1}{default} a {olive}{2}{default}."
+		"de"		"{default}hat das Modell {green}{1}{default} auf {olive}{2}{default} angewendet."
+		"pt"		"{default}aplicou o modelo {green}{1}{default} em {olive}{2}{default}."
+		"chi"		"{default}将模型设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage SetScore"
 	{
@@ -398,14 +398,14 @@
 	}
 	"Set Score"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set score to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis le score de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis le score à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил счёт {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció la puntuación de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die Punktzahl von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu a pontuação de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的分数设为 {green}{1}{default}。"
+		"es"		"{default}estableció la puntuación en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die Punktzahl auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu a pontuação em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将分数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage SetDeaths"
 	{
@@ -419,14 +419,14 @@
 	}
 	"Set Deaths"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set deaths to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis les morts de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis les morts à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил число смертей {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció las muertes de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die Tode von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu as mortes de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的死亡数设为 {green}{1}{default}。"
+		"es"		"{default}estableció las muertes en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die Tode auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu as mortes em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将死亡数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage SetMvp"
 	{
@@ -440,14 +440,14 @@
 	}
 	"Set MVP"
 	{
-		"#format"	"{1:d},{2:s}"
+		"#format"	"{1:d},{2:t}"
 		"en"		"{default}Set MVP to {green}{1}{default} on {olive}{2}{default}."
-		"fr"		"{default}a mis les MVP de {olive}{2}{default} à {green}{1}{default}."
+		"fr"		"{default}a mis les MVP à {green}{1}{default} pour {olive}{2}{default}."
 		"ru"		"{default}установил MVP {green}{1}{default} для {olive}{2}{default}."
-		"es"		"{default}estableció los MVP de {olive}{2}{default} en {green}{1}{default}."
-		"de"		"{default}hat die MVPs von {olive}{2}{default} auf {green}{1}{default} gesetzt."
-		"pt"		"{default}definiu os MVPs de {olive}{2}{default} para {green}{1}{default}."
-		"chi"		"{default}将 {olive}{2}{default} 的 MVP 数设为 {green}{1}{default}。"
+		"es"		"{default}estableció los MVP en {green}{1}{default} para {olive}{2}{default}."
+		"de"		"{default}hat die MVPs auf {green}{1}{default} für {olive}{2}{default} gesetzt."
+		"pt"		"{default}definiu os MVPs em {green}{1}{default} para {olive}{2}{default}."
+		"chi"		"{default}将 MVP 数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
 	}
 	"Usage SetTeamScore"
 	{
@@ -554,7 +554,7 @@
 	}
 	"Forced Cvar"
 	{
-		"#format"	"{1:s},{2:s},{3:s}"
+		"#format"	"{1:t},{2:s},{3:s}"
 		"en"		"Force Cvar has been performed on {olive}{1} {default}({green}{2} {3}{default})."
 		"fr"		"Le cvar a été forcé sur {olive}{1} {default}({green}{2} {3}{default})."
 		"ru"		"Cvar принудительно установлен для {olive}{1} {default}({green}{2} {3}{default})."
@@ -575,7 +575,7 @@
 	}
 	"Clantag Changed"
 	{
-		"#format"	"{1:s},{2:s}"
+		"#format"	"{1:t},{2:s}"
 		"en"		"Successfully changed clantag of {olive}{1} {default}to {green}{2}{default}."
 		"fr"		"Le clantag de {olive}{1} {default}a été changé en {green}{2}{default}."
 		"ru"		"Клантег {olive}{1} {default}изменён на {green}{2}{default}."
@@ -596,14 +596,14 @@
 	}
 	"Command Faked"
 	{
-		"#format"	"{1:s},{2:s},{3:s}"
-		"en"		"Successfully faked command of {olive}{1} {default}with {green}{2} {3}{default}."
-		"fr"		"La commande {green}{2} {3}{default} a été simulée pour {olive}{1}{default}."
-		"ru"		"Команда {green}{2} {3}{default} выполнена от имени {olive}{1}{default}."
-		"es"		"Se simuló el comando {green}{2} {3}{default} para {olive}{1}{default}."
-		"de"		"Befehl {green}{2} {3}{default} wurde für {olive}{1}{default} simuliert."
-		"pt"		"O comando {green}{2} {3}{default} foi simulado para {olive}{1}{default}."
-		"chi"		"已为 {olive}{1}{default} 模拟执行命令 {green}{2} {3}{default}。"
+		"#format"	"{1:s},{2:s},{3:t}"
+		"en"		"Successfully faked command {green}{1} {2}{default} for {olive}{3}{default}."
+		"fr"		"La commande {green}{1} {2}{default} a été simulée pour {olive}{3}{default}."
+		"ru"		"Команда {green}{1} {2}{default} выполнена от имени {olive}{3}{default}."
+		"es"		"Se simuló el comando {green}{1} {2}{default} para {olive}{3}{default}."
+		"de"		"Befehl {green}{1} {2}{default} wurde für {olive}{3}{default} simuliert."
+		"pt"		"O comando {green}{1} {2}{default} foi simulado para {olive}{3}{default}."
+		"chi"		"已模拟执行命令 {green}{1} {2}{default}，目标：{olive}{3}{default}。"
 	}
 	"Usage QueryCVar"
 	{
@@ -690,7 +690,7 @@
 	}
 	"Teleported Player"
 	{
-		"#format"	"{1:s},{2:.1f},{3:.1f},{4:.1f}"
+		"#format"	"{1:t},{2:.1f},{3:.1f},{4:.1f}"
 		"en"		"{default}Teleported player {olive}{1} {default}to {green}{2} {3} {4}"
 		"fr"		"{default}a téléporté le joueur {olive}{1} {default}en {green}{2} {3} {4}"
 		"ru"		"{default}телепортировал игрока {olive}{1} {default}в {green}{2} {3} {4}"
@@ -732,7 +732,7 @@
 	}
 	"Moved To Spectators"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{default}Moved {olive}{1} {default}to Spectators."
 		"fr"		"{default}a déplacé {olive}{1} {default}en spectateur."
 		"ru"		"{default}переместил {olive}{1} {default}в наблюдатели."
@@ -763,7 +763,7 @@
 	}
 	"Set Nightvision"
 	{
-		"#format"	"{1:s},{2:d}"
+		"#format"	"{1:t},{2:d}"
 		"en"		"{default}Set nightvision of {olive}{1} {default}to {green}{2}{default}."
 		"fr"		"{default}a mis la vision nocturne de {olive}{1} {default}à {green}{2}{default}."
 		"ru"		"{default}установил ночное видение для {olive}{1} {default}на {green}{2}{default}."
@@ -784,7 +784,7 @@
 	}
 	"Set Defuser"
 	{
-		"#format"	"{1:s},{2:d}"
+		"#format"	"{1:t},{2:d}"
 		"en"		"{default}Set defuser of {olive}{1} {default}to {green}{2}{default}."
 		"fr"		"{default}a mis le kit de désamorçage de {olive}{1} {default}à {green}{2}{default}."
 		"ru"		"{default}установил набор сапёра для {olive}{1} {default}на {green}{2}{default}."
@@ -805,7 +805,7 @@
 	}
 	"God Enabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Enabled{default} godmode on {olive}{1}{default}."
 		"fr"		"{green}a activé{default} le godmode pour {olive}{1}{default}."
 		"ru"		"{green}включил{default} режим бога для {olive}{1}{default}."
@@ -816,7 +816,7 @@
 	}
 	"God Disabled"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:t}"
 		"en"		"{green}Disabled{default} godmode on {olive}{1}{default}."
 		"fr"		"{green}a désactivé{default} le godmode pour {olive}{1}{default}."
 		"ru"		"{green}отключил{default} режим бога для {olive}{1}{default}."
@@ -835,6 +835,17 @@
 		"de"		"{green}{1} {default}Tage {green}{2} {default}Stunden {green}{3} {default}Minuten {green}{4} {default}Sekunden."
 		"pt"		"{green}{1} {default}dias {green}{2} {default}horas {green}{3} {default}minutos {green}{4} {default}segundos."
 		"chi"		"{green}{1} {default}天 {green}{2} {default}小时 {green}{3} {default}分钟 {green}{4} {default}秒。"
+	}
+	"Uptime Value Plain"
+	{
+		"#format"	"{1:d},{2:02d},{3:02d},{4:02d}"
+		"en"		"{1} Days {2} Hours {3} Minutes {4} Seconds"
+		"fr"		"{1} jours {2} heures {3} minutes {4} secondes"
+		"ru"		"{1} д. {2} ч. {3} мин. {4} сек."
+		"es"		"{1} días {2} horas {3} minutos {4} segundos"
+		"de"		"{1} Tage {2} Stunden {3} Minuten {4} Sekunden"
+		"pt"		"{1} dias {2} horas {3} minutos {4} segundos"
+		"chi"		"{1} 天 {2} 小时 {3} 分钟 {4} 秒"
 	}
 	"Server Uptime"
 	{
