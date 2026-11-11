@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.18",
+	version     = "2.7.19",
 	url         = ""
 };
 
