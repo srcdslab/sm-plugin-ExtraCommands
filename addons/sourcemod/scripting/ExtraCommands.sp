@@ -44,7 +44,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.19",
+	version     = "2.7.20",
 	url         = ""
 };
 
@@ -104,6 +104,7 @@ public void OnPluginStart()
 
 	HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
 	HookEvent("bomb_defused", Event_BombDefused, EventHookMode_Pre);
+	HookEvent("round_start", Event_OnRoundStart, EventHookMode_PostNoCopy);
 	HookEvent("round_end", Event_OnRoundEnd, EventHookMode_PostNoCopy);
 
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
@@ -214,6 +215,14 @@ public Action Event_BombDefused(Event event, const char[] name, bool dontBroadca
 			ClientCommand(i, "playgamesound \"radio/bombdef.wav\"");
 	}
 	return Plugin_Handled;
+}
+
+// sm_rr blocks respawn only while it is ending the round. round_end fires inside
+// CS_TerminateRound(), before Timer_ForceSuicide (0.3 s) sets the flag again,
+// so clear it here as well or it stays set for the whole next round.
+public void Event_OnRoundStart(Event event, const char[] name, bool dontBroadcast)
+{
+	g_bBlockRespawn = false;
 }
 
 public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
