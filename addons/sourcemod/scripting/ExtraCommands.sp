@@ -29,6 +29,7 @@ bool g_bInfAmmo[MAXPLAYERS + 1] = { false, ... };
 
 bool g_bLate = false;
 bool g_bBlockRespawn = false;
+Handle g_hForceSuicideTimer = null;
 
 ConVar g_CVar_sv_pausable;
 ConVar g_CVar_sv_bombanywhere;
@@ -44,7 +45,7 @@ public Plugin myinfo =
 	name        = "Advanced Commands",
 	author      = "BotoX + Obus + maxime1907, .Rushaway",
 	description = "Adds extra commands for admins.",
-	version     = "2.7.20",
+	version     = "2.7.21",
 	url         = ""
 };
 
@@ -104,7 +105,7 @@ public void OnPluginStart()
 
 	HookEvent("bomb_planted", Event_BombPlanted, EventHookMode_Pre);
 	HookEvent("bomb_defused", Event_BombDefused, EventHookMode_Pre);
-	HookEvent("round_end", Event_OnRoundEnd, EventHookMode_PostNoCopy);
+	HookEvent("round_start", Event_OnRoundStart, EventHookMode_PostNoCopy);
 
 	g_CVar_sv_pausable     = FindConVar("sv_pausable");
 	g_CVar_sv_bombanywhere = CreateConVar("sv_bombanywhere", "0", "Allows the bomb to be planted anywhere", FCVAR_NOTIFY);
@@ -139,6 +140,9 @@ public void OnMapStart()
 	g_bInBuyZoneAll = false;
 	g_bInfAmmoAll   = false;
 	g_bBlockRespawn = false;
+
+	// TIMER_FLAG_NO_MAPCHANGE already freed the timer, if it was pending.
+	g_hForceSuicideTimer = null;
 
 	if (g_bInfAmmoHooked)
 	{
@@ -216,9 +220,14 @@ public Action Event_BombDefused(Event event, const char[] name, bool dontBroadca
 	return Plugin_Handled;
 }
 
-public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
+// sm_rr blocks respawn from the command until the new round starts. Clear it
+// here, not on round_end: round_end fires inside CS_TerminateRound(), while the
+// players are still to be slain. A slay timer still pending (timers run on a
+// 0.1 s tick, and the restart can be 0.4 s away) must not hit the new round.
+public void Event_OnRoundStart(Event event, const char[] name, bool dontBroadcast)
 {
 	g_bBlockRespawn = false;
+	delete g_hForceSuicideTimer;
 }
 
 public void OnConVarChanged_BombAnywhere(ConVar convar, const char[] oldValue, const char[] newValue)
@@ -1291,8 +1300,10 @@ public Action Command_RestartRound(int client, int argc)
 			}
 		}
 
+		// Cleared on round_start, see Event_OnRoundStart.
 		g_bBlockRespawn = true;
-		CreateTimer(0.3, Timer_ForceSuicide, _, TIMER_FLAG_NO_MAPCHANGE);
+		delete g_hForceSuicideTimer;
+		g_hForceSuicideTimer = CreateTimer(0.3, Timer_ForceSuicide, _, TIMER_FLAG_NO_MAPCHANGE);
 	}
 
 	CS_TerminateRound(fDelay, CSRoundEnd_Draw, true);
@@ -1305,7 +1316,8 @@ public Action Command_RestartRound(int client, int argc)
 
 public Action Timer_ForceSuicide(Handle timer)
 {
-	g_bBlockRespawn = true;
+	g_hForceSuicideTimer = null;
+
 	for (int i = 1; i <= MaxClients; i++)
 		if (IsClientInGame(i) && IsPlayerAlive(i))
 			ForcePlayerSuicide(i);
