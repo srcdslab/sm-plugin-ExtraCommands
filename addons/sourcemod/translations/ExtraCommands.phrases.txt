@@ -9,6 +9,12 @@
 		"de"		"\"sv_pausable\" ist auf 0 gesetzt!"
 		"pt"		"\"sv_pausable\" está definido como 0!"
 		"chi"		"\"sv_pausable\" 已设置为 0！"
+		"pl"		"\"sv_pausable\" jest ustawione na 0!"
+		"tr"		"\"sv_pausable\" 0 olarak ayarlı!"
+		"it"		"\"sv_pausable\" è impostato su 0!"
+		"ua"		"\"sv_pausable\" встановлено на 0!"
+		"zho"		"\"sv_pausable\" 已設定為 0！"
+		"cze"		"\"sv_pausable\" je nastaveno na 0!"
 	}
 	"Pause No Permission"
 	{
@@ -19,6 +25,12 @@
 		"de"		"Du hast keine Berechtigung, das Spiel zu pausieren/fortzusetzen."
 		"pt"		"Você não tem permissão para pausar/despausar o jogo."
 		"chi"		"你没有暂停/取消暂停游戏的权限。"
+		"pl"		"Nie masz uprawnień do pauzowania/wznawiania gry."
+		"tr"		"Oyunu duraklatma/devam ettirme yetkin yok."
+		"it"		"Non hai il permesso di mettere in pausa/riprendere la partita."
+		"ua"		"У вас немає прав ставити гру на паузу або знімати її з паузи."
+		"zho"		"你沒有暫停/取消暫停遊戲的權限。"
+		"cze"		"Nemáš oprávnění pozastavit/obnovit hru."
 	}
 	"Game Paused"
 	{
@@ -29,6 +41,12 @@
 		"de"		"{red}hat das Spiel pausiert."
 		"pt"		"{red}pausou o jogo."
 		"chi"		"{red}暂停了游戏。"
+		"pl"		"{red}Zapauzowano grę."
+		"tr"		"{red}Oyunu duraklattı."
+		"it"		"{red}ha messo in pausa la partita."
+		"ua"		"{red}поставив гру на паузу."
+		"zho"		"{red}暫停了遊戲。"
+		"cze"		"{red}pozastavil hru."
 	}
 	"Game Unpaused"
 	{
@@ -39,6 +57,12 @@
 		"de"		"{red}hat das Spiel fortgesetzt."
 		"pt"		"{red}despausou o jogo."
 		"chi"		"{red}取消了游戏暂停。"
+		"pl"		"{red}Wznowiono grę."
+		"tr"		"{red}Oyunu devam ettirdi."
+		"it"		"{red}ha ripreso la partita."
+		"ua"		"{red}зняв гру з паузи."
+		"zho"		"{red}取消了遊戲暫停。"
+		"cze"		"{red}obnovil hru."
 	}
 	"Usage HP"
 	{
@@ -49,6 +73,12 @@
 		"de"		"Verwendung: sm_hp <#userid|name> <value>"
 		"pt"		"Uso: sm_hp <#userid|name> <value>"
 		"chi"		"用法：sm_hp <#userid|name> <value>"
+		"pl"		"Użycie: sm_hp <#userid|name> <value>"
+		"tr"		"Kullanım: sm_hp <#userid|name> <value>"
+		"it"		"Uso: sm_hp <#userid|name> <value>"
+		"ua"		"Використання: sm_hp <#userid|name> <value>"
+		"zho"		"用法：sm_hp <#userid|name> <value>"
+		"cze"		"Použití: sm_hp <#userid|name> <value>"
 	}
 	"Set Health"
 	{
@@ -60,6 +90,12 @@
 		"de"		"{default}hat die Gesundheit auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu a vida em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将生命值设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono zdrowie na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için can {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Salute impostata a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено здоров'я {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的生命值設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno zdraví na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage Armor"
 	{
@@ -70,6 +106,12 @@
 		"de"		"Verwendung: sm_armor <#userid|name> <value>"
 		"pt"		"Uso: sm_armor <#userid|name> <value>"
 		"chi"		"用法：sm_armor <#userid|name> <value>"
+		"pl"		"Użycie: sm_armor <#userid|name> <value>"
+		"tr"		"Kullanım: sm_armor <#userid|name> <value>"
+		"it"		"Uso: sm_armor <#userid|name> <value>"
+		"ua"		"Використання: sm_armor <#userid|name> <value>"
+		"zho"		"用法：sm_armor <#userid|name> <value>"
+		"cze"		"Použití: sm_armor <#userid|name> <value>"
 	}
 	"Set Armor"
 	{
@@ -81,6 +123,12 @@
 		"de"		"{default}hat das Kevlar auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu o colete em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将护甲设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono kamizelkę na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için yelek {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Giubbotto impostato a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено бронежилет {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的護甲設為 {green}{1}{default}。"
+		"cze"		"{default}Nastavena vesta na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage Weapon"
 	{
@@ -91,6 +139,12 @@
 		"de"		"Verwendung: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
 		"pt"		"Uso: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
 		"chi"		"用法：sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"pl"		"Użycie: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"tr"		"Kullanım: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"it"		"Uso: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"ua"		"Використання: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"zho"		"用法：sm_weapon <#userid|name> <weapon> [clip] [ammo]"
+		"cze"		"Použití: sm_weapon <#userid|name> <weapon> [clip] [ammo]"
 	}
 	"Weapon Restricted"
 	{
@@ -101,6 +155,12 @@
 		"de"		"Diese Waffe ist gesperrt!"
 		"pt"		"Esta arma é restrita!"
 		"chi"		"该武器受到限制！"
+		"pl"		"Ta broń jest zablokowana!"
+		"tr"		"Bu silah yasaklı!"
+		"it"		"Quest'arma è vietata!"
+		"ua"		"Ця зброя заборонена!"
+		"zho"		"此武器已被禁用！"
+		"cze"		"Tato zbraň je zakázána!"
 	}
 	"Invalid Clip"
 	{
@@ -111,6 +171,12 @@
 		"de"		"Ungültiger Magazinwert."
 		"pt"		"Valor de pente inválido."
 		"chi"		"无效的弹匣数值。"
+		"pl"		"Nieprawidłowa wartość magazynka."
+		"tr"		"Geçersiz şarjör değeri."
+		"it"		"Valore del caricatore non valido."
+		"ua"		"Недійсне значення магазину."
+		"zho"		"無效的彈匣數值。"
+		"cze"		"Neplatná hodnota zásobníku."
 	}
 	"Invalid Ammo"
 	{
@@ -121,6 +187,12 @@
 		"de"		"Ungültiger Munitionswert."
 		"pt"		"Valor de munição inválido."
 		"chi"		"无效的弹药数值。"
+		"pl"		"Nieprawidłowa wartość amunicji."
+		"tr"		"Geçersiz mermi değeri."
+		"it"		"Valore delle munizioni non valido."
+		"ua"		"Недійсне значення боєприпасів."
+		"zho"		"無效的彈藥數值。"
+		"cze"		"Neplatná hodnota munice."
 	}
 	"Invalid Weapon"
 	{
@@ -131,6 +203,12 @@
 		"de"		"Ungültige Waffe."
 		"pt"		"Arma inválida."
 		"chi"		"无效的武器。"
+		"pl"		"Nieprawidłowa broń."
+		"tr"		"Geçersiz silah."
+		"it"		"Arma non valida."
+		"ua"		"Недійсна зброя."
+		"zho"		"無效的武器。"
+		"cze"		"Neplatná zbraň."
 	}
 	"Gave Weapon"
 	{
@@ -142,6 +220,12 @@
 		"de"		"{default}hat {green}{1}{default} an {olive}{2}{default} gegeben."
 		"pt"		"{default}deu {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将 {green}{1}{default} 给予了 {olive}{2}{default}。"
+		"pl"		"{default}Dano {green}{1}{default} graczowi {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} oyuncusuna {green}{1}{default} verildi."
+		"it"		"{default}Dato {green}{1}{default} a {olive}{2}{default}."
+		"ua"		"{default}Видано {green}{1}{default} гравцю {olive}{2}{default}."
+		"zho"		"{default}已給予 {olive}{2}{default} {green}{1}{default}。"
+		"cze"		"{default}Dáno {green}{1}{default} hráči {olive}{2}{default}."
 	}
 	"Usage Strip"
 	{
@@ -152,6 +236,12 @@
 		"de"		"Verwendung: sm_strip <#userid|name>"
 		"pt"		"Uso: sm_strip <#userid|name>"
 		"chi"		"用法：sm_strip <#userid|name>"
+		"pl"		"Użycie: sm_strip <#userid|name>"
+		"tr"		"Kullanım: sm_strip <#userid|name>"
+		"it"		"Uso: sm_strip <#userid|name>"
+		"ua"		"Використання: sm_strip <#userid|name>"
+		"zho"		"用法：sm_strip <#userid|name>"
+		"cze"		"Použití: sm_strip <#userid|name>"
 	}
 	"Stripped Weapons"
 	{
@@ -163,6 +253,12 @@
 		"de"		"{default}hat {olive}{1}{default} alle Waffen abgenommen."
 		"pt"		"{default}removeu todas as armas de {olive}{1}{default}."
 		"chi"		"{default}移除了 {olive}{1}{default} 的所有武器。"
+		"pl"		"{default}Zabrano całą broń graczowi {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} oyuncusunun tüm silahları alındı."
+		"it"		"{default}Rimosse tutte le armi a {olive}{1}{default}."
+		"ua"		"{default}Забрано всю зброю у {olive}{1}{default}."
+		"zho"		"{default}已移除 {olive}{1}{default} 的所有武器。"
+		"cze"		"{default}Odebrány všechny zbraně hráči {olive}{1}{default}."
 	}
 	"Usage BuyZone"
 	{
@@ -173,6 +269,12 @@
 		"de"		"Verwendung: sm_buyzone <#userid|name> <0|1>"
 		"pt"		"Uso: sm_buyzone <#userid|name> <0|1>"
 		"chi"		"用法：sm_buyzone <#userid|name> <0|1>"
+		"pl"		"Użycie: sm_buyzone <#userid|name> <0|1>"
+		"tr"		"Kullanım: sm_buyzone <#userid|name> <0|1>"
+		"it"		"Uso: sm_buyzone <#userid|name> <0|1>"
+		"ua"		"Використання: sm_buyzone <#userid|name> <0|1>"
+		"zho"		"用法：sm_buyzone <#userid|name> <0|1>"
+		"cze"		"Použití: sm_buyzone <#userid|name> <0|1>"
 	}
 	"Invalid Value"
 	{
@@ -183,6 +285,12 @@
 		"de"		"Ungültiger Wert."
 		"pt"		"Valor inválido."
 		"chi"		"无效的数值。"
+		"pl"		"Nieprawidłowa wartość."
+		"tr"		"Geçersiz değer."
+		"it"		"Valore non valido."
+		"ua"		"Недійсне значення."
+		"zho"		"無效的數值。"
+		"cze"		"Neplatná hodnota."
 	}
 	"BuyZone Enabled"
 	{
@@ -194,6 +302,12 @@
 		"de"		"{default}hat die permanente Kaufzone für {olive}{1}{default} {green}aktiviert{default}."
 		"pt"		"{green}ativou{default} a zona de compra permanente para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}开启了{default}永久购买区。"
+		"pl"		"{green}Włączono{default} stałą strefę zakupów dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için kalıcı alışveriş bölgesi {green}açıldı{default}."
+		"it"		"{green}Attivata{default} la buyzone permanente per {olive}{1}{default}."
+		"ua"		"{green}Увімкнено{default} постійну зону закупівлі для {olive}{1}{default}."
+		"zho"		"{green}已啟用{default} {olive}{1}{default} 的永久購買區。"
+		"cze"		"{green}Zapnuta{default} trvalá nákupní zóna pro {olive}{1}{default}."
 	}
 	"BuyZone Disabled"
 	{
@@ -205,6 +319,12 @@
 		"de"		"{default}hat die permanente Kaufzone für {olive}{1}{default} {green}deaktiviert{default}."
 		"pt"		"{green}desativou{default} a zona de compra permanente para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}关闭了{default}永久购买区。"
+		"pl"		"{green}Wyłączono{default} stałą strefę zakupów dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için kalıcı alışveriş bölgesi {green}kapatıldı{default}."
+		"it"		"{green}Disattivata{default} la buyzone permanente per {olive}{1}{default}."
+		"ua"		"{green}Вимкнено{default} постійну зону закупівлі для {olive}{1}{default}."
+		"zho"		"{green}已停用{default} {olive}{1}{default} 的永久購買區。"
+		"cze"		"{green}Vypnuta{default} trvalá nákupní zóna pro {olive}{1}{default}."
 	}
 	"Usage InfAmmo"
 	{
@@ -215,6 +335,12 @@
 		"de"		"Verwendung: sm_iammo <#userid|name> <0|1>"
 		"pt"		"Uso: sm_iammo <#userid|name> <0|1>"
 		"chi"		"用法：sm_iammo <#userid|name> <0|1>"
+		"pl"		"Użycie: sm_iammo <#userid|name> <0|1>"
+		"tr"		"Kullanım: sm_iammo <#userid|name> <0|1>"
+		"it"		"Uso: sm_iammo <#userid|name> <0|1>"
+		"ua"		"Використання: sm_iammo <#userid|name> <0|1>"
+		"zho"		"用法：sm_iammo <#userid|name> <0|1>"
+		"cze"		"Použití: sm_iammo <#userid|name> <0|1>"
 	}
 	"InfAmmo Enabled"
 	{
@@ -226,6 +352,12 @@
 		"de"		"{default}hat unendliche Munition für {olive}{1}{default} {green}aktiviert{default}."
 		"pt"		"{green}ativou{default} a munição infinita para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}开启了{default}无限弹药。"
+		"pl"		"{green}Włączono{default} nieskończoną amunicję dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için sonsuz mermi {green}açıldı{default}."
+		"it"		"{green}Attivate{default} le munizioni infinite per {olive}{1}{default}."
+		"ua"		"{green}Увімкнено{default} нескінченні набої для {olive}{1}{default}."
+		"zho"		"{green}已啟用{default} {olive}{1}{default} 的無限彈藥。"
+		"cze"		"{green}Zapnuta{default} nekonečná munice pro {olive}{1}{default}."
 	}
 	"InfAmmo Disabled"
 	{
@@ -237,6 +369,12 @@
 		"de"		"{default}hat unendliche Munition für {olive}{1}{default} {green}deaktiviert{default}."
 		"pt"		"{green}desativou{default} a munição infinita para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}关闭了{default}无限弹药。"
+		"pl"		"{green}Wyłączono{default} nieskończoną amunicję dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için sonsuz mermi {green}kapatıldı{default}."
+		"it"		"{green}Disattivate{default} le munizioni infinite per {olive}{1}{default}."
+		"ua"		"{green}Вимкнено{default} нескінченні набої для {olive}{1}{default}."
+		"zho"		"{green}已停用{default} {olive}{1}{default} 的無限彈藥。"
+		"cze"		"{green}Vypnuta{default} nekonečná munice pro {olive}{1}{default}."
 	}
 	"Usage Speed"
 	{
@@ -247,6 +385,12 @@
 		"de"		"Verwendung: sm_speed <#userid|name> <value>"
 		"pt"		"Uso: sm_speed <#userid|name> <value>"
 		"chi"		"用法：sm_speed <#userid|name> <value>"
+		"pl"		"Użycie: sm_speed <#userid|name> <value>"
+		"tr"		"Kullanım: sm_speed <#userid|name> <value>"
+		"it"		"Uso: sm_speed <#userid|name> <value>"
+		"ua"		"Використання: sm_speed <#userid|name> <value>"
+		"zho"		"用法：sm_speed <#userid|name> <value>"
+		"cze"		"Použití: sm_speed <#userid|name> <value>"
 	}
 	"Set Speed"
 	{
@@ -258,6 +402,12 @@
 		"de"		"{default}hat die Geschwindigkeit auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu a velocidade em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将速度设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono prędkość na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için hız {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Velocità impostata a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено швидкість {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的速度設為 {green}{1}{default}。"
+		"cze"		"{default}Nastavena rychlost na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage Respawn"
 	{
@@ -268,6 +418,12 @@
 		"de"		"Verwendung: sm_respawn <#userid|name>"
 		"pt"		"Uso: sm_respawn <#userid|name>"
 		"chi"		"用法：sm_respawn <#userid|name>"
+		"pl"		"Użycie: sm_respawn <#userid|name>"
+		"tr"		"Kullanım: sm_respawn <#userid|name>"
+		"it"		"Uso: sm_respawn <#userid|name>"
+		"ua"		"Використання: sm_respawn <#userid|name>"
+		"zho"		"用法：sm_respawn <#userid|name>"
+		"cze"		"Použití: sm_respawn <#userid|name>"
 	}
 	"Respawned"
 	{
@@ -279,6 +435,12 @@
 		"de"		"{default}hat {olive}{1}{default} wiederbelebt"
 		"pt"		"{default}fez {olive}{1}{default} renascer"
 		"chi"		"{default}复活了 {olive}{1}"
+		"pl"		"{default}Odrodzono {olive}{1}"
+		"tr"		"{default}{olive}{1}{default} yeniden doğdu"
+		"it"		"{default}Fatto rinascere {olive}{1}"
+		"ua"		"{default}Відроджено {olive}{1}"
+		"zho"		"{default}已復活 {olive}{1}"
+		"cze"		"{default}Oživen hráč {olive}{1}"
 	}
 	"Usage Team"
 	{
@@ -289,6 +451,12 @@
 		"de"		"Verwendung: sm_team <#userid|name> <team> [alive]"
 		"pt"		"Uso: sm_team <#userid|name> <team> [alive]"
 		"chi"		"用法：sm_team <#userid|name> <team> [alive]"
+		"pl"		"Użycie: sm_team <#userid|name> <team> [alive]"
+		"tr"		"Kullanım: sm_team <#userid|name> <team> [alive]"
+		"it"		"Uso: sm_team <#userid|name> <team> [alive]"
+		"ua"		"Використання: sm_team <#userid|name> <team> [alive]"
+		"zho"		"用法：sm_team <#userid|name> <team> [alive]"
+		"cze"		"Použití: sm_team <#userid|name> <team> [alive]"
 	}
 	"Changed Team"
 	{
@@ -300,6 +468,12 @@
 		"de"		"{default}hat {olive}{1}{default} in Team {green}{2}{default} verschoben."
 		"pt"		"{default}moveu {olive}{1}{default} para o time {green}{2}{default}."
 		"chi"		"{default}将 {olive}{1}{default} 移至队伍 {green}{2}{default}。"
+		"pl"		"{default}Przeniesiono {olive}{1}{default} do drużyny {green}{2}{default}."
+		"tr"		"{olive}{1}{default} oyuncusu {green}{2}{default} takımına geçirildi."
+		"it"		"{default}Spostato {olive}{1}{default} nella squadra {green}{2}{default}."
+		"ua"		"{default}Переведено {olive}{1}{default} до команди {green}{2}{default}."
+		"zho"		"{default}已將 {olive}{1}{default} 換到隊伍 {green}{2}{default}。"
+		"cze"		"{default}Hráč {olive}{1}{default} přesunut do týmu {green}{2}{default}."
 	}
 	"Usage Cash"
 	{
@@ -310,6 +484,12 @@
 		"de"		"Verwendung: sm_cash <#userid|name> <value>"
 		"pt"		"Uso: sm_cash <#userid|name> <value>"
 		"chi"		"用法：sm_cash <#userid|name> <value>"
+		"pl"		"Użycie: sm_cash <#userid|name> <value>"
+		"tr"		"Kullanım: sm_cash <#userid|name> <value>"
+		"it"		"Uso: sm_cash <#userid|name> <value>"
+		"ua"		"Використання: sm_cash <#userid|name> <value>"
+		"zho"		"用法：sm_cash <#userid|name> <value>"
+		"cze"		"Použití: sm_cash <#userid|name> <value>"
 	}
 	"Set Cash"
 	{
@@ -321,6 +501,12 @@
 		"de"		"{default}hat das Geld auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu o dinheiro em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将金钱设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono gotówkę na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için para {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Soldi impostati a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено гроші {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的金錢設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveny peníze na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage ModelScale"
 	{
@@ -331,6 +517,12 @@
 		"de"		"Verwendung: sm_resize/sm_modelscale <#userid|name> <scale>"
 		"pt"		"Uso: sm_resize/sm_modelscale <#userid|name> <scale>"
 		"chi"		"用法：sm_resize/sm_modelscale <#userid|name> <scale>"
+		"pl"		"Użycie: sm_resize/sm_modelscale <#userid|name> <scale>"
+		"tr"		"Kullanım: sm_resize/sm_modelscale <#userid|name> <scale>"
+		"it"		"Uso: sm_resize/sm_modelscale <#userid|name> <scale>"
+		"ua"		"Використання: sm_resize/sm_modelscale <#userid|name> <scale>"
+		"zho"		"用法：sm_resize/sm_modelscale <#userid|name> <scale>"
+		"cze"		"Použití: sm_resize/sm_modelscale <#userid|name> <scale>"
 	}
 	"Set Model Scale"
 	{
@@ -342,6 +534,12 @@
 		"de"		"{default}hat die Modellgröße auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu a escala do modelo em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将模型缩放设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono skalę modelu na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için model ölçeği {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Scala del modello impostata a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено масштаб моделі {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的模型縮放設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno měřítko modelu na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage SetModel"
 	{
@@ -352,6 +550,12 @@
 		"de"		"Verwendung: sm_setmodel <#userid|name> <modelpath>"
 		"pt"		"Uso: sm_setmodel <#userid|name> <modelpath>"
 		"chi"		"用法：sm_setmodel <#userid|name> <modelpath>"
+		"pl"		"Użycie: sm_setmodel <#userid|name> <modelpath>"
+		"tr"		"Kullanım: sm_setmodel <#userid|name> <modelpath>"
+		"it"		"Uso: sm_setmodel <#userid|name> <modelpath>"
+		"ua"		"Використання: sm_setmodel <#userid|name> <modelpath>"
+		"zho"		"用法：sm_setmodel <#userid|name> <modelpath>"
+		"cze"		"Použití: sm_setmodel <#userid|name> <modelpath>"
 	}
 	"File Not Found"
 	{
@@ -363,6 +567,12 @@
 		"de"		"Die Datei {green}{1} {default}existiert nicht."
 		"pt"		"O arquivo {green}{1} {default}não existe."
 		"chi"		"文件 {green}{1} {default}不存在。"
+		"pl"		"Plik {green}{1} {default}nie istnieje."
+		"tr"		"{green}{1} {default}dosyası mevcut değil."
+		"it"		"Il file {green}{1} {default}non esiste."
+		"ua"		"Файл {green}{1} {default}не існує."
+		"zho"		"檔案 {green}{1} {default}不存在。"
+		"cze"		"Soubor {green}{1} {default}neexistuje."
 	}
 	"File Not Precached"
 	{
@@ -374,6 +584,12 @@
 		"de"		"Die Datei {green}{1} {default}ist nicht precached, versuche sie jetzt zu precachen."
 		"pt"		"O arquivo {green}{1} {default}não está em precache, tentando fazer o precache agora."
 		"chi"		"文件 {green}{1} {default}未预缓存，正在尝试预缓存。"
+		"pl"		"Plik {green}{1} {default}nie jest załadowany w pamięci (precache), próbuję go teraz załadować."
+		"tr"		"{green}{1} {default}dosyası önbelleğe alınmamış, şimdi önbelleğe alınmaya çalışılıyor."
+		"it"		"Il file {green}{1} {default}non è precaricato, provo a precaricarlo ora."
+		"ua"		"Файл {green}{1} {default}не прекешований, спроба прекешування зараз."
+		"zho"		"檔案 {green}{1} {default}尚未預先載入，正在嘗試預先載入。"
+		"cze"		"Soubor {green}{1} {default}není precachován, zkouším ho nyní precachovat."
 	}
 	"Set Model"
 	{
@@ -385,6 +601,12 @@
 		"de"		"{default}hat das Modell {green}{1}{default} auf {olive}{2}{default} angewendet."
 		"pt"		"{default}aplicou o modelo {green}{1}{default} em {olive}{2}{default}."
 		"chi"		"{default}将模型设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono model na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için model {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Modello impostato a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено модель {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的模型設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaven model {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage SetScore"
 	{
@@ -395,6 +617,12 @@
 		"de"		"Verwendung: sm_setscore <#userid|name> <value>"
 		"pt"		"Uso: sm_setscore <#userid|name> <value>"
 		"chi"		"用法：sm_setscore <#userid|name> <value>"
+		"pl"		"Użycie: sm_setscore <#userid|name> <value>"
+		"tr"		"Kullanım: sm_setscore <#userid|name> <value>"
+		"it"		"Uso: sm_setscore <#userid|name> <value>"
+		"ua"		"Використання: sm_setscore <#userid|name> <value>"
+		"zho"		"用法：sm_setscore <#userid|name> <value>"
+		"cze"		"Použití: sm_setscore <#userid|name> <value>"
 	}
 	"Set Score"
 	{
@@ -406,6 +634,12 @@
 		"de"		"{default}hat die Punktzahl auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu a pontuação em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将分数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono wynik na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için skor {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Punteggio impostato a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено рахунок {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的分數設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno skóre na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage SetDeaths"
 	{
@@ -416,6 +650,12 @@
 		"de"		"Verwendung: sm_setdeaths <#userid|name> <value>"
 		"pt"		"Uso: sm_setdeaths <#userid|name> <value>"
 		"chi"		"用法：sm_setdeaths <#userid|name> <value>"
+		"pl"		"Użycie: sm_setdeaths <#userid|name> <value>"
+		"tr"		"Kullanım: sm_setdeaths <#userid|name> <value>"
+		"it"		"Uso: sm_setdeaths <#userid|name> <value>"
+		"ua"		"Використання: sm_setdeaths <#userid|name> <value>"
+		"zho"		"用法：sm_setdeaths <#userid|name> <value>"
+		"cze"		"Použití: sm_setdeaths <#userid|name> <value>"
 	}
 	"Set Deaths"
 	{
@@ -427,6 +667,12 @@
 		"de"		"{default}hat die Tode auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu as mortes em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将死亡数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono liczbę śmierci na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için ölüm sayısı {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Morti impostate a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено кількість смертей {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的死亡數設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveny smrti na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage SetMvp"
 	{
@@ -437,6 +683,12 @@
 		"de"		"Verwendung: sm_setmvp <#userid|name> <value>"
 		"pt"		"Uso: sm_setmvp <#userid|name> <value>"
 		"chi"		"用法：sm_setmvp <#userid|name> <value>"
+		"pl"		"Użycie: sm_setmvp <#userid|name> <value>"
+		"tr"		"Kullanım: sm_setmvp <#userid|name> <value>"
+		"it"		"Uso: sm_setmvp <#userid|name> <value>"
+		"ua"		"Використання: sm_setmvp <#userid|name> <value>"
+		"zho"		"用法：sm_setmvp <#userid|name> <value>"
+		"cze"		"Použití: sm_setmvp <#userid|name> <value>"
 	}
 	"Set MVP"
 	{
@@ -448,6 +700,12 @@
 		"de"		"{default}hat die MVPs auf {green}{1}{default} für {olive}{2}{default} gesetzt."
 		"pt"		"{default}definiu os MVPs em {green}{1}{default} para {olive}{2}{default}."
 		"chi"		"{default}将 MVP 数设为 {green}{1}{default}，目标：{olive}{2}{default}。"
+		"pl"		"{default}Ustawiono MVP na {green}{1}{default} dla {olive}{2}{default}."
+		"tr"		"{olive}{2}{default} için MVP {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}MVP impostato a {green}{1}{default} per {olive}{2}{default}."
+		"ua"		"{default}Встановлено MVP {green}{1}{default} для {olive}{2}{default}."
+		"zho"		"{default}已將 {olive}{2}{default} 的 MVP 設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno MVP na {green}{1}{default} pro {olive}{2}{default}."
 	}
 	"Usage SetTeamScore"
 	{
@@ -458,6 +716,12 @@
 		"de"		"Verwendung: sm_setteamscore <team> <value>"
 		"pt"		"Uso: sm_setteamscore <team> <value>"
 		"chi"		"用法：sm_setteamscore <team> <value>"
+		"pl"		"Użycie: sm_setteamscore <team> <value>"
+		"tr"		"Kullanım: sm_setteamscore <team> <value>"
+		"it"		"Uso: sm_setteamscore <team> <value>"
+		"ua"		"Використання: sm_setteamscore <team> <value>"
+		"zho"		"用法：sm_setteamscore <team> <value>"
+		"cze"		"Použití: sm_setteamscore <team> <value>"
 	}
 	"Set Team Score Humans"
 	{
@@ -469,6 +733,12 @@
 		"de"		"{default}hat den Teamscore der {blue}Menschen{default} auf {green}{1}{default} gesetzt."
 		"pt"		"{default}definiu o placar do time dos {blue}Humanos{default} para {green}{1}{default}."
 		"chi"		"{default}将{blue}人类{default}的队伍分数设为 {green}{1}{default}。"
+		"pl"		"{default}Ustawiono wynik drużyny na {green}{1}{default} dla {blue}Ludzi{default}."
+		"tr"		"{blue}İnsanlar{default} için takım skoru {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Punteggio di squadra impostato a {green}{1}{default} per gli {blue}Umani{default}."
+		"ua"		"{default}Встановлено командний рахунок {green}{1}{default} для {blue}Людей{default}."
+		"zho"		"{default}已將{blue}人類{default}隊伍的分數設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno skóre týmu na {green}{1}{default} pro {blue}Lidi{default}."
 	}
 	"Set Team Score Zombies"
 	{
@@ -480,6 +750,12 @@
 		"de"		"{default}hat den Teamscore der {red}Zombies{default} auf {green}{1}{default} gesetzt."
 		"pt"		"{default}definiu o placar do time dos {red}Zumbis{default} para {green}{1}{default}."
 		"chi"		"{default}将{red}僵尸{default}的队伍分数设为 {green}{1}{default}。"
+		"pl"		"{default}Ustawiono wynik drużyny na {green}{1}{default} dla {red}Zombie{default}."
+		"tr"		"{red}Zombiler{default} için takım skoru {green}{1}{default} olarak ayarlandı."
+		"it"		"{default}Punteggio di squadra impostato a {green}{1}{default} per gli {red}Zombie{default}."
+		"ua"		"{default}Встановлено командний рахунок {green}{1}{default} для {red}Зомбі{default}."
+		"zho"		"{default}已將{red}殭屍{default}隊伍的分數設為 {green}{1}{default}。"
+		"cze"		"{default}Nastaveno skóre týmu na {green}{1}{default} pro {red}Zombie{default}."
 	}
 	"Invalid Team"
 	{
@@ -490,6 +766,12 @@
 		"de"		"Ungültiges Team."
 		"pt"		"Time inválido."
 		"chi"		"无效的队伍。"
+		"pl"		"Nieprawidłowa drużyna."
+		"tr"		"Geçersiz takım."
+		"it"		"Squadra non valida."
+		"ua"		"Недійсна команда."
+		"zho"		"無效的隊伍。"
+		"cze"		"Neplatný tým."
 	}
 	"Round Restarted"
 	{
@@ -501,6 +783,12 @@
 		"de"		"{default}hat die Runde neu gestartet. (in {olive}{1} Sekunden{default})"
 		"pt"		"{default}reiniciou o round. (em {olive}{1} segundos{default})"
 		"chi"		"{default}重新开始了回合。（{olive}{1} 秒后{default}）"
+		"pl"		"{default}Zrestartowano rundę. (za {olive}{1} sek.{default})"
+		"tr"		"{default}Raund yeniden başlatıldı. ({olive}{1} saniye{default} içinde)"
+		"it"		"{default}Round riavviato. (tra {olive}{1} secondi{default})"
+		"ua"		"{default}Раунд перезапущено. (через {olive}{1} сек.{default})"
+		"zho"		"{default}已重新開始回合。（{olive}{1} 秒{default}後）"
+		"cze"		"{default}Kolo restartováno. (za {olive}{1} s{default})"
 	}
 	"Trace Hit World"
 	{
@@ -511,6 +799,12 @@
 		"de"		"Der Strahl hat die Map (world) getroffen."
 		"pt"		"O raio atingiu o mapa (world)."
 		"chi"		"射线击中了地图（world）。"
+		"pl"		"Promień trafił w świat."
+		"tr"		"Işın dünyaya çarptı."
+		"it"		"Il raggio ha colpito il mondo."
+		"ua"		"Промінь влучив у світ."
+		"zho"		"射線擊中了地圖。"
+		"cze"		"Paprsek zasáhl svět."
 	}
 	"Trace Hit Entity"
 	{
@@ -521,6 +815,12 @@
 		"de"		"Der Strahl hat etwas getroffen, mehr Informationen findest du in deiner Konsole."
 		"pt"		"O raio atingiu algo, verifique seu console para mais informações."
 		"chi"		"射线击中了某个物体，请查看控制台了解详细信息。"
+		"pl"		"Promień w coś trafił, więcej informacji znajdziesz w konsoli."
+		"tr"		"Işın bir şeye çarptı, daha fazla bilgi için konsoluna bak."
+		"it"		"Il raggio ha colpito qualcosa, controlla la console per maggiori informazioni."
+		"ua"		"Промінь влучив у щось, більше інформації в консолі."
+		"zho"		"射線擊中了某物，請查看控制台以獲取更多資訊。"
+		"cze"		"Paprsek něco zasáhl, více informací najdeš v konzoli."
 	}
 	"Trace Hit Nothing"
 	{
@@ -531,6 +831,12 @@
 		"de"		"Unter deinem Fadenkreuz wurde nichts gefunden."
 		"pt"		"Nada foi encontrado sob sua mira."
 		"chi"		"准星下没有找到任何东西。"
+		"pl"		"Nie znaleziono niczego pod celownikiem."
+		"tr"		"Nişangahının altında hiçbir şey bulunamadı."
+		"it"		"Non è stato trovato nulla sotto il mirino."
+		"ua"		"Під прицілом нічого не знайдено."
+		"zho"		"在你的準星下找不到任何東西。"
+		"cze"		"Pod zaměřovačem nebylo nic nalezeno."
 	}
 	"Usage ForceCVar"
 	{
@@ -541,6 +847,12 @@
 		"de"		"Verwendung: sm_fcvar <#userid|name> <cvar> <value>"
 		"pt"		"Uso: sm_fcvar <#userid|name> <cvar> <value>"
 		"chi"		"用法：sm_fcvar <#userid|name> <cvar> <value>"
+		"pl"		"Użycie: sm_fcvar <#userid|name> <cvar> <value>"
+		"tr"		"Kullanım: sm_fcvar <#userid|name> <cvar> <value>"
+		"it"		"Uso: sm_fcvar <#userid|name> <cvar> <value>"
+		"ua"		"Використання: sm_fcvar <#userid|name> <cvar> <value>"
+		"zho"		"用法：sm_fcvar <#userid|name> <cvar> <value>"
+		"cze"		"Použití: sm_fcvar <#userid|name> <cvar> <value>"
 	}
 	"No Such Cvar"
 	{
@@ -551,6 +863,12 @@
 		"de"		"Diese Cvar existiert nicht."
 		"pt"		"Esse cvar não existe."
 		"chi"		"该 cvar 不存在。"
+		"pl"		"Nie ma takiej cvar."
+		"tr"		"Böyle bir cvar yok."
+		"it"		"Questa cvar non esiste."
+		"ua"		"Такої cvar не існує."
+		"zho"		"沒有這個 cvar。"
+		"cze"		"Taková cvar neexistuje."
 	}
 	"Forced Cvar"
 	{
@@ -562,6 +880,12 @@
 		"de"		"Cvar wurde bei {olive}{1} {default}erzwungen ({green}{2} {3}{default})."
 		"pt"		"O cvar foi forçado em {olive}{1} {default}({green}{2} {3}{default})."
 		"chi"		"已对 {olive}{1} {default}强制设置 cvar（{green}{2} {3}{default}）。"
+		"pl"		"Wymuszono cvar na graczu {olive}{1} {default}({green}{2} {3}{default})."
+		"tr"		"{olive}{1} {default}üzerinde cvar zorlandı ({green}{2} {3}{default})."
+		"it"		"Cvar forzata su {olive}{1} {default}({green}{2} {3}{default})."
+		"ua"		"Примусово встановлено cvar для {olive}{1} {default}({green}{2} {3}{default})."
+		"zho"		"已對 {olive}{1} {default}強制設定 cvar（{green}{2} {3}{default}）。"
+		"cze"		"Cvar vynucena hráči {olive}{1} {default}({green}{2} {3}{default})."
 	}
 	"Usage SetClanTag"
 	{
@@ -572,6 +896,12 @@
 		"de"		"Verwendung: sm_setclantag <#userid|name> [text]"
 		"pt"		"Uso: sm_setclantag <#userid|name> [text]"
 		"chi"		"用法：sm_setclantag <#userid|name> [text]"
+		"pl"		"Użycie: sm_setclantag <#userid|name> [text]"
+		"tr"		"Kullanım: sm_setclantag <#userid|name> [text]"
+		"it"		"Uso: sm_setclantag <#userid|name> [text]"
+		"ua"		"Використання: sm_setclantag <#userid|name> [text]"
+		"zho"		"用法：sm_setclantag <#userid|name> [text]"
+		"cze"		"Použití: sm_setclantag <#userid|name> [text]"
 	}
 	"Clantag Changed"
 	{
@@ -583,6 +913,12 @@
 		"de"		"Der Clantag von {olive}{1} {default}wurde zu {green}{2}{default} geändert."
 		"pt"		"O clantag de {olive}{1} {default}foi alterado para {green}{2}{default}."
 		"chi"		"已将 {olive}{1} {default}的战队标签改为 {green}{2}{default}。"
+		"pl"		"Pomyślnie zmieniono tag klanu gracza {olive}{1} {default}na {green}{2}{default}."
+		"tr"		"{olive}{1} {default}oyuncusunun klan etiketi {green}{2}{default} olarak başarıyla değiştirildi."
+		"it"		"Tag del clan di {olive}{1} {default}cambiato con successo in {green}{2}{default}."
+		"ua"		"Тег клану гравця {olive}{1} {default}успішно змінено на {green}{2}{default}."
+		"zho"		"已成功將 {olive}{1} {default}的戰隊標籤改為 {green}{2}{default}。"
+		"cze"		"Klanový tag hráče {olive}{1} {default}byl úspěšně změněn na {green}{2}{default}."
 	}
 	"Usage FakeCommand"
 	{
@@ -593,6 +929,12 @@
 		"de"		"Verwendung: sm_fakecommand <#userid|name> [command] [args]"
 		"pt"		"Uso: sm_fakecommand <#userid|name> [command] [args]"
 		"chi"		"用法：sm_fakecommand <#userid|name> [command] [args]"
+		"pl"		"Użycie: sm_fakecommand <#userid|name> [command] [args]"
+		"tr"		"Kullanım: sm_fakecommand <#userid|name> [command] [args]"
+		"it"		"Uso: sm_fakecommand <#userid|name> [command] [args]"
+		"ua"		"Використання: sm_fakecommand <#userid|name> [command] [args]"
+		"zho"		"用法：sm_fakecommand <#userid|name> [command] [args]"
+		"cze"		"Použití: sm_fakecommand <#userid|name> [command] [args]"
 	}
 	"Command Faked"
 	{
@@ -604,6 +946,12 @@
 		"de"		"Befehl {green}{1} {2}{default} wurde für {olive}{3}{default} simuliert."
 		"pt"		"O comando {green}{1} {2}{default} foi simulado para {olive}{3}{default}."
 		"chi"		"已模拟执行命令 {green}{1} {2}{default}，目标：{olive}{3}{default}。"
+		"pl"		"Pomyślnie zasymulowano komendę {green}{1} {2}{default} dla {olive}{3}{default}."
+		"tr"		"{olive}{3}{default} için {green}{1} {2}{default} komutu başarıyla taklit edildi."
+		"it"		"Comando {green}{1} {2}{default} simulato con successo per {olive}{3}{default}."
+		"ua"		"Команду {green}{1} {2}{default} успішно імітовано для {olive}{3}{default}."
+		"zho"		"已成功為 {olive}{3}{default} 模擬指令 {green}{1} {2}{default}。"
+		"cze"		"Příkaz {green}{1} {2}{default} byl úspěšně nasimulován pro {olive}{3}{default}."
 	}
 	"Usage QueryCVar"
 	{
@@ -614,6 +962,12 @@
 		"de"		"Verwendung: sm_querycvar <#userid|name> [cvar]"
 		"pt"		"Uso: sm_querycvar <#userid|name> [cvar]"
 		"chi"		"用法：sm_querycvar <#userid|name> [cvar]"
+		"pl"		"Użycie: sm_querycvar <#userid|name> [cvar]"
+		"tr"		"Kullanım: sm_querycvar <#userid|name> [cvar]"
+		"it"		"Uso: sm_querycvar <#userid|name> [cvar]"
+		"ua"		"Використання: sm_querycvar <#userid|name> [cvar]"
+		"zho"		"用法：sm_querycvar <#userid|name> [cvar]"
+		"cze"		"Použití: sm_querycvar <#userid|name> [cvar]"
 	}
 	"Query Failed"
 	{
@@ -625,6 +979,12 @@
 		"de"		"Abfrage der Cvar {green}{1}{default} fehlgeschlagen."
 		"pt"		"Falha ao consultar o cvar {green}{1}{default}."
 		"chi"		"查询 cvar {green}{1}{default} 失败。"
+		"pl"		"Nie udało się odczytać cvar {green}{1}{default}."
+		"tr"		"{green}{1}{default} cvar'ı sorgulanamadı."
+		"it"		"Impossibile leggere la cvar {green}{1}{default}."
+		"ua"		"Не вдалося запитати cvar {green}{1}{default}."
+		"zho"		"無法查詢 cvar {green}{1}{default}。"
+		"cze"		"Nepodařilo se zjistit cvar {green}{1}{default}."
 	}
 	"Teams Balanced"
 	{
@@ -635,6 +995,12 @@
 		"de"		"{default}hat die Teams ausgeglichen."
 		"pt"		"{default}balanceou os times."
 		"chi"		"{default}平衡了队伍。"
+		"pl"		"{default}wyrównał drużyny."
+		"tr"		"{default}takımları dengeledi."
+		"it"		"{default}ha bilanciato le squadre."
+		"ua"		"{default}збалансував команди."
+		"zho"		"{default}已平衡隊伍。"
+		"cze"		"{default}vyrovnal týmy."
 	}
 	"Teams Shuffled"
 	{
@@ -645,6 +1011,12 @@
 		"de"		"{default}hat die Teams gemischt."
 		"pt"		"{default}embaralhou os times."
 		"chi"		"{default}打乱了队伍。"
+		"pl"		"{default}Wymieszano drużyny."
+		"tr"		"{default}Takımlar karıştırıldı."
+		"it"		"{default}Squadre rimescolate."
+		"ua"		"{default}Команди перемішано."
+		"zho"		"{default}已打亂隊伍。"
+		"cze"		"{default}Týmy byly zamíchány."
 	}
 	"Player Location"
 	{
@@ -656,6 +1028,12 @@
 		"de"		"{default}Die Position von Spieler {olive}{1} {default}ist {green}{2} {3} {4}"
 		"pt"		"{default}A localização do jogador {olive}{1} {default}é {green}{2} {3} {4}"
 		"chi"		"{default}玩家 {olive}{1} {default}的位置为 {green}{2} {3} {4}"
+		"pl"		"{default}Pozycja gracza {olive}{1} {default}to {green}{2} {3} {4}"
+		"tr"		"{olive}{1} {default}oyuncusunun konumu: {green}{2} {3} {4}"
+		"it"		"{default}La posizione del giocatore {olive}{1} {default}è {green}{2} {3} {4}"
+		"ua"		"{default}Позиція гравця {olive}{1} {default}: {green}{2} {3} {4}"
+		"zho"		"{default}玩家 {olive}{1} {default}的位置是 {green}{2} {3} {4}"
+		"cze"		"{default}Pozice hráče {olive}{1} {default}je {green}{2} {3} {4}"
 	}
 	"Location Saved"
 	{
@@ -667,6 +1045,12 @@
 		"de"		"Position {1} {2} {3} gespeichert"
 		"pt"		"Localização {1} {2} {3} salva"
 		"chi"		"位置 {1} {2} {3} 已保存"
+		"pl"		"Zapisano pozycję {1} {2} {3}"
+		"tr"		"Konum {1} {2} {3} kaydedildi"
+		"it"		"Posizione {1} {2} {3} salvata"
+		"ua"		"Позицію {1} {2} {3} збережено"
+		"zho"		"已儲存位置 {1} {2} {3}"
+		"cze"		"Pozice {1} {2} {3} uložena"
 	}
 	"Usage Teleport"
 	{
@@ -677,6 +1061,12 @@
 		"de"		"Verwendung: sm_teleport <target> [x|client] [y] [z]"
 		"pt"		"Uso: sm_teleport <target> [x|client] [y] [z]"
 		"chi"		"用法：sm_teleport <target> [x|client] [y] [z]"
+		"pl"		"Użycie: sm_teleport <target> [x|client] [y] [z]"
+		"tr"		"Kullanım: sm_teleport <target> [x|client] [y] [z]"
+		"it"		"Uso: sm_teleport <target> [x|client] [y] [z]"
+		"ua"		"Використання: sm_teleport <target> [x|client] [y] [z]"
+		"zho"		"用法：sm_teleport <target> [x|client] [y] [z]"
+		"cze"		"Použití: sm_teleport <target> [x|client] [y] [z]"
 	}
 	"Invalid Target"
 	{
@@ -687,6 +1077,12 @@
 		"de"		"Ungültiges Ziel."
 		"pt"		"Alvo inválido."
 		"chi"		"无效的目标。"
+		"pl"		"Nieprawidłowy cel."
+		"tr"		"Geçersiz hedef."
+		"it"		"Bersaglio non valido."
+		"ua"		"Недійсна ціль."
+		"zho"		"無效的目標。"
+		"cze"		"Neplatný cíl."
 	}
 	"Teleported Player"
 	{
@@ -698,6 +1094,12 @@
 		"de"		"{default}hat Spieler {olive}{1} {default}nach {green}{2} {3} {4} {default}teleportiert"
 		"pt"		"{default}teleportou o jogador {olive}{1} {default}para {green}{2} {3} {4}"
 		"chi"		"{default}将玩家 {olive}{1} {default}传送到 {green}{2} {3} {4}"
+		"pl"		"{default}Teleportowano gracza {olive}{1} {default}na {green}{2} {3} {4}"
+		"tr"		"{olive}{1} {default}oyuncusu {green}{2} {3} {4} konumuna ışınlandı"
+		"it"		"{default}Teletrasportato il giocatore {olive}{1} {default}a {green}{2} {3} {4}"
+		"ua"		"{default}Гравця {olive}{1} {default}телепортовано до {green}{2} {3} {4}"
+		"zho"		"{default}已將玩家 {olive}{1} {default}傳送到 {green}{2} {3} {4}"
+		"cze"		"{default}Hráč {olive}{1} {default}byl teleportován na {green}{2} {3} {4}"
 	}
 	"Usage GetModel"
 	{
@@ -708,6 +1110,12 @@
 		"de"		"Verwendung: sm_getmodel <target>"
 		"pt"		"Uso: sm_getmodel <target>"
 		"chi"		"用法：sm_getmodel <target>"
+		"pl"		"Użycie: sm_getmodel <target>"
+		"tr"		"Kullanım: sm_getmodel <target>"
+		"it"		"Uso: sm_getmodel <target>"
+		"ua"		"Використання: sm_getmodel <target>"
+		"zho"		"用法：sm_getmodel <target>"
+		"cze"		"Použití: sm_getmodel <target>"
 	}
 	"Player Model"
 	{
@@ -719,6 +1127,12 @@
 		"de"		"{default}Das Modell von Spieler {olive}{1} {default}ist {green}{2}{default}."
 		"pt"		"{default}O modelo do jogador {olive}{1} {default}é {green}{2}{default}."
 		"chi"		"{default}玩家 {olive}{1} {default}的模型为 {green}{2}{default}。"
+		"pl"		"{default}Model gracza {olive}{1} {default}to {green}{2}{default}."
+		"tr"		"{olive}{1} {default}oyuncusunun modeli: {green}{2}{default}."
+		"it"		"{default}Il modello del giocatore {olive}{1} {default}è {green}{2}{default}."
+		"ua"		"{default}Модель гравця {olive}{1} {default}: {green}{2}{default}."
+		"zho"		"{default}玩家 {olive}{1} {default}的模型是 {green}{2}{default}。"
+		"cze"		"{default}Model hráče {olive}{1} {default}je {green}{2}{default}."
 	}
 	"Usage ForceSpec"
 	{
@@ -729,6 +1143,12 @@
 		"de"		"Verschiebt das Ziel zu den Zuschauern\nVerwendung: sm_forcespec <target>"
 		"pt"		"Move o alvo para espectador\nUso: sm_forcespec <target>"
 		"chi"		"将目标移至观察者\n用法：sm_forcespec <target>"
+		"pl"		"Przenosi cel do obserwatorów\nUżycie: sm_forcespec <target>"
+		"tr"		"Hedefi izleyici moduna alır\nKullanım: sm_forcespec <target>"
+		"it"		"Sposta il bersaglio tra gli spettatori\nUso: sm_forcespec <target>"
+		"ua"		"Переміщує ціль до спостерігачів\nВикористання: sm_forcespec <target>"
+		"zho"		"將目標移至旁觀者\n用法：sm_forcespec <target>"
+		"cze"		"Přesune cíl mezi diváky\nPoužití: sm_forcespec <target>"
 	}
 	"Moved To Spectators"
 	{
@@ -740,6 +1160,12 @@
 		"de"		"{default}hat {olive}{1} {default}zu den Zuschauern verschoben."
 		"pt"		"{default}moveu {olive}{1} {default}para os espectadores."
 		"chi"		"{default}将 {olive}{1} {default}移至观察者。"
+		"pl"		"{default}Przeniesiono {olive}{1} {default}do obserwatorów."
+		"tr"		"{olive}{1} {default}izleyicilere taşındı."
+		"it"		"{default}Spostato {olive}{1} {default}tra gli spettatori."
+		"ua"		"{default}Переміщено {olive}{1} {default}до спостерігачів."
+		"zho"		"{default}已將 {olive}{1} {default}移至旁觀者。"
+		"cze"		"{default}Hráč {olive}{1} {default}přesunut mezi diváky."
 	}
 	"Teams Swapped"
 	{
@@ -750,6 +1176,12 @@
 		"de"		"{default}hat die Teams getauscht."
 		"pt"		"{default}trocou os times."
 		"chi"		"{default}交换了队伍。"
+		"pl"		"{default}Zamieniono drużyny."
+		"tr"		"{default}Takımlar değiştirildi."
+		"it"		"{default}Squadre scambiate."
+		"ua"		"{default}Команди помінялися місцями."
+		"zho"		"{default}已交換隊伍。"
+		"cze"		"{default}Týmy byly prohozeny."
 	}
 	"Usage NV"
 	{
@@ -760,6 +1192,12 @@
 		"de"		"Verwendung: sm_nv <target> <0|1>"
 		"pt"		"Uso: sm_nv <target> <0|1>"
 		"chi"		"用法：sm_nv <target> <0|1>"
+		"pl"		"Użycie: sm_nv <target> <0|1>"
+		"tr"		"Kullanım: sm_nv <target> <0|1>"
+		"it"		"Uso: sm_nv <target> <0|1>"
+		"ua"		"Використання: sm_nv <target> <0|1>"
+		"zho"		"用法：sm_nv <target> <0|1>"
+		"cze"		"Použití: sm_nv <target> <0|1>"
 	}
 	"Set Nightvision"
 	{
@@ -771,6 +1209,12 @@
 		"de"		"{default}hat die Nachtsicht von {olive}{1} {default}auf {green}{2}{default} gesetzt."
 		"pt"		"{default}definiu a visão noturna de {olive}{1} {default}para {green}{2}{default}."
 		"chi"		"{default}将 {olive}{1} {default}的夜视仪设为 {green}{2}{default}。"
+		"pl"		"{default}Ustawiono noktowizor gracza {olive}{1} {default}na {green}{2}{default}."
+		"tr"		"{olive}{1} {default}oyuncusunun gece görüşü {green}{2}{default} olarak ayarlandı."
+		"it"		"{default}Visore notturno di {olive}{1} {default}impostato a {green}{2}{default}."
+		"ua"		"{default}Нічне бачення гравця {olive}{1} {default}встановлено на {green}{2}{default}."
+		"zho"		"{default}已將 {olive}{1} {default}的夜視儀設為 {green}{2}{default}。"
+		"cze"		"{default}Noktovizor hráče {olive}{1} {default}nastaven na {green}{2}{default}."
 	}
 	"Usage Defuser"
 	{
@@ -781,6 +1225,12 @@
 		"de"		"Verwendung: sm_defuser <target> <0|1>"
 		"pt"		"Uso: sm_defuser <target> <0|1>"
 		"chi"		"用法：sm_defuser <target> <0|1>"
+		"pl"		"Użycie: sm_defuser <target> <0|1>"
+		"tr"		"Kullanım: sm_defuser <target> <0|1>"
+		"it"		"Uso: sm_defuser <target> <0|1>"
+		"ua"		"Використання: sm_defuser <target> <0|1>"
+		"zho"		"用法：sm_defuser <target> <0|1>"
+		"cze"		"Použití: sm_defuser <target> <0|1>"
 	}
 	"Set Defuser"
 	{
@@ -792,6 +1242,12 @@
 		"de"		"{default}hat das Entschärfungskit von {olive}{1} {default}auf {green}{2}{default} gesetzt."
 		"pt"		"{default}definiu o kit de desarme de {olive}{1} {default}para {green}{2}{default}."
 		"chi"		"{default}将 {olive}{1} {default}的拆弹器设为 {green}{2}{default}。"
+		"pl"		"{default}Ustawiono zestaw do rozbrajania gracza {olive}{1} {default}na {green}{2}{default}."
+		"tr"		"{olive}{1} {default}oyuncusunun bomba imha kiti {green}{2}{default} olarak ayarlandı."
+		"it"		"{default}Kit di disinnesco di {olive}{1} {default}impostato a {green}{2}{default}."
+		"ua"		"{default}Набір для знешкодження гравця {olive}{1} {default}встановлено на {green}{2}{default}."
+		"zho"		"{default}已將 {olive}{1} {default}的拆彈器設為 {green}{2}{default}。"
+		"cze"		"{default}Sada na zneškodnění bomby hráče {olive}{1} {default}nastavena na {green}{2}{default}."
 	}
 	"Usage God"
 	{
@@ -802,6 +1258,12 @@
 		"de"		"Verwendung: sm_god <target> <0|1>"
 		"pt"		"Uso: sm_god <target> <0|1>"
 		"chi"		"用法：sm_god <target> <0|1>"
+		"pl"		"Użycie: sm_god <target> <0|1>"
+		"tr"		"Kullanım: sm_god <target> <0|1>"
+		"it"		"Uso: sm_god <target> <0|1>"
+		"ua"		"Використання: sm_god <target> <0|1>"
+		"zho"		"用法：sm_god <target> <0|1>"
+		"cze"		"Použití: sm_god <target> <0|1>"
 	}
 	"God Enabled"
 	{
@@ -813,6 +1275,12 @@
 		"de"		"{default}hat den Godmode für {olive}{1}{default} {green}aktiviert{default}."
 		"pt"		"{green}ativou{default} o modo deus para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}开启了{default}无敌模式。"
+		"pl"		"{green}Włączono{default} tryb boga dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için tanrı modu {green}açıldı{default}."
+		"it"		"{green}Attivata{default} la modalità dio per {olive}{1}{default}."
+		"ua"		"{green}Увімкнено{default} режим бога для {olive}{1}{default}."
+		"zho"		"{green}已啟用{default} {olive}{1}{default} 的無敵模式。"
+		"cze"		"{green}Zapnut{default} god mód pro {olive}{1}{default}."
 	}
 	"God Disabled"
 	{
@@ -824,6 +1292,12 @@
 		"de"		"{default}hat den Godmode für {olive}{1}{default} {green}deaktiviert{default}."
 		"pt"		"{green}desativou{default} o modo deus para {olive}{1}{default}."
 		"chi"		"{default}为 {olive}{1}{default} {green}关闭了{default}无敌模式。"
+		"pl"		"{green}Wyłączono{default} tryb boga dla {olive}{1}{default}."
+		"tr"		"{olive}{1}{default} için tanrı modu {green}kapatıldı{default}."
+		"it"		"{green}Disattivata{default} la modalità dio per {olive}{1}{default}."
+		"ua"		"{green}Вимкнено{default} режим бога для {olive}{1}{default}."
+		"zho"		"{green}已停用{default} {olive}{1}{default} 的無敵模式。"
+		"cze"		"{green}Vypnut{default} god mód pro {olive}{1}{default}."
 	}
 	"Uptime Value"
 	{
@@ -835,6 +1309,12 @@
 		"de"		"{green}{1} {default}Tage {green}{2} {default}Stunden {green}{3} {default}Minuten {green}{4} {default}Sekunden."
 		"pt"		"{green}{1} {default}dias {green}{2} {default}horas {green}{3} {default}minutos {green}{4} {default}segundos."
 		"chi"		"{green}{1} {default}天 {green}{2} {default}小时 {green}{3} {default}分钟 {green}{4} {default}秒。"
+		"pl"		"{green}{1} {default}dni {green}{2} {default}godz. {green}{3} {default}min {green}{4} {default}sek."
+		"tr"		"{green}{1} {default}gün {green}{2} {default}saat {green}{3} {default}dakika {green}{4} {default}saniye."
+		"it"		"{green}{1} {default}giorni {green}{2} {default}ore {green}{3} {default}minuti {green}{4} {default}secondi."
+		"ua"		"{green}{1} {default}дн. {green}{2} {default}год. {green}{3} {default}хв. {green}{4} {default}сек."
+		"zho"		"{green}{1} {default}天 {green}{2} {default}小時 {green}{3} {default}分鐘 {green}{4} {default}秒。"
+		"cze"		"{green}{1} {default}dní {green}{2} {default}hodin {green}{3} {default}minut {green}{4} {default}sekund."
 	}
 	"Uptime Value Plain"
 	{
@@ -846,6 +1326,12 @@
 		"de"		"{1} Tage {2} Stunden {3} Minuten {4} Sekunden"
 		"pt"		"{1} dias {2} horas {3} minutos {4} segundos"
 		"chi"		"{1} 天 {2} 小时 {3} 分钟 {4} 秒"
+		"pl"		"{1} dni {2} godz. {3} min {4} sek."
+		"tr"		"{1} gün {2} saat {3} dakika {4} saniye"
+		"it"		"{1} giorni {2} ore {3} minuti {4} secondi"
+		"ua"		"{1} дн. {2} год. {3} хв. {4} сек."
+		"zho"		"{1} 天 {2} 小時 {3} 分鐘 {4} 秒"
+		"cze"		"{1} dní {2} hodin {3} minut {4} sekund"
 	}
 	"Server Uptime"
 	{
@@ -857,6 +1343,12 @@
 		"de"		"Server-Laufzeit: {1}"
 		"pt"		"Tempo de atividade do servidor: {1}"
 		"chi"		"服务器运行时间：{1}"
+		"pl"		"Czas pracy serwera: {1}"
+		"tr"		"Sunucu çalışma süresi: {1}"
+		"it"		"Uptime del server: {1}"
+		"ua"		"Час роботи сервера: {1}"
+		"zho"		"伺服器運行時間：{1}"
+		"cze"		"Doba běhu serveru: {1}"
 	}
 	"Moved To Balance"
 	{
@@ -867,6 +1359,12 @@
 		"de"		"Du wurdest verschoben, um die Teams auszugleichen."
 		"pt"		"Você foi movido para balancear os times."
 		"chi"		"你已被移动以平衡队伍。"
+		"pl"		"Zostałeś przeniesiony w celu wyrównania drużyn."
+		"tr"		"Takımları dengelemek için taşındın."
+		"it"		"Sei stato spostato per bilanciare le squadre."
+		"ua"		"Вас переміщено для балансування команд."
+		"zho"		"你已被移動以平衡隊伍。"
+		"cze"		"Byl jsi přesunut kvůli vyvážení týmů."
 	}
 	"Query Not Valid"
 	{
@@ -877,6 +1375,12 @@
 		"de"		"Befehle können nicht abgefragt werden."
 		"pt"		"Comandos não podem ser consultados."
 		"chi"		"无法查询命令。"
+		"pl"		"Nie można odpytywać komend."
+		"tr"		"Komutlar sorgulanamaz."
+		"it"		"I comandi non possono essere interrogati."
+		"ua"		"Команди не можна запитувати."
+		"zho"		"無法查詢指令。"
+		"cze"		"Příkazy nelze zjišťovat."
 	}
 	"Query Protected"
 	{
@@ -887,6 +1391,12 @@
 		"de"		"Diese Cvar ist geschützt und kann nicht abgefragt werden."
 		"pt"		"Esse cvar é protegido e não pode ser consultado."
 		"chi"		"该 cvar 受保护，无法查询。"
+		"pl"		"Ta cvar jest chroniona i nie można jej odczytać."
+		"tr"		"Bu cvar korumalı ve sorgulanamaz."
+		"it"		"Questa cvar è protetta e non può essere letta."
+		"ua"		"Ця cvar захищена, її не можна запитати."
+		"zho"		"該 cvar 受到保護，無法查詢。"
+		"cze"		"Tato cvar je chráněná a nelze ji zjistit."
 	}
 	"Query Result"
 	{
@@ -898,5 +1408,11 @@
 		"de"		"Der Wert der Cvar \"{1}\" bei Spieler \"{2}\" ist \"{3}\"."
 		"pt"		"O valor do cvar \"{1}\" no jogador \"{2}\" é \"{3}\"."
 		"chi"		"玩家 \"{2}\" 的 cvar \"{1}\" 的值为 \"{3}\"。"
+		"pl"		"Wartość cvar \"{1}\" u klienta \"{2}\" to \"{3}\"."
+		"tr"		"\"{2}\" istemcisinde \"{1}\" cvar değeri: \"{3}\"."
+		"it"		"Il valore della cvar \"{1}\" per il client \"{2}\" è \"{3}\"."
+		"ua"		"Значення cvar \"{1}\" у клієнта \"{2}\" : \"{3}\"."
+		"zho"		"客戶端 \"{2}\" 的 cvar \"{1}\" 值為 \"{3}\"。"
+		"cze"		"Hodnota cvar \"{1}\" u klienta \"{2}\" je \"{3}\"."
 	}
 }
